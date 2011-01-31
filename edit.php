@@ -2,6 +2,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once($CFG->libdir.'/formslib.php');
+require_once(dirname(__FILE__).'/definitions.php');
 
 $courseid = required_param('course', PARAM_INT);
 $course = get_record('course', 'id', $courseid);
@@ -26,13 +27,20 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('text', 'backgroundcolour', get_string('backgroundcolour', 'block_navbuttons'));
         $mform->addElement('selectyesno', 'customusebackground', get_string('customusebackground', 'block_navbuttons'));
         
+        $hometypes = array(BLOCK_NAVBUTTONS_HOME_FRONTPAGE => get_string('frontpage','block_navbuttons'), 
+                           BLOCK_NAVBUTTONS_HOME_COURSE => get_string('coursepage', 'block_navbuttons'));
         $mform->addElement('header', 'homebutton', get_string('homebutton', 'block_navbuttons'));
         $mform->addElement('select', 'homebuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'homebuttonicon', get_string('buttonicon', 'block_navbuttons'));
+        $mform->addElement('select', 'homebuttontype', get_string('buttontype', 'block_navbuttons'), $hometypes);
 
+        $firsttypes = array(BLOCK_NAVBUTTONS_FIRST_COURSE => get_string('coursepage', 'block_navbuttons'), 
+                            BLOCK_NAVBUTTONS_FIRST_IN_COURSE => get_string('firstcourse','block_navbuttons'), 
+                            BLOCK_NAVBUTTONS_FIRST_IN_SECTION => get_string('firstsection', 'block_navbuttons'));
         $mform->addElement('header', 'firstbutton', get_string('firstbutton', 'block_navbuttons'));
         $mform->addElement('select', 'firstbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'firstbuttonicon', get_string('buttonicon', 'block_navbuttons'));
+        $mform->addElement('select', 'firstbuttontype', get_string('buttontype', 'block_navbuttons'), $firsttypes);
 
         $mform->addElement('header', 'prevbutton', get_string('prevbutton', 'block_navbuttons'));
         $mform->addElement('select', 'prevbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
@@ -42,9 +50,13 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'nextbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'nextbuttonicon', get_string('buttonicon', 'block_navbuttons'));
 
+        $lasttypes = array(BLOCK_NAVBUTTONS_LAST_COURSE => get_string('coursepage', 'block_navbuttons'), 
+                           BLOCK_NAVBUTTONS_LAST_IN_COURSE => get_string('lastcourse','block_navbuttons'), 
+                           BLOCK_NAVBUTTONS_LAST_IN_SECTION => get_string('lastsection', 'block_navbuttons'));
         $mform->addElement('header', 'lastbutton', get_string('lastbutton', 'block_navbuttons'));
         $mform->addElement('select', 'lastbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'lastbuttonicon', get_string('buttonicon', 'block_navbuttons'));
+        $mform->addElement('select', 'lastbuttontype', get_string('buttontype', 'block_navbuttons'), $lasttypes);
 
         $mform->addElement('header', 'extra1', get_string('extra1', 'block_navbuttons'));
         $mform->addElement('select', 'extra1show', get_string('displaybutton', 'block_navbuttons'), $showhide);
@@ -88,14 +100,17 @@ $defaults->backgroundcolour = $settings->backgroundcolour;
 $defaults->customusebackground = $settings->customusebackground;
 $defaults->homebuttonshow = $settings->homebuttonshow;
 $defaults->homebuttonicon = $settings->homebuttonicon;
+$defaults->homebuttontype = $settings->homebuttontype;
 $defaults->firstbuttonshow = $settings->firstbuttonshow;
 $defaults->firstbuttonicon = $settings->firstbuttonicon;
+$defaults->firstbuttontype = $settings->firstbuttontype;
 $defaults->prevbuttonshow = $settings->prevbuttonshow;
 $defaults->prevbuttonicon = $settings->prevbuttonicon;
 $defaults->nextbuttonshow = $settings->nextbuttonshow;
 $defaults->nextbuttonicon = $settings->nextbuttonicon;
 $defaults->lastbuttonshow = $settings->lastbuttonshow;
 $defaults->lastbuttonicon = $settings->lastbuttonicon;
+$defaults->lastbuttontype = $settings->lastbuttontype;
 $defaults->extra1show = $settings->extra1show;
 $defaults->extra1icon = $settings->extra1icon;
 $defaults->extra1link = $settings->extra1link;
@@ -118,14 +133,17 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     $update->customusebackground = $data->customusebackground;
     $update->homebuttonshow = $data->homebuttonshow;
     $update->homebuttonicon = $data->homebuttonicon;
+    $update->homebuttontype = $data->homebuttontype;
     $update->firstbuttonshow = $data->firstbuttonshow;
     $update->firstbuttonicon = $data->firstbuttonicon;
+    $update->firstbuttontype = $data->firstbuttontype;
     $update->prevbuttonshow = $data->prevbuttonshow;
     $update->prevbuttonicon = $data->prevbuttonicon;
     $update->nextbuttonshow = $data->nextbuttonshow;
     $update->nextbuttonicon = $data->nextbuttonicon;
     $update->lastbuttonshow = $data->lastbuttonshow;
     $update->lastbuttonicon = $data->lastbuttonicon;
+    $update->lastbuttontype = $data->lastbuttontype;
     $update->extra1show = $data->extra1show;
     $update->extra1icon = $data->extra1icon;
     $update->extra1link = $data->extra1link;
