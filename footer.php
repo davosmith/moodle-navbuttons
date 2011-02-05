@@ -3,16 +3,10 @@
 require_once(dirname(__FILE__).'/definitions.php');
 
 function navbuttons() {
-    global $THEME, $COURSE, $DB, $CFG, $OUTPUT;
+    global $COURSE, $DB, $CFG, $OUTPUT, $PAGE;
 
     $output = '';
 
-    //print_r($OUTPUT);
-    
-    if (!isset($THEME->menu) || $THEME->menu == '') {
-        return 'no theme menu';
-        return $output;
-    }
     if ($COURSE->id <= 1) {
         return 'no course';
         return $output;
@@ -25,19 +19,16 @@ function navbuttons() {
         return 'navbutton disabled';
         return $output;
     }
-
-    $dom = new domDocument;
-    $dom->loadHTML($THEME->menu);
-    $dom->preserveWhiteSpace = false;
-
-    $menu = $dom->getElementById('navmenupopup');
-
-    if (!$menu) {
-        return 'navmenupopup not found';
+    if (!$PAGE->cm) {
+        return 'no coursemodule';
         return $output;
     }
+        
+    $cmid = $PAGE->cm->id;
 
-    $options = $menu->getElementsByTagName('option');
+    $modinfo = get_fast_modinfo($COURSE);
+    $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+    $sections = $DB->get_records('course_sections', array('course'=>$COURSE->id),'section','section,visible,summary');
 
     $next = false;
     $prev = false;
@@ -46,66 +37,85 @@ function navbuttons() {
     $lastcourse = false;
     $lastsection = false;
 
-    if ($options->length > 0) {
-        $firstactivity = $options->item(0);
-        $firstcourse = new stdClass;
-        $firstcourse->link = $firstactivity->getAttribute('value');
-        $firstcourse->name = $firstactivity->nodeValue;
+    $sectionnum = -1;
+    $thissection = null;
+    $firstthissection = false;
+    $flag = false;
+    $sectionflag = false;
+    $previousmod = false;
 
-        $lastactivity = $options->item($options->length - 1);
-        $lastcourse = new stdClass;
-        $lastcourse->link = $lastactivity->getAttribute('value');
-        $lastcourse->name = $lastactivity->nodeValue;
-    }
+    foreach ($modinfo->cms as $mod) {
+        if ($mod->modname == 'label') {
+            continue;
+        }
 
-    // Find the next/previous activty & first/last in course
-    foreach ($options as $pos => $option) {
-        if ($option->hasAttribute('selected')) {
-            if ($pos > 0) {
-                $prevactivity = $options->item($pos - 1);
-                $prev = new stdClass;
-                $prev->link = $prevactivity->getAttribute('value');
-                $prev->name = $prevactivity->nodeValue;
+        if ($mod->sectionnum > $COURSE->numsections) {
+            break;
+        }
+
+        if (!$mod->uservisible) {
+            continue;
+        }
+
+        if ($mod->sectionnum > 0 && $sectionnum != $mod->sectionnum) {
+            $thissection = $sections[$mod->sectionnum];
+
+            if ($thissection->visible || !$COURSE->hiddensections ||
+                has_capability('moodle/course:viewhiddensections', $context)) {
+                $sectionnum = $mod->sectionnum;
+                $firstthissection = false;
+                if ($sectionflag) {
+                    if ($flag) { // flag means selected mod was the last in the section
+                        $lastsection = 'none';
+                    } else {
+                        $lastsection = $previousmod;
+                    }
+                    $sectionflag = false;
+                }
             } else {
-                $firstcourse = false;
-            }
-
-            if ($pos < $options->length-1) {
-                $nextactivity = $options->item($pos + 1);
-                $next = new stdClass;
-                $next->link = $nextactivity->getAttribute('value');
-                $next->name = $nextactivity->nodeValue;
-            } else if ($pos == $options->length-1) {
-                $lastcourse = false;
+                continue;
             }
         }
-    }
 
-    // Find first / last activity in section
-    $optgroups = $menu->getElementsByTagName('optgroup');
-    foreach ($optgroups as $optgroup) {
-        $options = $optgroup->getElementsByTagName('option');
-        foreach ($options as $pos => $option) {
-            if ($option->hasAttribute('selected')) {
-                if ($pos > 0) {
-                    $firstactivity = $options->item(0);
-                    $firstsection = new stdClass;
-                    $firstsection->link = $firstactivity->getAttribute('value');
-                    $firstsection->name = $firstactivity->nodeValue;
-                }
-
-                if ($pos < $options->length -1) {
-                    $lastactivity = $options->item($options->length - 1);
-                    $lastsection = new stdClass;
-                    $lastsection->link = $lastactivity->getAttribute('value');
-                    $lastsection->name = $lastactivity->nodeValue;
-                }
-
-                break 2;
+        $thismod = new stdClass;
+        $thismod->link = new moodle_url('/mod/'.$mod->modname.'/view.php', array('id'=>$mod->id));
+        $thismod->name = strip_tags(format_string($mod->name,true));
+        
+        if ($flag) { // Current mod is the 'next' mod
+            $next = $thismod;
+            $flag = false;
+        }
+        if ($cmid == $mod->id) {
+            $flag = true;
+            $sectionflag = true;
+            $prev = $previousmod;
+            $firstsection = $firstthissection;
+            if (!$firstcourse) {
+                $firstcourse = 'none'; // Prevent the 'firstcourse' link if this is the first item
             }
         }
-    }
+        if (!$firstthissection) {
+            $firstthissection = $thismod;
+        }
+        if (!$firstcourse) {
+            $firstcourse = $thismod;
+        }
 
+        $previousmod = $thismod;
+    }
+    if (!$flag) { // flag means selected mod is the last in the course
+        if (!$lastsection) {
+            $lastsection = $previousmod;
+        }
+        $lastcourse = $previousmod;
+    }
+    if ($firstcourse == 'none') {
+        $firstcourse = false;
+    }
+    if ($lastsection == 'none') {
+        $lastsection = false;
+    }
+    
     $output .=  '<div id="navbuttons" style="float: right; width: 400px; right: 0; margin-top: 5px;">';
     if ($settings->homebuttonshow) {
         $home = new stdClass;
@@ -206,7 +216,7 @@ function navbuttons() {
 function navbutton_get_icon($default, $usericon, $bgcolour, $customusebackground) {
     global $CFG, $COURSE, $OUTPUT;
 
-    $defaulturl = $OUTPUT->pix_url($default, 'block_navbuttons');
+    $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
     if ($usericon == NULL || $usericon == '') {
         return array($defaulturl, $bgcolour);
     }
