@@ -8,19 +8,15 @@ function draw_navbuttons() {
     $output = '';
 
     if ($COURSE->id <= 1) {
-        return 'no course';
         return $output;
     } 
     if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
-        return 'no navbutton settings';
         return $output;
     } 
     if (!$settings->enabled) {
-        return 'navbutton disabled';
         return $output;
     }
     if (!$PAGE->cm) {
-        return 'no coursemodule';
         return $output;
     }
         
