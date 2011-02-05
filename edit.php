@@ -58,15 +58,22 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('choosecoursefile', 'lastbuttonicon', get_string('buttonicon', 'block_navbuttons'));
         $mform->addElement('select', 'lastbuttontype', get_string('buttontype', 'block_navbuttons'), $lasttypes);
 
+
+        $openin = array(BLOCK_NAVBUTTONS_SAMEWINDOW => get_string('linktargettop','editor'),
+                        BLOCK_NAVBUTTONS_NEWWINDOW => get_string('linktargetblank','editor'));
         $mform->addElement('header', 'extra1', get_string('extra1', 'block_navbuttons'));
         $mform->addElement('select', 'extra1show', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'extra1icon', get_string('buttonicon', 'block_navbuttons'));
         $mform->addElement('text', 'extra1link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
+        $mform->addElement('text', 'extra1title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
+        $mform->addElement('select', 'extra1openin', get_string('buttonopenin', 'block_navbuttons'), $openin);
 
         $mform->addElement('header', 'extra2', get_string('extra2', 'block_navbuttons'));
         $mform->addElement('select', 'extra2show', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'extra2icon', get_string('buttonicon', 'block_navbuttons'));
         $mform->addElement('text', 'extra2link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
+        $mform->addElement('text', 'extra2title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
+        $mform->addElement('select', 'extra2openin', get_string('buttonopenin', 'block_navbuttons'), $openin);
 
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_INT);
@@ -114,9 +121,13 @@ $defaults->lastbuttontype = $settings->lastbuttontype;
 $defaults->extra1show = $settings->extra1show;
 $defaults->extra1icon = $settings->extra1icon;
 $defaults->extra1link = $settings->extra1link;
+$defaults->extra1title = $settings->extra1title;
+$defaults->extra1openin = $settings->extra1openin;
 $defaults->extra2show = $settings->extra2show;
 $defaults->extra2icon = $settings->extra2icon;
 $defaults->extra2link = $settings->extra2link;
+$defaults->extra2title = $settings->extra2title;
+$defaults->extra2openin = $settings->extra2openin;
 
 $mform->set_data($defaults);
 
@@ -147,9 +158,13 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     $update->extra1show = $data->extra1show;
     $update->extra1icon = $data->extra1icon;
     $update->extra1link = $data->extra1link;
+    $update->extra1title = $data->extra1title;
+    $update->extra1openin = $data->extra1openin;
     $update->extra2show = $data->extra2show;
     $update->extra2icon = $data->extra2icon;
     $update->extra2link = $data->extra2link;
+    $update->extra2title = $data->extra2title;
+    $update->extra2openin = $data->extra2openin;
 
     if (update_record('navbuttons', $update)) {
         block_navbutton_settings_header($course);

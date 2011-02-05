@@ -3,6 +3,8 @@
 $string['backgroundcolour'] = 'Icon colour (any valid HTML colour)';
 $string['buttonicon'] = 'Upload a custom icon (leave blank for default)';
 $string['buttonlink'] = 'URL to attach to this button';
+$string['buttonopenin'] = 'Link opens in';
+$string['buttontitle'] = 'Button title';
 $string['buttontype'] = 'Button goes to';
 $string['buttonsenabled'] = 'Navigation buttons enabled for this course';
 $string['coursepage'] = 'Course page';

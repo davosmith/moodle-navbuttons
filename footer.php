@@ -167,12 +167,18 @@ if ($display) {
 
         if ($settings->extra1show && $settings->extra1link) {
             list($icon, $bgcolour) = navbutton_get_icon('extra1.png', $settings->extra1icon, $settings->backgroundcolour, $settings->customusebackground);
-            echo make_navbutton($icon, $bgcolour, $settings->extra1link, $settings->extra1link);
+            if (!$settings->extra1title) {
+                $settings->extra1title = $settings->extra1link;
+            }
+            echo make_navbutton($icon, $bgcolour, $settings->extra1title, $settings->extra1link, $settings->extra1openin);
         }
 
         if ($settings->extra2show && $settings->extra2link) {
             list($icon, $bgcolour) = navbutton_get_icon('extra2.png', $settings->extra2icon, $settings->backgroundcolour, $settings->customusebackground);
-            echo make_navbutton($icon, $bgcolour, $settings->extra2link, $settings->extra2link);
+            if (!$settings->extra2title) {
+                $settings->extra2title = $settings->extra2link;
+            }
+            echo make_navbutton($icon, $bgcolour, $settings->extra2title, $settings->extra2link, $settings->extra2openin);
         }
 
         echo '</div>';
@@ -200,10 +206,11 @@ function navbutton_get_icon($default, $usericon, $bgcolour, $customusebackground
     return array($CFG->wwwroot.'/file.php?file=/'.$COURSE->id.'/'.$usericon, $customusebackground ? $bgcolour : false);
 }
 
-function make_navbutton($imgsrc, $bgcolour, $title, $url) {
+function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
     $url = preg_replace('/[\'"<>]/','',$url);
     $bgcolour = preg_replace('/[^a-zA-Z0-9#]/', '', $bgcolour);
-    $output = '<a href="'.$url.'"><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
+    $target = $newwindow ? ' target="_blank" ' : '';
+    $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
     if ($bgcolour) {
         $output .= 'background-color: '.$bgcolour.'; ';
     }
