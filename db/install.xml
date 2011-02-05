@@ -6,34 +6,27 @@
   <TABLES>
     <TABLE NAME="navbuttons" COMMENT="Per-course settings for the navigation buttons to appear under activities">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="course"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" PREVIOUS="id" NEXT="enabled"/>
-        <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="course" NEXT="backgroundcolour"/>
-        <FIELD NAME="backgroundcolour" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="#6666cc" SEQUENCE="false" ENUM="false" PREVIOUS="enabled" NEXT="customusebackground"/>
-        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="backgroundcolour" NEXT="homebuttonshow"/>
-        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="customusebackground" NEXT="homebuttonicon"/>
-        <FIELD NAME="homebuttonicon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="homebuttonshow" NEXT="homebuttontype"/>
-        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="homebuttonicon" NEXT="firstbuttonshow"/>
-        <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="homebuttontype" NEXT="firstbuttonicon"/>
-        <FIELD NAME="firstbuttonicon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="firstbuttonshow" NEXT="firstbuttontype"/>
-        <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" ENUM="false" PREVIOUS="firstbuttonicon" NEXT="prevbuttonshow"/>
-        <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="firstbuttontype" NEXT="prevbuttonicon"/>
-        <FIELD NAME="prevbuttonicon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="prevbuttonshow" NEXT="nextbuttonshow"/>
-        <FIELD NAME="nextbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="prevbuttonicon" NEXT="nextbuttonicon"/>
-        <FIELD NAME="nextbuttonicon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="nextbuttonshow" NEXT="lastbuttonshow"/>
-        <FIELD NAME="lastbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="nextbuttonicon" NEXT="lastbuttonicon"/>
-        <FIELD NAME="lastbuttonicon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="lastbuttonshow" NEXT="lastbuttontype"/>
-        <FIELD NAME="lastbuttontype" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" ENUM="false" PREVIOUS="lastbuttonicon" NEXT="extra1show"/>
-        <FIELD NAME="extra1show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="lastbuttontype" NEXT="extra1icon"/>
-        <FIELD NAME="extra1icon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra1show" NEXT="extra1link"/>
-        <FIELD NAME="extra1link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra1icon" NEXT="extra1title"/>
-        <FIELD NAME="extra1title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra1link" NEXT="extra1openin"/>
-        <FIELD NAME="extra1openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="extra1title" NEXT="extra2show"/>
-        <FIELD NAME="extra2show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="extra1openin" NEXT="extra2icon"/>
-        <FIELD NAME="extra2icon" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra2show" NEXT="extra2link"/>
-        <FIELD NAME="extra2link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra2icon" NEXT="extra2title"/>
-        <FIELD NAME="extra2title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" ENUM="false" PREVIOUS="extra2link" NEXT="extra2openin"/>
-        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" ENUM="false" PREVIOUS="extra2title"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="enabled"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="course" NEXT="backgroundcolour"/>
+        <FIELD NAME="backgroundcolour" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="#6666cc" SEQUENCE="false" PREVIOUS="enabled" NEXT="customusebackground"/>
+        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="backgroundcolour" NEXT="homebuttonshow"/>
+        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="customusebackground" NEXT="homebuttontype"/>
+        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttonshow" NEXT="firstbuttonshow"/>
+        <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttontype" NEXT="firstbuttontype"/>
+        <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="firstbuttonshow" NEXT="prevbuttonshow"/>
+        <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="firstbuttontype" NEXT="nextbuttonshow"/>
+        <FIELD NAME="nextbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="prevbuttonshow" NEXT="lastbuttonshow"/>
+        <FIELD NAME="lastbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="nextbuttonshow" NEXT="lastbuttontype"/>
+        <FIELD NAME="lastbuttontype" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="lastbuttonshow" NEXT="extra1show"/>
+        <FIELD NAME="extra1show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="lastbuttontype" NEXT="extra1link"/>
+        <FIELD NAME="extra1link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra1show" NEXT="extra1title"/>
+        <FIELD NAME="extra1title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra1link" NEXT="extra1openin"/>
+        <FIELD NAME="extra1openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra1title" NEXT="extra2show"/>
+        <FIELD NAME="extra2show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="extra1openin" NEXT="extra2link"/>
+        <FIELD NAME="extra2link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2show" NEXT="extra2title"/>
+        <FIELD NAME="extra2title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2link" NEXT="extra2openin"/>
+        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2title"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
