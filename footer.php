@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__).'/definitions.php');
 
-function navbuttons() {
+function draw_navbuttons() {
     global $COURSE, $DB, $CFG, $OUTPUT, $PAGE;
 
     $output = '';
@@ -126,7 +126,7 @@ function navbuttons() {
             $home->link = $CFG->wwwroot;
             $home->name = get_string('frontpage','block_navbuttons');
         }
-        list($icon, $bgcolour) = navbutton_get_icon('home', $settings->homebuttonicon, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon('home', $context, BLOCK_NAVBUTTONS_HOMEICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, $home->name, $home->link);
     }
 
@@ -151,17 +151,17 @@ function navbuttons() {
             $first->link = new moodle_url('/course/view.php', array('id'=>$COURSE->id));
         }
         if ($first) {
-            list($icon, $bgcolour) = navbutton_get_icon('first', $settings->firstbuttonicon, $settings->backgroundcolour, $settings->customusebackground);
+            list($icon, $bgcolour) = navbutton_get_icon('first', $context, BLOCK_NAVBUTTONS_FIRSTICON, $settings->backgroundcolour, $settings->customusebackground);
             $output .= make_navbutton($icon, $bgcolour, $first->name, $first->link);
         }
     }
 
     if ($settings->prevbuttonshow && $prev) {
-        list($icon, $bgcolour) = navbutton_get_icon('prev', $settings->prevbuttonicon, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon('prev', $context, BLOCK_NAVBUTTONS_PREVICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity','block_navbuttons').': '.$prev->name, $prev->link);
     }
     if ($settings->nextbuttonshow && $next) {
-        list($icon, $bgcolour) = navbutton_get_icon('next', $settings->nextbuttonicon, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon('next', $context, BLOCK_NAVBUTTONS_NEXTICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity','block_navbuttons').': '.$next->name, $next->link);
     }
 
@@ -186,13 +186,13 @@ function navbuttons() {
             $last->link = new moodle_url('/course/view.php', array('id'=>$COURSE->id));
         }
         if ($last) {
-            list($icon, $bgcolour) = navbutton_get_icon('last', $settings->lastbuttonicon, $settings->backgroundcolour, $settings->customusebackground);
+            list($icon, $bgcolour) = navbutton_get_icon('last', $context, BLOCK_NAVBUTTONS_LASTICON, $settings->backgroundcolour, $settings->customusebackground);
             $output .= make_navbutton($icon, $bgcolour, $last->name, $last->link);
         }
     }
 
     if ($settings->extra1show && $settings->extra1link) {
-        list($icon, $bgcolour) = navbutton_get_icon('extra1', $settings->extra1icon, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon('extra1', $context, BLOCK_NAVBUTTONS_EXTRA1ICON, $settings->backgroundcolour, $settings->customusebackground);
         if (!$settings->extra1title) {
             $settings->extra1title = $settings->extra1link;
         }
@@ -200,7 +200,7 @@ function navbuttons() {
     }
 
     if ($settings->extra2show && $settings->extra2link) {
-        list($icon, $bgcolour) = navbutton_get_icon('extra2', $settings->extra2icon, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon('extra2', $context, BLOCK_NAVBUTTONS_EXTRA2ICON, $settings->backgroundcolour, $settings->customusebackground);
         if (!$settings->extra2title) {
             $settings->extra2title = $settings->extra2link;
         }
@@ -213,28 +213,22 @@ function navbuttons() {
     return $output;
 }
 
-function navbutton_get_icon($default, $usericon, $bgcolour, $customusebackground) {
+function navbutton_get_icon($default, $context, $iconid, $bgcolour, $customusebackground) {
     global $CFG, $COURSE, $OUTPUT;
 
     $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
-    if ($usericon == NULL || $usericon == '') {
+
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
+
+    if (empty($files)) {
         return array($defaulturl, $bgcolour);
     }
 
-    // FIXME - custom icons not working
-    /*
-    $userfile = $CFG->dataroot.'/'.$COURSE->id.'/'.$usericon;
-    if (!file_exists($userfile)) {
-        return array($defaulturl, $bgcolour);
-    }
+    $iconfilename = array_shift(array_values($files))->get_filename();
+    $iconurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/block_navbuttons/icons/'.$iconid.'/'.$iconfilename);
 
-    if (!exif_imagetype($userfile)) {
-        return array($defaulturl, $bgcolour);
-    }
-
-    return array($CFG->wwwroot.'/file.php?file=/'.$COURSE->id.'/'.$usericon, $customusebackground ? $bgcolour : false);
-    */
-    return array($defaulturl, $bgcolour);
+    return array($iconurl, $customusebackground ? $bgcolour : false);
 }
 
 function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
