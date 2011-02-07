@@ -2,14 +2,20 @@
 
 require_once(dirname(__FILE__).'/definitions.php');
 
+echo '<!-- Navbuttons start -->';
+
 $display = true;
 if (!isset($THEME->menu) || $THEME->menu == '') {
+    echo '<!-- No menu -->';
     $display = false;
 } elseif ($COURSE->id <= 1) {
+    echo '<!-- Front page -->';
     $display = false;
 } elseif (!$settings = get_record('navbuttons', 'course', $COURSE->id)) {
+    echo '<!-- No settings -->';
     $display = false;
 } elseif (!$settings->enabled) {
+    echo '<!-- Not enabled -->';
     $display = false;
 }
 
@@ -20,7 +26,6 @@ if ($display) {
 
     $menu = $dom->getElementById('navmenupopup');
     if ($menu) {
-    
         $options = $menu->getElementsByTagName('option');
 
         $next = false;
@@ -183,6 +188,8 @@ if ($display) {
 
         echo '</div>';
         echo '<br style="clear:both;" />';
+    } else {
+        echo '<!-- Wrong menu type -->';
     }
 }
 
@@ -217,5 +224,7 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
     $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
     return $output;
 }
+
+echo '<!-- End of Navbuttons -->';
 
 ?>
