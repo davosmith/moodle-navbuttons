@@ -20,6 +20,9 @@ if (!isset($THEME->menu) || $THEME->menu == '') {
 }
 
 if ($display) {
+
+    echo '<!-- '.$THEME->menu.' -->';
+    
     $dom = new domDocument;
     $dom->loadHTML($THEME->menu);
     $dom->preserveWhiteSpace = false;
