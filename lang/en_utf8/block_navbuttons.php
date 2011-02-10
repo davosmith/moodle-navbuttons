@@ -30,5 +30,8 @@ $string['nextbutton'] = 'Next button';
 $string['pluginname'] = 'Navigation Buttons';
 $string['prevactivity'] = 'Previous activity';
 $string['prevbutton'] = 'Previous button';
+$string['selftest_nocm'] = 'The line \"\$THEME->cm = \$cm\" has not been correclty added to weblib.php - see README.txt for further instructions';
+$string['selftest_nofooter'] = 'Navbutton self-test: The line \"include(\$CFG->dirroot.\'/blocks/navbuttons/footer.php\');\" has not been correctly added to weblib.php - see README.txt for further instructions';
+$string['selftest_ok'] = 'Navbuttons self-test: required core modifications have been completed successfully';
 $string['settingsupdated'] = 'Settings updated';
 ?>

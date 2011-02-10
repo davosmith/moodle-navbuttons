@@ -181,7 +181,18 @@ print_heading(get_string('editsettings', 'block_navbuttons'), '');
 
 $mform->display();
 
-print_footer($course);
+$CFG->navbuttons_self_test = 1;
+$footer = print_footer($course, null, true);
+
+if ($CFG->navbuttons_self_test == 1) { // footer.php not called at all
+    echo '<strong style="background-color: red;">'.get_string('selftest_nofooter','block_navbuttons').'</strong><br />';
+} elseif ($CFG->navbuttons_self_test == 2) { // navmenu function not modified
+    echo '<strong style="background-color: red;">'.get_string('selftest_nocm','block_navbuttons').'</strong><br />';
+} else {
+    echo '<em>'.get_string('selftest_ok','block_navbuttons').'</em>';
+}
+
+echo $footer;
 
 function block_navbutton_settings_header($course) {
     $navlinks = array(array('name' => get_string('navbuttons','block_navbuttons')));
