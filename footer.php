@@ -218,39 +218,40 @@ if (isset($CFG->navbuttons_self_test)) {
         echo '<br style="clear:both;" />';
     }
 
-    function navbutton_get_icon($default, $usericon, $bgcolour, $customusebackground) {
-        global $CFG, $COURSE;
-
-        $defaulturl = $CFG->wwwroot.'/blocks/navbuttons/pix/'.$default;
-        if ($usericon == NULL || $usericon == '') {
-            return array($defaulturl, $bgcolour);
-        }
-
-        $userfile = $CFG->dataroot.'/'.$COURSE->id.'/'.$usericon;
-        if (!file_exists($userfile)) {
-            return array($defaulturl, $bgcolour);
-        }
-
-        if (!exif_imagetype($userfile)) {
-            return array($defaulturl, $bgcolour);
-        }
-
-        return array($CFG->wwwroot.'/file.php?file=/'.$COURSE->id.'/'.$usericon, $customusebackground ? $bgcolour : false);
-    }
-
-    function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
-        $url = preg_replace('/[\'"<>]/','',$url);
-        $bgcolour = preg_replace('/[^a-zA-Z0-9#]/', '', $bgcolour);
-        $target = $newwindow ? ' target="_blank" ' : '';
-        $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
-        if ($bgcolour) {
-            $output .= 'background-color: '.$bgcolour.'; ';
-        }
-        $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
-        return $output;
-    }
-
     echo '<!-- End of Navbuttons -->';
+}
+
+function navbutton_get_icon($default, $usericon, $bgcolour, $customusebackground) {
+    global $CFG, $COURSE;
+
+    $defaulturl = $CFG->wwwroot.'/blocks/navbuttons/pix/'.$default;
+    if ($usericon == NULL || $usericon == '') {
+        return array($defaulturl, $bgcolour);
+    }
+
+    $userfile = $CFG->dataroot.'/'.$COURSE->id.'/'.$usericon;
+    if (!file_exists($userfile)) {
+        return array($defaulturl, $bgcolour);
+    }
+
+    $size = getimagesize($userfile);
+    if (!$size || !in_array($size[2],array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG))) {
+        return array($defaulturl, $bgcolour);
+    }
+
+    return array($CFG->wwwroot.'/file.php?file=/'.$COURSE->id.'/'.$usericon, $customusebackground ? $bgcolour : false);
+}
+
+function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
+    $url = preg_replace('/[\'"<>]/','',$url);
+    $bgcolour = preg_replace('/[^a-zA-Z0-9#]/', '', $bgcolour);
+    $target = $newwindow ? ' target="_blank" ' : '';
+    $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
+    if ($bgcolour) {
+        $output .= 'background-color: '.$bgcolour.'; ';
+    }
+    $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
+    return $output;
 }
 
 ?>
