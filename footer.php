@@ -5,19 +5,20 @@ require_once(dirname(__FILE__).'/definitions.php');
 function draw_navbuttons() {
     global $COURSE, $DB, $CFG, $OUTPUT, $PAGE;
 
-    $output = '';
+    $output = '<!-- Navbuttons start -->';
+    $outend = '<!-- Navbuttons end -->';
 
     if ($COURSE->id <= 1) {
-        return $output;
+        return $output.'<!-- Front page -->'.$outend;
     } 
     if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
-        return $output;
+        return $output.'<!-- No settings -->'.$outend;
     } 
     if (!$settings->enabled) {
-        return $output;
+        return $output.'<!-- Not enabled -->'.$outend;
     }
     if (!$PAGE->cm) {
-        return $output;
+        return $output.'<!-- No course module -->'.$outend;
     }
         
     $cmid = $PAGE->cm->id;
@@ -205,6 +206,7 @@ function draw_navbuttons() {
 
     $output .= '</div>';
     $output .= '<br style="clear:both;" />';
+    $output .= $outend;
 
     return $output;
 }
