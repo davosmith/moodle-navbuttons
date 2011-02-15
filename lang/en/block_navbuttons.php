@@ -30,5 +30,7 @@ $string['nextbutton'] = 'Next button';
 $string['pluginname'] = 'Navigation Buttons';
 $string['prevactivity'] = 'Previous activity';
 $string['prevbutton'] = 'Previous button';
+$string['selftest_nofooter'] = 'Navbutton self-test: The line "$output = draw_navbuttons().$this->container_end_all(true);" has not been correctly added to outputrenderers.php - see README.txt for further instructions';
+$string['selftest_ok'] = 'Navbuttons self-test: required core modifications have been completed successfully';
 $string['settingsupdated'] = 'Settings updated';
 ?>

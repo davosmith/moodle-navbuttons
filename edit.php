@@ -204,7 +204,16 @@ echo $OUTPUT->heading(get_string('editsettings', 'block_navbuttons'), 1);
 
 $mform->display();
 
-echo $OUTPUT->footer();
+$CFG->navbuttons_self_test = 1;
+$footer = $OUTPUT->footer();
+
+if ($CFG->navbuttons_self_test == 1) { // footer.php not called at all
+    echo '<strong style="background-color: red;">'.get_string('selftest_nofooter','block_navbuttons').'</strong><br />';
+} else {
+    echo '<em>'.get_string('selftest_ok','block_navbuttons').'</em>';
+}
+
+echo $footer;
 
 function block_navbutton_settings_header($course) {
     global $PAGE, $OUTPUT;

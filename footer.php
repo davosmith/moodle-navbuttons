@@ -8,6 +8,11 @@ function draw_navbuttons() {
     $output = '<!-- Navbuttons start -->';
     $outend = '<!-- Navbuttons end -->';
 
+    if (isset($CFG->navbuttons_self_test)) {
+        $CFG->navbuttons_self_test = 0; // All OK
+        return $output.'<!-- Self test -->'.$outend;
+    }
+
     if ($COURSE->id <= 1) {
         return $output.'<!-- Front page -->'.$outend;
     } 
