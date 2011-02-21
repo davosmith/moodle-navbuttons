@@ -50,6 +50,8 @@ class block_navbuttons extends block_base {
     }
 
     function instance_delete() {
+        global $COURSE;
+
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later)
         if ($settings = get_record('navbuttons', 'course', $COURSE->id)) {
             if ($settings->enabled) {
