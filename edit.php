@@ -104,7 +104,7 @@ if (!$settings) {
     $settings = new stdClass;
     $settings->course = $course->id;
     $settings->id = $DB->insert_record('navbuttons', $settings);
-    $settings = $DB->get_record('navbuttons', 'id', $settings->id);
+    $settings = $DB->get_record('navbuttons', array('id' => $settings->id));
 }
 
 $defaults->id = $settings->id;
