@@ -89,7 +89,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->setType('course', PARAM_INT);
 
         $mform->addElement('hidden', 'action', 'savesettings');
-        $mform->setType('course', PARAM_TEXT);
+        $mform->setType('action', PARAM_TEXT);
 
         $this->add_action_buttons();
 
