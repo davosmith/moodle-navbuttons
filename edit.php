@@ -98,7 +98,7 @@ class block_navbuttons_edit_form extends moodleform {
 
 $mform = new block_navbuttons_edit_form();
 
-$defaults = new stdClass;;
+$defaults = new stdClass;
 $settings = $DB->get_record('navbuttons', array('course' => $course->id));
 if (!$settings) {
     $settings = new stdClass;
