@@ -21,10 +21,7 @@ class block_navbuttons extends block_base {
     }
 
     function get_content() {
-        global $CFG, $COURSE;
-
-        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
-        if (!has_capability('moodle/course:manageactivities',$context)) {
+        if (!has_capability('moodle/course:manageactivities',$this->context)) {
             return NULL;
         }
 
@@ -35,19 +32,22 @@ class block_navbuttons extends block_base {
         $this->content = new stdClass;
         $this->content->footer = '';
 
-        $editlink = new moodle_url('/blocks/navbuttons/edit.php', array('course'=>$COURSE->id));
+        $courseid = get_courseid_from_context($this->context);
+        $editlink = new moodle_url('/blocks/navbuttons/edit.php', array('course'=>$courseid));
         $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
 
         return $this->content;
     }
 
     function instance_create() {
-        global $COURSE, $DB;
+        global $DB;
+
+        $courseid = get_courseid_from_context($this->context);
 
         // Enable the buttons when the block is added to a course
-        if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
+        if (!$settings = $DB->get_record('navbuttons', array('course' => $courseid))) {
             $settings = new stdClass;
-            $settings->course = $COURSE->id;
+            $settings->course = $courseid;
             $settings->enabled = 1;
             // All other records as database defaults
             $DB->insert_record('navbuttons', $settings);
@@ -64,13 +64,16 @@ class block_navbuttons extends block_base {
     }
 
     function instance_delete() {
-        global $DB, $COURSE;
+        global $DB;
+
+        $courseid = get_courseid_from_context($this->context);
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later)
-        if ($settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
+        $settings = $DB->get_record('navbuttons', array('course' => $courseid));
+        if ($settings) {
             if ($settings->enabled) {
                 $updsettings = new stdClass;
-                $updsettins->id = $settings->id;
+                $updsettings->id = $settings->id;
                 $updsettings->enabled = 0;
                 $DB->update_record('navbuttons', $updsettings);
             }
