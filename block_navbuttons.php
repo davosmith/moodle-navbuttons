@@ -1,5 +1,20 @@
 <?php
 
+// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 class block_navbuttons extends block_base {
     function init() {
         $this->title = get_string('navbuttons','block_navbuttons');
@@ -28,7 +43,7 @@ class block_navbuttons extends block_base {
 
     function instance_create() {
         global $COURSE, $DB;
-        
+
         // Enable the buttons when the block is added to a course
         if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
             $settings = new stdClass;
@@ -63,5 +78,3 @@ class block_navbuttons extends block_base {
         return true;
     }
 }
-
-?>

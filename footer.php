@@ -1,5 +1,20 @@
 <?php
 
+// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 require_once(dirname(__FILE__).'/definitions.php');
 
 function draw_navbuttons() {
@@ -15,17 +30,17 @@ function draw_navbuttons() {
 
     if ($COURSE->id <= 1) {
         return $output.'<!-- Front page -->'.$outend;
-    } 
+    }
     if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
         return $output.'<!-- No settings -->'.$outend;
-    } 
+    }
     if (!$settings->enabled) {
         return $output.'<!-- Not enabled -->'.$outend;
     }
     if (!$PAGE->cm) {
         return $output.'<!-- No course module -->'.$outend;
     }
-        
+
     $cmid = $PAGE->cm->id;
 
     $modinfo = get_fast_modinfo($COURSE);
@@ -82,7 +97,7 @@ function draw_navbuttons() {
         $thismod = new stdClass;
         $thismod->link = new moodle_url('/mod/'.$mod->modname.'/view.php', array('id'=>$mod->id));
         $thismod->name = strip_tags(format_string($mod->name,true));
-        
+
         if ($flag) { // Current mod is the 'next' mod
             $next = $thismod;
             $flag = false;
@@ -117,7 +132,7 @@ function draw_navbuttons() {
     if ($lastsection == 'none') {
         $lastsection = false;
     }
-    
+
     $output .=  '<div id="navbuttons" style="float: right; width: 400px; right: 0; margin-top: 5px;">';
     if ($settings->homebuttonshow) {
         $home = new stdClass;
@@ -245,5 +260,3 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
     $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
     return $output;
 }
-
-?>

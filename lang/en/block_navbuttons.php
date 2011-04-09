@@ -1,5 +1,20 @@
 <?php
 
+// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 $string['backgroundcolour'] = 'Icon colour (any valid HTML colour)';
 $string['buttonicon'] = 'Upload a custom icon (leave blank for default)';
 $string['buttonlink'] = 'URL to attach to this button';
@@ -33,4 +48,3 @@ $string['prevbutton'] = 'Previous button';
 $string['selftest_nofooter'] = 'Navbutton self-test: The line "$output = draw_navbuttons().$this->container_end_all(true);" has not been correctly added to outputrenderers.php - see README.txt for further instructions';
 $string['selftest_ok'] = 'Navbuttons self-test: required core modifications have been completed successfully';
 $string['settingsupdated'] = 'Settings updated';
-?>
