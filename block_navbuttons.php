@@ -22,9 +22,10 @@ class block_navbuttons extends block_base {
     }
 
     function get_content() {
-        global $CFG, $COURSE;
+        global $CFG;
 
-        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+        $courseid = $this->instance->pageid;
+        $context = get_context_instance(CONTEXT_COURSE, $courseid);
         if (!has_capability('moodle/course:manageactivities',$context)) {
             return NULL;
         }
@@ -36,19 +37,27 @@ class block_navbuttons extends block_base {
         $this->content = new stdClass;
         $this->content->footer = '';
 
-        $editlink = $CFG->wwwroot.'/blocks/navbuttons/edit.php?course='.$COURSE->id;
+        $editlink = $CFG->wwwroot.'/blocks/navbuttons/edit.php?course='.$courseid;
         $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
+
+        if (!$settings = get_record('navbuttons', 'course', $courseid)) {
+            $settings = new stdClass;
+            $settings->course = $courseid;
+            $settings->enabled = 1;
+            // All other records as database defaults
+            insert_record('navbuttons', $settings);
+        }
 
         return $this->content;
     }
 
     function instance_create() {
-        global $COURSE;
+        $courseid = $this->instance->pageid;
 
         // Enable the buttons when the block is added to a course
-        if (!$settings = get_record('navbuttons', 'course', $COURSE->id)) {
+        if (!$settings = get_record('navbuttons', 'course', $courseid)) {
             $settings = new stdClass;
-            $settings->course = $COURSE->id;
+            $settings->course = $courseid;
             $settings->enabled = 1;
             // All other records as database defaults
             insert_record('navbuttons', $settings);
@@ -65,10 +74,10 @@ class block_navbuttons extends block_base {
     }
 
     function instance_delete() {
-        global $COURSE;
+        $courseid = $this->instance->pageid;
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later)
-        if ($settings = get_record('navbuttons', 'course', $COURSE->id)) {
+        if ($settings = get_record('navbuttons', 'course', $courseid)) {
             if ($settings->enabled) {
                 $updsettings = new stdClass;
                 $updsettins->id = $settings->id;
