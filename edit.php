@@ -25,17 +25,18 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('header', 'general', get_string('generalsettings', 'block_navbuttons'));
         $mform->addElement('selectyesno', 'enabled', get_string('buttonsenabled', 'block_navbuttons'));
         $mform->addElement('text', 'backgroundcolour', get_string('backgroundcolour', 'block_navbuttons'));
+        $mform->addElement('static', 'colourselector', null, '<div id="yui-picker"></div>');
         $mform->addElement('selectyesno', 'customusebackground', get_string('customusebackground', 'block_navbuttons'));
-        
-        $hometypes = array(BLOCK_NAVBUTTONS_HOME_FRONTPAGE => get_string('frontpage','block_navbuttons'), 
+
+        $hometypes = array(BLOCK_NAVBUTTONS_HOME_FRONTPAGE => get_string('frontpage','block_navbuttons'),
                            BLOCK_NAVBUTTONS_HOME_COURSE => get_string('coursepage', 'block_navbuttons'));
         $mform->addElement('header', 'homebutton', get_string('homebutton', 'block_navbuttons'));
         $mform->addElement('select', 'homebuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'homebuttonicon', get_string('buttonicon', 'block_navbuttons'));
         $mform->addElement('select', 'homebuttontype', get_string('buttontype', 'block_navbuttons'), $hometypes);
 
-        $firsttypes = array(BLOCK_NAVBUTTONS_FIRST_COURSE => get_string('coursepage', 'block_navbuttons'), 
-                            BLOCK_NAVBUTTONS_FIRST_IN_COURSE => get_string('firstcourse','block_navbuttons'), 
+        $firsttypes = array(BLOCK_NAVBUTTONS_FIRST_COURSE => get_string('coursepage', 'block_navbuttons'),
+                            BLOCK_NAVBUTTONS_FIRST_IN_COURSE => get_string('firstcourse','block_navbuttons'),
                             BLOCK_NAVBUTTONS_FIRST_IN_SECTION => get_string('firstsection', 'block_navbuttons'));
         $mform->addElement('header', 'firstbutton', get_string('firstbutton', 'block_navbuttons'));
         $mform->addElement('select', 'firstbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
@@ -50,8 +51,8 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'nextbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('choosecoursefile', 'nextbuttonicon', get_string('buttonicon', 'block_navbuttons'));
 
-        $lasttypes = array(BLOCK_NAVBUTTONS_LAST_COURSE => get_string('coursepage', 'block_navbuttons'), 
-                           BLOCK_NAVBUTTONS_LAST_IN_COURSE => get_string('lastcourse','block_navbuttons'), 
+        $lasttypes = array(BLOCK_NAVBUTTONS_LAST_COURSE => get_string('coursepage', 'block_navbuttons'),
+                           BLOCK_NAVBUTTONS_LAST_IN_COURSE => get_string('lastcourse','block_navbuttons'),
                            BLOCK_NAVBUTTONS_LAST_IN_SECTION => get_string('lastsection', 'block_navbuttons'));
         $mform->addElement('header', 'lastbutton', get_string('lastbutton', 'block_navbuttons'));
         $mform->addElement('select', 'lastbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
@@ -77,7 +78,7 @@ class block_navbuttons_edit_form extends moodleform {
 
         $mform->addElement('hidden', 'id', 0);
         $mform->setType('id', PARAM_INT);
-        
+
         $mform->addElement('hidden', 'course', 0);
         $mform->setType('course', PARAM_INT);
 
@@ -137,7 +138,7 @@ if ($mform->is_cancelled()) {
 
 if ($data = $mform->get_data() and $data->action == 'savesettings') {
     $update = new stdClass;
-    
+
     $update->id = $data->id;
     $update->enabled = $data->enabled;
     $update->backgroundcolour = $data->backgroundcolour;
@@ -175,11 +176,16 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     }
 }
 
+require_js(array('yui_yahoo', 'yui_dom', 'yui_event', 'yui_element', 'yui_dragdrop',  'yui_slider', 'yui_colorpicker', 'yui_get'));
+require_js($CFG->wwwroot.'/blocks/navbuttons/edit.js');
+
 block_navbutton_settings_header($course);
 
 print_heading(get_string('editsettings', 'block_navbuttons'), '');
 
 $mform->display();
+
+echo '<script type="text/javascript">navbuttons.setcsspath("'.$CFG->wwwroot.'/lib/yui/assets/skins/sam");</script>';
 
 $CFG->navbuttons_self_test = 1;
 $footer = print_footer($course, null, true);
