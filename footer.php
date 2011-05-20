@@ -1,5 +1,20 @@
 <?php
 
+// This file is part of the Navigation buttons block for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 require_once(dirname(__FILE__).'/definitions.php');
 
 if (isset($CFG->navbuttons_self_test)) {
@@ -35,7 +50,7 @@ if (isset($CFG->navbuttons_self_test)) {
         $modinfo = get_fast_modinfo($COURSE);
         $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
         $sections = get_records('course_sections', 'course', $COURSE->id, 'section', 'section,visible,summary');
-    
+
         $next = false;
         $prev = false;
         $firstcourse = false;
@@ -86,7 +101,7 @@ if (isset($CFG->navbuttons_self_test)) {
             $thismod = new stdClass;
             $thismod->link = $CFG->wwwroot.'/mod/'.$mod->modname.'/view.php?id='.$mod->id;
             $thismod->name = strip_tags(format_string($mod->name,true));
-        
+
             if ($flag) { // Current mod is the 'next' mod
                 $next = $thismod;
                 $flag = false;
@@ -121,7 +136,7 @@ if (isset($CFG->navbuttons_self_test)) {
         if ($lastsection == 'none') {
             $lastsection = false;
         }
-    
+
 
         echo '<div id="navbuttons" style="float: right; width: 400px; right: 0; margin-top: 5px;">';
         if ($settings->homebuttonshow) {
@@ -253,5 +268,3 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
     $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
     return $output;
 }
-
-?>
