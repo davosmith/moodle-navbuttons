@@ -34,8 +34,9 @@ navbuttons = {
 
 	    //listen to rgbChange to be notified about new values
 	    this.picker.on("rgbChange", function(o) {
-		var el = document.getElementById('id_backgroundcolour');
-		id_backgroundcolour.value = '#'+YAHOO.util.Color.rgb2hex(o.newValue);
+		var el = YAHOO.util.Dom.get('id_backgroundcolour');
+		var newval = '#'+YAHOO.util.Color.rgb2hex(o.newValue);
+		el.value = newval;
 	    });
 	}
     }
