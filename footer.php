@@ -16,6 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(dirname(__FILE__).'/definitions.php');
+require_once(dirname(__FILE__).'/activityready.php');
 
 function draw_navbuttons() {
     global $COURSE, $DB, $CFG, $OUTPUT, $PAGE;
@@ -40,8 +41,12 @@ function draw_navbuttons() {
     if (!$PAGE->cm) {
         return $output.'<!-- No course module -->'.$outend;
     }
+    if (!navbuttons_activity_showbuttons($PAGE->cm)) {
+        return $output.'<!-- Activity not ready for navbuttons -->'.$outend;
+    }
 
     $cmid = $PAGE->cm->id;
+
 
     $modinfo = get_fast_modinfo($COURSE);
     $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
@@ -260,3 +265,4 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
     $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
     return $output;
 }
+

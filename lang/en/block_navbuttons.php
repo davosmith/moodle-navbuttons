@@ -15,6 +15,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+$string['activityalways'] = 'Always show';
+$string['activitycomplete'] = 'Show when complete';
+
+$string['activitycustomassignment'] = 'Show when assignment submitted';
+$string['activitycustomchoice'] = 'Show when choice made';
+$string['activitycustomquiz'] = 'Show when quiz submitted';
+
+$string['activitynever'] = 'Never show';
+$string['activityreadydesc'] = 'These options control when the navigation buttons should be shown on each different activity. Show when complete: show the navigation buttons when the activity completion rules indicate the activity is \'complete\' (Note: this defaults to \'Always show\' if completion is disabled for the site / course / activity). Custom rule: for some activity types there is an extra, custom rule hard-coded into the navbuttons code.';
 $string['backgroundcolour'] = 'Icon colour (any valid HTML colour)';
 $string['buttonicon'] = 'Upload a custom icon (leave blank for default)';
 $string['buttonlink'] = 'URL to attach to this button';
