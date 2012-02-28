@@ -2,7 +2,11 @@ Navigation buttons (for Moodle 2.0)
 
 This block adds navigation buttons (first/previous/next/etc.) to the bottom of each activity/resource page in a course.
 It is based on an idea from Penny Mondani: http://pennymondani.com
-Thanks also to the US company that sponsored the development, who wish to remain anonymous. 
+Thanks also to the US company that sponsored the development, who wish to remain anonymous.
+
+Changes:
+
+2012-02-28 - New global settings to control which activities have navbuttons on them and when they should be shown
 
 Installation:
 
@@ -32,5 +36,3 @@ Note: The block is only visible to users who are able to edit courses modules. D
 
 If you have any questions about this block, suggestions for improvement (or you want to employ me for any custom Moodle plugin development), drop me an email at:
 davo@davodev.co.uk
-
-
