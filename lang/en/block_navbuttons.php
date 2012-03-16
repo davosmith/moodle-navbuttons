@@ -20,6 +20,7 @@ $string['activitycomplete'] = 'Show when complete';
 
 $string['activitycustomassignment'] = 'Show when assignment submitted';
 $string['activitycustomchoice'] = 'Show when choice made';
+$string['activitycustomquestionnaire'] = 'Show when questionnaire submitted';
 $string['activitycustomquiz'] = 'Show when quiz submitted';
 
 $string['activitynever'] = 'Never show';

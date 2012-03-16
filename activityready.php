@@ -116,3 +116,8 @@ function navbuttons_mod_quiz_showbuttons($cm) {
     return true;
 }
 
+function navbuttons_mod_questionnaire_showbuttons($cm) {
+    global $USER, $DB;
+    return $DB->record_exists('questionnaire_attempts', array('qid' => $cm->instance,
+                                                              'userid' => $USER->id));
+}
