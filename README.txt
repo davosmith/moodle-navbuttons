@@ -34,5 +34,5 @@ $output = draw_navbuttons().$this->container_end_all(true);   // Change this lin
 Note: The block is only visible to users who are able to edit courses modules. Deleting the block will remove the navigation buttons (they can also be disabled through the settings).
 
 
-If you have any questions about this block, suggestions for improvement (or you want to employ me for any custom Moodle plugin development), drop me an email at:
-davo@davodev.co.uk
+If you have any questions about this block, suggestions for improvement, drop me an email at:
+moodle@davosmith.co.uk
