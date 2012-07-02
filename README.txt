@@ -6,6 +6,7 @@ Thanks also to the US company that sponsored the development, who wish to remain
 
 Changes:
 
+2012-07-02 - Confirmed all working fine with Moodle 2.3
 2012-02-28 - New global settings to control which activities have navbuttons on them and when they should be shown
 
 Installation:
@@ -25,7 +26,7 @@ $output = $this->container_end_all(true);
 REPLACE the line you found with this code:
 
 require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');  // Add this line to enable the navigation buttons
-$output = draw_navbuttons().$this->container_end_all(true);   // Change this line to enable the navigation buttonsgit
+$output = draw_navbuttons().$this->container_end_all(true);   // Change this line to enable the navigation buttons
 
 6. Add the block to a course (turn editing on, select 'Navigation Buttons' from the 'Blocks - Add' menu)
 7. Customise the button appearance by clicking on 'Edit the Navigation Button settings' in the newly created block.
