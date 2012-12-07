@@ -1,3 +1,4 @@
+/*global document*/
 var navbuttons = {
     picker: null,
 

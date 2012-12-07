@@ -217,7 +217,7 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     }
 }
 
-if ($CFG->version < 2012120300) { // Moodle 2.4
+if ($CFG->version < 2012120300) { // < Moodle 2.4
     $PAGE->requires->yui2_lib('dom');
     $PAGE->requires->yui2_lib('event');
     $PAGE->requires->yui2_lib('element');
@@ -229,7 +229,7 @@ if ($CFG->version < 2012120300) { // Moodle 2.4
         'name' => 'block_navbuttons',
         'fullpath' => new moodle_url('/blocks/navbuttons/edit.js')
     );
-} else {
+} else { // Moodle 2.4
     $jsmodule = array(
         'name' => 'block_navbuttons',
         'fullpath' => new moodle_url('/blocks/navbuttons/edit24.js')
