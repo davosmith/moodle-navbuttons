@@ -71,8 +71,15 @@ function draw_navbuttons() {
             continue;
         }
 
-        if ($mod->sectionnum > $COURSE->numsections) {
-            break;
+        if ($CFG->version >= 2012120300) { // Moodle 2.4
+            $opts = course_get_format($COURSE)->get_format_options();
+            if ($opts['numsections'] && $mod->sectionnum > $opts['numsections']) {
+                break;
+            }
+        } else {
+            if ($mod->sectionnum > $COURSE->numsections) {
+                break;
+            }
         }
 
         if (!$mod->uservisible) {

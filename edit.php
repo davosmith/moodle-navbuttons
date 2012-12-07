@@ -16,6 +16,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
+
+global $CFG, $DB, $PAGE, $OUTPUT;
+
 require_once($CFG->libdir.'/formslib.php');
 require_once(dirname(__FILE__).'/definitions.php');
 
@@ -214,17 +217,24 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     }
 }
 
-$PAGE->requires->yui2_lib('dom');
-$PAGE->requires->yui2_lib('event');
-$PAGE->requires->yui2_lib('element');
-$PAGE->requires->yui2_lib('dragdrop');
-$PAGE->requires->yui2_lib('slider');
-$PAGE->requires->yui2_lib('colorpicker');
-$PAGE->requires->yui2_lib('get');
-$jsmodule = array(
-                  'name' => 'block_navbuttons',
-                  'fullpath' => new moodle_url('/blocks/navbuttons/edit.js')
-                  );
+if ($CFG->version < 2012120300) { // Moodle 2.4
+    $PAGE->requires->yui2_lib('dom');
+    $PAGE->requires->yui2_lib('event');
+    $PAGE->requires->yui2_lib('element');
+    $PAGE->requires->yui2_lib('dragdrop');
+    $PAGE->requires->yui2_lib('slider');
+    $PAGE->requires->yui2_lib('colorpicker');
+    $PAGE->requires->yui2_lib('get');
+    $jsmodule = array(
+        'name' => 'block_navbuttons',
+        'fullpath' => new moodle_url('/blocks/navbuttons/edit.js')
+    );
+} else {
+    $jsmodule = array(
+        'name' => 'block_navbuttons',
+        'fullpath' => new moodle_url('/blocks/navbuttons/edit24.js')
+    );
+}
 $cssurl = new moodle_url('/lib/yui/2.8.2/build/assets/skins/sam');
 $PAGE->requires->js_init_call('navbuttons.init', array($cssurl->out()), true, $jsmodule);
 

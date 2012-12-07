@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+// This file is part of the Navigation Buttons plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,11 +14,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
+$capabilities = array(
+    'block/navbuttons:myaddinstance' => array(
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+        ),
+    ),
 
-$plugin->version = 2012120700;
-$plugin->release = '2.2+ (Build: 2012120700)';
-$plugin->requires = 2011120100; // Moodle 2.2
-$plugin->cron = 0;
-$plugin->component = 'block_navbuttons';
-$plugin->maturity = MATURITY_STABLE;
+    'block/navbuttons:addinstance' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => array(
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ),
+
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ),
+);

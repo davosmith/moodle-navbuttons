@@ -20,6 +20,10 @@ class block_navbuttons extends block_base {
         $this->title = get_string('navbuttons','block_navbuttons');
     }
 
+    function applicable_formats() {
+        return array('course' => true, 'course-category' => false, 'site' => true);
+    }
+
     function get_content() {
         if (!has_capability('moodle/course:manageactivities',$this->context)) {
             return NULL;
