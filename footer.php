@@ -19,7 +19,7 @@ require_once(dirname(__FILE__).'/definitions.php');
 require_once(dirname(__FILE__).'/activityready.php');
 
 function draw_navbuttons() {
-    global $COURSE, $DB, $CFG, $OUTPUT, $PAGE;
+    global $COURSE, $DB, $CFG, $PAGE;
 
     $output = '<!-- Navbuttons start -->';
     $outend = '<!-- Navbuttons end -->';
@@ -49,7 +49,11 @@ function draw_navbuttons() {
 
 
     $modinfo = get_fast_modinfo($COURSE);
-    $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+    if ($CFG->version < 2011120100) {
+        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
+    } else {
+        $context = context_course::instance($COURSE->id);
+    }
     $sections = $DB->get_records('course_sections', array('course'=>$COURSE->id),'section','section,visible,summary');
 
     $next = false;
@@ -244,7 +248,7 @@ function draw_navbuttons() {
 }
 
 function navbutton_get_icon($default, $context, $iconid, $bgcolour, $customusebackground) {
-    global $CFG, $COURSE, $OUTPUT;
+    global $CFG, $OUTPUT;
 
     $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
 
@@ -255,7 +259,8 @@ function navbutton_get_icon($default, $context, $iconid, $bgcolour, $customuseba
         return array($defaulturl, $bgcolour);
     }
 
-    $iconfilename = array_shift(array_values($files))->get_filename();
+    $file = reset($files);
+    $iconfilename = $file->get_filename();
     $iconurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/block_navbuttons/icons/'.$iconid.'/'.$iconfilename);
 
     return array($iconurl, $customusebackground ? $bgcolour : false);
