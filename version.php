@@ -17,8 +17,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2012123000;
-$plugin->release = '2.2+ (Build: 2012123000)';
+$plugin->version = 2013031500;
+$plugin->release = '2.2+ (Build: 2013031500)';
 $plugin->requires = 2011120100; // Moodle 2.2
 $plugin->cron = 0;
 $plugin->component = 'block_navbuttons';

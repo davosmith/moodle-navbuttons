@@ -6,6 +6,7 @@ Thanks also to the US company that sponsored the development, who wish to remain
 
 Changes:
 
+2013-03-15 - Fixed PHP 5.3 compatibility issue
 2012-12-30 - Fixed settings page in Moodle 2.4
 2012-12-07 - Now compatible with Moodle 2.4
 2012-07-02 - Confirmed all working fine with Moodle 2.3
