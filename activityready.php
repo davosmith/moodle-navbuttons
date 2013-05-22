@@ -25,7 +25,6 @@ define('NAVBUTTONS_ACTIVITY_NEVER', 3);
  * Check if an activity is configured to only show navbuttons when
  * complete and then check if the activity is complete
  * @param cm_info $cm the course module for the activity
- * @param object $course the course the activity is part of
  * @return boolean true if the navbuttons should be shown
  */
 function navbuttons_activity_showbuttons($cm) {
@@ -64,6 +63,10 @@ function navbuttons_activity_showbuttons($cm) {
     return $funcname($cm);
 }
 
+/**
+ * @param cm_info $cm
+ * @return bool
+ */
 function navbuttons_mod_assignment_showbuttons($cm) {
     global $DB, $CFG, $USER;
 
@@ -77,6 +80,7 @@ function navbuttons_mod_assignment_showbuttons($cm) {
 
     require_once($CFG->dirroot.'/mod/assignment/type/'.$type.'/assignment.class.php');
     $class = 'assignment_'.$type;
+    /** @var assignment_base $instance */
     $instance = new $class($cm->id, $assignment, $cm, $cm->get_course());
     if (!$submission = $instance->get_submission($USER->id)) {
         return false; // No submission
@@ -97,12 +101,20 @@ function navbuttons_mod_assignment_showbuttons($cm) {
     return false;
 }
 
+/**
+ * @param $cm
+ * @return bool
+ */
 function navbuttons_mod_choice_showbuttons($cm) {
     global $USER, $DB;
     return $DB->record_exists('choice_answers', array('choiceid' => $cm->instance,
                                                       'userid' => $USER->id));
 }
 
+/**
+ * @param $cm
+ * @return bool
+ */
 function navbuttons_mod_quiz_showbuttons($cm) {
     global $USER, $CFG;
 
@@ -116,6 +128,10 @@ function navbuttons_mod_quiz_showbuttons($cm) {
     return true;
 }
 
+/**
+ * @param $cm
+ * @return bool
+ */
 function navbuttons_mod_questionnaire_showbuttons($cm) {
     global $USER, $DB;
     return $DB->record_exists('questionnaire_attempts', array('qid' => $cm->instance,

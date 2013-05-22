@@ -30,7 +30,7 @@ if (!$course) {
 
 require_login($course);
 
-$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$context = context_course::instance($course->id);
 if (!has_capability('moodle/course:manageactivities',$context)) {
     error('You do not have permission to edit button settings on this course');
 }
@@ -43,6 +43,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('header', 'general', get_string('generalsettings', 'block_navbuttons'));
         $mform->addElement('selectyesno', 'enabled', get_string('buttonsenabled', 'block_navbuttons'));
         $mform->addElement('text', 'backgroundcolour', get_string('backgroundcolour', 'block_navbuttons'));
+        $mform->setType('backgroundcolour', PARAM_TEXT);
         $mform->addElement('static', 'colourselector', null, '<div id="yui-picker"></div>');
         $mform->addElement('selectyesno', 'customusebackground', get_string('customusebackground', 'block_navbuttons'));
 
@@ -90,7 +91,9 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('filemanager', 'extra1icon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
         $mform->addElement('text', 'extra1link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
+        $mform->setType('extra1link', PARAM_URL);
         $mform->addElement('text', 'extra1title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
+        $mform->setType('extra1title', PARAM_TEXT);
         $mform->addElement('select', 'extra1openin', get_string('buttonopenin', 'block_navbuttons'), $openin);
 
         $mform->addElement('header', 'extra2', get_string('extra2', 'block_navbuttons'));
@@ -98,7 +101,9 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('filemanager', 'extra2icon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
         $mform->addElement('text', 'extra2link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
+        $mform->setType('extra2link', PARAM_URL);
         $mform->addElement('text', 'extra2title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
+        $mform->setType('extra2title', PARAM_TEXT);
         $mform->addElement('select', 'extra2openin', get_string('buttonopenin', 'block_navbuttons'), $openin);
 
         $mform->addElement('hidden', 'id', 0);
