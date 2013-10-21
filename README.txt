@@ -6,6 +6,7 @@ Thanks also to the US company that sponsored the development, who wish to remain
 
 Changes:
 
+2013-10-21 - Extra note in README about custom / 3rd-party themes
 2013-05-22 - Minor Moodle 2.5 compatibility fixes
 2013-03-15 - Fixed PHP 5.3 compatibility issue
 2012-12-30 - Fixed settings page in Moodle 2.4
@@ -37,6 +38,15 @@ $output = draw_navbuttons().$this->container_end_all(true);   // Change this lin
 8. Check the message at the bottom of the screen (under the 'Save changes' button) - it should read "Navbuttons self-test: required core modifications have been completed successfully". If not, then go back to step 5 above and check carefully.
 
 Note: The block is only visible to users who are able to edit courses modules. Deleting the block will remove the navigation buttons (they can also be disabled through the settings).
+
+== Using with custom / 3rd-part themes ==
+
+If the theme you are using overrides the page footer code (Essential theme is known to do this), then you will have to make some slightly different core changes in step 5.
+
+Open up: theme/[theme name]/renderer.php
+Look for a function called 'footer()'.
+If you are lucky, you should be able to repeat the changes from step 5 within this function (I've had reports that this works with Essential theme).
+If not, then you will have to try and figure out where best to put the code within the 'footer()' function.
 
 == Any Problems ==
 

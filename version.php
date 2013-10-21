@@ -17,7 +17,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2013052200;
+$plugin->version = 2013052201;
 $plugin->release = '2.2+ (Build: 2013052200)';
 $plugin->requires = 2011120100; // Moodle 2.2
 $plugin->cron = 0;
