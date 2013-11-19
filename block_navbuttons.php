@@ -29,6 +29,8 @@ class block_navbuttons extends block_base {
     }
 
     function get_content() {
+        global $CFG;
+
         if (!has_capability('moodle/course:manageactivities',$this->context)) {
             return NULL;
         }
@@ -40,7 +42,12 @@ class block_navbuttons extends block_base {
         $this->content = new stdClass;
         $this->content->footer = '';
 
-        $courseid = get_courseid_from_context($this->context);
+        if ($CFG->version < 2012120300) {
+            $courseid = get_courseid_from_context($this->context);
+        } else {
+            $coursecontext = $this->context->get_course_context(true);
+            $courseid = $coursecontext->instanceid;
+        }
         $editlink = new moodle_url('/blocks/navbuttons/edit.php', array('course'=>$courseid));
         $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
 
@@ -48,9 +55,14 @@ class block_navbuttons extends block_base {
     }
 
     function instance_create() {
-        global $DB;
+        global $DB, $CFG;
 
-        $courseid = get_courseid_from_context($this->context);
+        if ($CFG->version < 2012120300) {
+            $courseid = get_courseid_from_context($this->context);
+        } else {
+            $coursecontext = $this->context->get_course_context(true);
+            $courseid = $coursecontext->instanceid;
+        }
 
         // Enable the buttons when the block is added to a course
         if (!$settings = $DB->get_record('navbuttons', array('course' => $courseid))) {
@@ -72,9 +84,14 @@ class block_navbuttons extends block_base {
     }
 
     function instance_delete() {
-        global $DB;
+        global $DB, $CFG;
 
-        $courseid = get_courseid_from_context($this->context);
+        if ($CFG->version < 2012120300) {
+            $courseid = get_courseid_from_context($this->context);
+        } else {
+            $coursecontext = $this->context->get_course_context(true);
+            $courseid = $coursecontext->instanceid;
+        }
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later)
         $settings = $DB->get_record('navbuttons', array('course' => $courseid));
