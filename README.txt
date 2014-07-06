@@ -6,6 +6,7 @@ Thanks also to the US company that sponsored the development, who wish to remain
 
 Changes:
 
+2014-07-06 - Added 'text button' option, checked M2.7 compatibility, minor styling tweak
 2013-11-19 - Moodle 2.6 compatibility fixes
 2013-10-21 - Extra note in README about custom / 3rd-party themes
 2013-05-22 - Minor Moodle 2.5 compatibility fixes

@@ -37,15 +37,26 @@ if (!has_capability('moodle/course:manageactivities',$context)) {
 
 class block_navbuttons_edit_form extends moodleform {
     function definition() {
-        $mform =& $this->_form;
+        $mform = $this->_form;
         $showhide = array(1 => get_string('show'), 0 => get_string('hide'));
 
         $mform->addElement('header', 'general', get_string('generalsettings', 'block_navbuttons'));
         $mform->addElement('selectyesno', 'enabled', get_string('buttonsenabled', 'block_navbuttons'));
+
+        $typeopts = array(
+            BLOCK_NAVBUTTONS_TYPE_ICON => get_string('typeicon', 'block_navbuttons'),
+            BLOCK_NAVBUTTONS_TYPE_TEXT => get_string('typetext', 'block_navbuttons'),
+        );
+        $mform->addElement('select', 'buttonstype', get_string('buttonstype', 'block_navbuttons'), $typeopts);
+        $mform->setDefault('buttonstype', BLOCK_NAVBUTTONS_TYPE_ICON);
+
         $mform->addElement('text', 'backgroundcolour', get_string('backgroundcolour', 'block_navbuttons'));
         $mform->setType('backgroundcolour', PARAM_TEXT);
+        $mform->disabledIf('backgroundcolour', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
+
         $mform->addElement('static', 'colourselector', null, '<div id="yui-picker"></div>');
         $mform->addElement('selectyesno', 'customusebackground', get_string('customusebackground', 'block_navbuttons'));
+        $mform->disabledIf('customusebackground', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
         $hometypes = array(BLOCK_NAVBUTTONS_HOME_FRONTPAGE => get_string('frontpage','block_navbuttons'),
                            BLOCK_NAVBUTTONS_HOME_COURSE => get_string('coursepage', 'block_navbuttons'));
@@ -53,6 +64,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'homebuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'homebuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('homebuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'homebuttontype', get_string('buttontype', 'block_navbuttons'), $hometypes);
 
         $firsttypes = array(BLOCK_NAVBUTTONS_FIRST_COURSE => get_string('coursepage', 'block_navbuttons'),
@@ -62,17 +74,20 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'firstbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'firstbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('firstbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'firstbuttontype', get_string('buttontype', 'block_navbuttons'), $firsttypes);
 
         $mform->addElement('header', 'prevbutton', get_string('prevbutton', 'block_navbuttons'));
         $mform->addElement('select', 'prevbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'prevbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('prevbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
         $mform->addElement('header', 'nextbutton', get_string('nextbutton', 'block_navbuttons'));
         $mform->addElement('select', 'nextbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'nextbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('nextbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
         $lasttypes = array(BLOCK_NAVBUTTONS_LAST_COURSE => get_string('coursepage', 'block_navbuttons'),
                            BLOCK_NAVBUTTONS_LAST_IN_COURSE => get_string('lastcourse','block_navbuttons'),
@@ -81,6 +96,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'lastbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'lastbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('lastbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'lastbuttontype', get_string('buttontype', 'block_navbuttons'), $lasttypes);
 
 
@@ -90,6 +106,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'extra1show', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'extra1icon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('extra1icon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('text', 'extra1link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
         $mform->setType('extra1link', PARAM_URL);
         $mform->addElement('text', 'extra1title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
@@ -100,6 +117,7 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('select', 'extra2show', get_string('displaybutton', 'block_navbuttons'), $showhide);
         $mform->addElement('filemanager', 'extra2icon', get_string('buttonicon', 'block_navbuttons'), null,
                            array('subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => array('image') ));
+        $mform->disabledIf('extra2icon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('text', 'extra2link', get_string('buttonlink', 'block_navbuttons'), array('size'=>50));
         $mform->setType('extra2link', PARAM_URL);
         $mform->addElement('text', 'extra2title', get_string('buttontitle', 'block_navbuttons'), array('size'=>50));
@@ -122,7 +140,7 @@ class block_navbuttons_edit_form extends moodleform {
 
 $mform = new block_navbuttons_edit_form();
 
-$defaults = new stdClass;
+$defaults = new stdClass();
 $settings = $DB->get_record('navbuttons', array('course' => $course->id));
 if (!$settings) {
     $settings = new stdClass;
@@ -134,6 +152,7 @@ if (!$settings) {
 $defaults->id = $settings->id;
 $defaults->course = $settings->course;
 $defaults->enabled = $settings->enabled;
+$defaults->buttonstype = $settings->buttonstype;
 $defaults->backgroundcolour = $settings->backgroundcolour;
 $defaults->customusebackground = $settings->customusebackground;
 $defaults->homebuttonshow = $settings->homebuttonshow;
@@ -186,6 +205,7 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
 
     $update->id = $data->id;
     $update->enabled = $data->enabled;
+    $update->buttonstype = $data->buttonstype;
     $update->backgroundcolour = $data->backgroundcolour;
     $update->customusebackground = $data->customusebackground;
     $update->homebuttonshow = $data->homebuttonshow;

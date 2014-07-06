@@ -45,5 +45,20 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2012070202, 'navbuttons');
     }
 
+    if ($oldversion < 2014070601) {
+
+        // Define field buttonstype to be added to navbuttons.
+        $table = new xmldb_table('navbuttons');
+        $field = new xmldb_field('buttonstype', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, 'icon', 'enabled');
+
+        // Conditionally launch add field buttonstype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Navbuttons savepoint reached.
+        upgrade_block_savepoint(true, 2014070601, 'navbuttons');
+    }
+
     return true;
  }

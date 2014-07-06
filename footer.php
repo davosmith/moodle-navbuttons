@@ -149,7 +149,7 @@ function draw_navbuttons() {
         $lastsection = false;
     }
 
-    $output .=  '<div id="navbuttons" style="float: right; width: 400px; right: 0; margin-top: 5px;">';
+    $output .= '<div id="navbuttons">';
     if ($settings->homebuttonshow) {
         $home = new stdClass;
         if ($settings->homebuttontype == BLOCK_NAVBUTTONS_HOME_COURSE) {
@@ -159,7 +159,7 @@ function draw_navbuttons() {
             $home->link = $CFG->wwwroot;
             $home->name = get_string('frontpage','block_navbuttons');
         }
-        list($icon, $bgcolour) = navbutton_get_icon('home', $context, BLOCK_NAVBUTTONS_HOMEICON, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'home', $context, BLOCK_NAVBUTTONS_HOMEICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, $home->name, $home->link);
     }
 
@@ -184,17 +184,17 @@ function draw_navbuttons() {
             $first->link = new moodle_url('/course/view.php', array('id'=>$COURSE->id));
         }
         if ($first) {
-            list($icon, $bgcolour) = navbutton_get_icon('first', $context, BLOCK_NAVBUTTONS_FIRSTICON, $settings->backgroundcolour, $settings->customusebackground);
+            list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'first', $context, BLOCK_NAVBUTTONS_FIRSTICON, $settings->backgroundcolour, $settings->customusebackground);
             $output .= make_navbutton($icon, $bgcolour, $first->name, $first->link);
         }
     }
 
     if ($settings->prevbuttonshow && $prev) {
-        list($icon, $bgcolour) = navbutton_get_icon('prev', $context, BLOCK_NAVBUTTONS_PREVICON, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'prev', $context, BLOCK_NAVBUTTONS_PREVICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity','block_navbuttons').': '.$prev->name, $prev->link);
     }
     if ($settings->nextbuttonshow && $next) {
-        list($icon, $bgcolour) = navbutton_get_icon('next', $context, BLOCK_NAVBUTTONS_NEXTICON, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'next', $context, BLOCK_NAVBUTTONS_NEXTICON, $settings->backgroundcolour, $settings->customusebackground);
         $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity','block_navbuttons').': '.$next->name, $next->link);
     }
 
@@ -219,13 +219,13 @@ function draw_navbuttons() {
             $last->link = new moodle_url('/course/view.php', array('id'=>$COURSE->id));
         }
         if ($last) {
-            list($icon, $bgcolour) = navbutton_get_icon('last', $context, BLOCK_NAVBUTTONS_LASTICON, $settings->backgroundcolour, $settings->customusebackground);
+            list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'last', $context, BLOCK_NAVBUTTONS_LASTICON, $settings->backgroundcolour, $settings->customusebackground);
             $output .= make_navbutton($icon, $bgcolour, $last->name, $last->link);
         }
     }
 
     if ($settings->extra1show && $settings->extra1link) {
-        list($icon, $bgcolour) = navbutton_get_icon('extra1', $context, BLOCK_NAVBUTTONS_EXTRA1ICON, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'extra1', $context, BLOCK_NAVBUTTONS_EXTRA1ICON, $settings->backgroundcolour, $settings->customusebackground);
         if (!$settings->extra1title) {
             $settings->extra1title = $settings->extra1link;
         }
@@ -233,7 +233,7 @@ function draw_navbuttons() {
     }
 
     if ($settings->extra2show && $settings->extra2link) {
-        list($icon, $bgcolour) = navbutton_get_icon('extra2', $context, BLOCK_NAVBUTTONS_EXTRA2ICON, $settings->backgroundcolour, $settings->customusebackground);
+        list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'extra2', $context, BLOCK_NAVBUTTONS_EXTRA2ICON, $settings->backgroundcolour, $settings->customusebackground);
         if (!$settings->extra2title) {
             $settings->extra2title = $settings->extra2link;
         }
@@ -247,34 +247,57 @@ function draw_navbuttons() {
     return $output;
 }
 
-function navbutton_get_icon($default, $context, $iconid, $bgcolour, $customusebackground) {
+function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour, $customusebackground) {
     global $CFG, $OUTPUT;
 
-    $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
+    if ($buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
+        $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
 
-    $fs = get_file_storage();
-    $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
+        $fs = get_file_storage();
+        $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
 
-    if (empty($files)) {
-        return array($defaulturl, $bgcolour);
+        if (empty($files)) {
+            return array($defaulturl, $bgcolour);
+        }
+
+        $file = reset($files);
+        $iconfilename = $file->get_filename();
+        $iconurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/block_navbuttons/icons/'.$iconid.'/'.$iconfilename);
+
+        return array($iconurl, $customusebackground ? $bgcolour : false);
+    } else {
+        return array(null, false); // Do not use an icon.
     }
-
-    $file = reset($files);
-    $iconfilename = $file->get_filename();
-    $iconurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$context->id.'/block_navbuttons/icons/'.$iconid.'/'.$iconfilename);
-
-    return array($iconurl, $customusebackground ? $bgcolour : false);
 }
 
 function make_navbutton($imgsrc, $bgcolour, $title, $url, $newwindow = false) {
-    $url = preg_replace('/[\'"<>]/','',$url);
+    $url = preg_replace('/[\'"<>]/', '', $url);
     $bgcolour = preg_replace('/[^a-zA-Z0-9#]/', '', $bgcolour);
     $target = $newwindow ? ' target="_blank" ' : '';
-    $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
-    if ($bgcolour) {
-        $output .= 'background-color: '.$bgcolour.'; ';
+    if ($imgsrc !== null) {
+        // Generate an icon button.
+        $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
+        if ($bgcolour) {
+            $output .= 'background-color: '.$bgcolour.'; ';
+        }
+        $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
+    } else {
+        // Generate a text button.
+        $output = html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'navbutton', 'value' => $title));
+        $params = explode('?', $url, 2);
+        if (count($params) > 1) {
+            $params = str_replace('&amp;', '&', $params[1]);
+            $params = explode('&', $params);
+            foreach ($params as $param) {
+                $parts = explode('=', $param, 2);
+                if (!isset($parts[1])) {
+                    $parts[1] = null;
+                }
+                $output .= html_writer::empty_tag('input', array('type' => 'hidden', 'name' => $parts[0], 'value' => $parts[1]));
+            }
+        }
+
+        $output = html_writer::tag('form', $output, array('action' => $url, 'method' => 'get', 'class' => 'navbuttontext'));
     }
-    $output .= 'margin-right: 5px;" width="50" height="50" /></a>';
     return $output;
 }
-
