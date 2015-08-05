@@ -45,9 +45,14 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            $coursecontext = $this->context->get_course_context(true);
-            $courseid = $coursecontext->instanceid;
+            if ($coursecontext = $this->context->get_course_context()) {
+                $courseid = $coursecontext->instanceid;
+            }
         }
+        if (empty($courseid)) {
+            return null;
+        }
+
         $editlink = new moodle_url('/blocks/navbuttons/edit.php', array('course'=>$courseid));
         $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
 
@@ -60,8 +65,12 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            $coursecontext = $this->context->get_course_context(true);
-            $courseid = $coursecontext->instanceid;
+            if ($coursecontext = $this->context->get_course_context()) {
+                $courseid = $coursecontext->instanceid;
+            }
+        }
+        if (empty($courseid)) {
+            return;
         }
 
         // Enable the buttons when the block is added to a course
@@ -80,7 +89,7 @@ class block_navbuttons extends block_base {
             }
         }
 
-        return true;
+        return;
     }
 
     function instance_delete() {
@@ -89,8 +98,12 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            $coursecontext = $this->context->get_course_context(true);
-            $courseid = $coursecontext->instanceid;
+            if ($coursecontext = $this->context->get_course_context()) {
+                $courseid = $coursecontext->instanceid;
+            }
+        }
+        if (empty($courseid)) {
+            return;
         }
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later)
@@ -103,6 +116,6 @@ class block_navbuttons extends block_base {
                 $DB->update_record('navbuttons', $updsettings);
             }
         }
-        return true;
+        return;
     }
 }
