@@ -93,7 +93,7 @@ function draw_navbuttons() {
         if ($mod->sectionnum > 0 && $sectionnum != $mod->sectionnum) {
             $thissection = $sections[$mod->sectionnum];
 
-            if ($thissection->visible || /*!$COURSE->hiddensections ||*/
+            if ($thissection->visible || !$COURSE->hiddensections ||
                 has_capability('moodle/course:viewhiddensections', $context)) {
                 $sectionnum = $mod->sectionnum;
                 $firstthissection = false;
