@@ -18,8 +18,7 @@ $capabilities = array(
     'block/navbuttons:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-        ),
+        'archetypes' => array(),
     ),
 
     'block/navbuttons:addinstance' => array(

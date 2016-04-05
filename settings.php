@@ -28,8 +28,10 @@ if ($ADMIN->fulltree) {
         if ($pluginname == 'label') {
             continue;
         }
-        $pluginopts[$pluginname] = array(NAVBUTTONS_ACTIVITY_ALWAYS => $stralways,
-                                         NAVBUTTONS_ACTIVITY_COMPLETE => $strcomplete);
+        $pluginopts[$pluginname] = array(
+            NAVBUTTONS_ACTIVITY_ALWAYS => $stralways,
+            NAVBUTTONS_ACTIVITY_COMPLETE => $strcomplete
+        );
         $funcname = 'navbuttons_mod_'.$pluginname.'_showbuttons';
         if (function_exists($funcname)) {
             $pluginopts[$pluginname][NAVBUTTONS_ACTIVITY_CUSTOM] = get_string('activitycustom'.$pluginname, 'block_navbuttons');
@@ -39,7 +41,8 @@ if ($ADMIN->fulltree) {
 
     $settings->add(new admin_setting_heading('block_navbuttons/intro', '', get_string('activityreadydesc', 'block_navbuttons')));
     foreach ($pluginopts as $pluginname => $opts) {
-        $settings->add(new admin_setting_configselect('block_navbuttons/activity'.$pluginname, get_string('pluginname', $pluginname), '',
+        $settings->add(new admin_setting_configselect('block_navbuttons/activity'.$pluginname,
+                                                      get_string('pluginname', $pluginname), '',
                                                       NAVBUTTONS_ACTIVITY_ALWAYS, $opts));
     }
 }

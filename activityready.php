@@ -32,7 +32,7 @@ function navbuttons_activity_showbuttons($cm) {
 
     $show = get_config('block_navbuttons', 'activity'.$modname);
     if ($show === false || $show == NAVBUTTONS_ACTIVITY_ALWAYS) {
-        return true; // No config or 'always show'
+        return true; // No config or 'always show'.
     }
 
     if ($show == NAVBUTTONS_ACTIVITY_NEVER) {
@@ -42,9 +42,9 @@ function navbuttons_activity_showbuttons($cm) {
     if ($show == NAVBUTTONS_ACTIVITY_COMPLETE) {
         $completion = new completion_info($cm->get_course());
         if (!$completion->is_enabled($cm)) {
-            return true; // No completion tracking - show the buttons
+            return true; // No completion tracking - show the buttons.
         }
-        $cmcompletion  = $completion->get_data($cm);
+        $cmcompletion = $completion->get_data($cm);
         if ($cmcompletion->completionstate == COMPLETION_INCOMPLETE) {
             return false;
         }
@@ -52,13 +52,13 @@ function navbuttons_activity_showbuttons($cm) {
     }
 
     if (!isloggedin() || isguestuser()) {
-        return true; // Always show the buttons if not logged in
+        return true; // Always show the buttons if not logged in.
     }
 
-    // NAVBUTTONS_ACTIVITY_CUSTOM
+    // NAVBUTTONS_ACTIVITY_CUSTOM.
     $funcname = 'navbuttons_mod_'.$modname.'_showbuttons';
     if (!function_exists($funcname)) {
-        return true; // Shouldn't have got to here, but allow the buttons anyway
+        return true; // Shouldn't have got to here, but allow the buttons anyway.
     }
     return $funcname($cm);
 }
@@ -71,31 +71,35 @@ function navbuttons_mod_assignment_showbuttons($cm) {
     global $DB, $CFG, $USER;
 
     if (!$assignment = $DB->get_record('assignment', array('id' => $cm->instance))) {
-        return true; // Not quite sure what went wrong
+        return true; // Not quite sure what went wrong.
     }
     $type = $assignment->assignmenttype;
     if ($type == 'offline') {
-        return true; // Cannot track 'offline' assignments
+        return true; // Cannot track 'offline' assignments.
     }
 
-    require_once($CFG->dirroot.'/mod/assignment/type/'.$type.'/assignment.class.php');
+    $libfile = $CFG->dirroot.'/mod/assignment/type/'.$type.'/assignment.class.php';
+    if (!file_exists($libfile)) {
+        return true;
+    }
+
+    require_once($libfile);
     $class = 'assignment_'.$type;
-    /** @var assignment_base $instance */
     $instance = new $class($cm->id, $assignment, $cm, $cm->get_course());
     if (!$submission = $instance->get_submission($USER->id)) {
-        return false; // No submission
+        return false; // No submission.
     }
     if ($type == 'upload' || $type == 'uploadpdf') {
         if ($instance->drafts_tracked()) {
             if ($instance->is_finalized($submission)) {
-                return true; // Upload submission is 'finalised'
+                return true; // Upload submission is 'finalised'.
             } else {
                 return false;
             }
         }
     }
     if ($submission->timemodified > 0) {
-        return true; // Submission has a 'modified' time
+        return true; // Submission has a 'modified' time.
     }
 
     return false;
@@ -107,8 +111,10 @@ function navbuttons_mod_assignment_showbuttons($cm) {
  */
 function navbuttons_mod_choice_showbuttons($cm) {
     global $USER, $DB;
-    return $DB->record_exists('choice_answers', array('choiceid' => $cm->instance,
-                                                      'userid' => $USER->id));
+    return $DB->record_exists('choice_answers', array(
+        'choiceid' => $cm->instance,
+        'userid' => $USER->id
+    ));
 }
 
 /**
@@ -120,10 +126,10 @@ function navbuttons_mod_quiz_showbuttons($cm) {
 
     require_once($CFG->dirroot.'/mod/quiz/locallib.php');
     if (quiz_get_user_attempt_unfinished($cm->instance, $USER->id)) {
-        return false; // Unfinished attempt in progress
+        return false; // Unfinished attempt in progress.
     }
     if (!quiz_get_user_attempts($cm->instance, $USER->id, 'finished', true)) {
-        return false; // No finished attempts
+        return false; // No finished attempts.
     }
     return true;
 }
@@ -134,6 +140,8 @@ function navbuttons_mod_quiz_showbuttons($cm) {
  */
 function navbuttons_mod_questionnaire_showbuttons($cm) {
     global $USER, $DB;
-    return $DB->record_exists('questionnaire_attempts', array('qid' => $cm->instance,
-                                                              'userid' => $USER->id));
+    return $DB->record_exists('questionnaire_attempts', array(
+        'qid' => $cm->instance,
+        'userid' => $USER->id
+    ));
 }
