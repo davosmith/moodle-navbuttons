@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -191,7 +190,7 @@ function draw_navbuttons() {
 
     if ($settings->prevbuttonshow && $prev) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'prev', $context, BLOCK_NAVBUTTONS_PREVICON, $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity','block_navbuttons').': '.$prev->name, $prev->link, "prec");
+        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity','block_navbuttons').': '.$prev->name, $prev->link, "prev");
     }
 
     if ($settings->nextbuttonshow && $next) {
@@ -277,7 +276,8 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
     $target = $newwindow ? ' target="_blank" ' : '';
     if ($imgsrc !== null) {
         // Generate an icon button.
-        $output = '<a href="'.$url.'" '.$target.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
+        $class = $classes ? ' class="'.$classes.'" ' : '';
+        $output = '<a href="'.$url.'" '.$target.$class.'><img alt="'.$title.'" title="'.$title.'" src="'.$imgsrc.'" style="';
         if ($bgcolour) {
             $output .= 'background-color: '.$bgcolour.'; ';
         }
