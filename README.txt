@@ -6,6 +6,7 @@ Thanks also to the US company that sponsored the development, who wish to remain
 
 Changes:
 
+2016-05-20 - Minor fix to hide on the new assign grading page (as it doesn't work well there)
 2015-08-05 - Adding block outside of course is no longer a fatal error (but it does nothing useful).
 2014-07-06 - Added 'text button' option, checked M2.7 compatibility, minor styling tweak
 2013-11-19 - Moodle 2.6 compatibility fixes
