@@ -44,6 +44,14 @@ function draw_navbuttons() {
         return $output.'<!-- Activity not ready for navbuttons -->'.$outend;
     }
 
+    if ($CFG->branch >= 31) {
+        if ($PAGE->cm->modname == 'assign') {
+            if (optional_param('action', null, PARAM_ALPHA) == 'grader') {
+                return $output.'<!-- Navbuttons do not work with activity grading layout -->'.$outend;
+            }
+        }
+    }
+
     $cmid = $PAGE->cm->id;
 
     $modinfo = get_fast_modinfo($COURSE);
