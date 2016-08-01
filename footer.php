@@ -53,6 +53,8 @@ function draw_navbuttons() {
     }
 
     $cmid = $PAGE->cm->id;
+    $csnum = $PAGE->cm->sectionnum;
+    $xsecmode = $settings->crosssectionmode;
 
     $modinfo = get_fast_modinfo($COURSE);
     if ($CFG->version < 2011120100) {
@@ -60,7 +62,7 @@ function draw_navbuttons() {
     } else {
         $context = context_course::instance($COURSE->id);
     }
-    $sections = $DB->get_records('course_sections', array('course' => $COURSE->id), 'section', 'section,visible,summary');
+    $sections = $DB->get_records('course_sections', array('course' => $COURSE->id), 'section', 'section,visible,summary,name,id');
 
     /** @var object|null $next */
     $next = null;
@@ -125,7 +127,8 @@ function draw_navbuttons() {
 
         $thismod = (object)[
             'link' => new moodle_url('/mod/'.$mod->modname.'/view.php', array('id' => $mod->id)),
-            'name' => strip_tags(format_string($mod->name, true))
+            'name' => strip_tags(format_string($mod->name, true)),
+			'sectionnum' => $mod->sectionnum
         ];
 
         if ($flag) { // Current mod is the 'next' mod.
@@ -208,15 +211,35 @@ function draw_navbuttons() {
     if ($settings->prevbuttonshow && $prev) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'prev', $context, BLOCK_NAVBUTTONS_PREVICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity', 'block_navbuttons').': '.$prev->name,
-                                  $prev->link, "prev");
+        if ($prev->sectionnum != $csnum) {
+            if ($xsecmode == BLOCK_NAVBUTTONS_XSEC_SECPAGE) {
+                $cursec = $sections[$csnum];
+				$cursecurl = new moodle_url('/course/view.php', array('id' => $COURSE->id, 'section' => $cursec->id));
+                $output .= make_navbutton($icon, $bgcolour,
+                                          get_string('sectionhome', 'block_navbuttons').': '.$cursec->name,
+                                          $cursecurl, "prev");
+            } // Else hide button.
+        } else {
+            $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity', 'block_navbuttons').': '.$prev->name,
+                                      $prev->link, "prev");
+        }
     }
 
     if ($settings->nextbuttonshow && $next) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'next', $context, BLOCK_NAVBUTTONS_NEXTICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity', 'block_navbuttons').': '.$next->name,
-                                  $next->link, "next");
+        if ($next->sectionnum != $csnum) {
+            if ($xsecmode == BLOCK_NAVBUTTONS_XSEC_SECPAGE) {
+                $nextsec = $sections[$next->sectionnum];
+                $nextsecurl = new moodle_url('/course/view.php',array('id' => $COURSE->id, 'section' => $nextsec->id));
+                $output .= make_navbutton($icon, $bgcolour,
+                                          get_string('nextsection', 'block_navbuttons').': '.$nextsec->name,
+                                          $nextsecurl, "next");
+            } // Else hide button.
+		} else {
+            $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity', 'block_navbuttons').': '.$next->name,
+                                      $next->link, "next");
+        }
     }
 
     if ($settings->lastbuttonshow) {

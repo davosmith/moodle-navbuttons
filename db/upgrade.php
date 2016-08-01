@@ -74,5 +74,20 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2014070601, 'navbuttons');
     }
 
+    if ($oldversion < 2016080116) {
+
+        // Define field crosssectionmode to be added to navbuttons.
+        $table = new xmldb_table('navbuttons');
+        $field = new xmldb_field('crosssectionmode', XMLDB_TYPE_CHAR, '4', null, XMLDB_NOTNULL, null, 'show', 'enabled');
+
+        // Conditionally launch add field buttonstype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Navbuttons savepoint reached.
+        upgrade_block_savepoint(true, 2016080116, 'navbuttons');
+    }
+
     return true;
 }

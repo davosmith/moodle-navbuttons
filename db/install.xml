@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/navbuttons/db" VERSION="20140706" COMMENT="XMLDB file for Moodle blocks/navbuttons"
+<XMLDB PATH="blocks/navbuttons/db" VERSION="20160801" COMMENT="XMLDB file for Moodle blocks/navbuttons"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -11,9 +11,9 @@
         <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="course" NEXT="buttonstype"/>
         <FIELD NAME="buttonstype" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="icon" SEQUENCE="false" COMMENT="Buttons should be text or icons" PREVIOUS="enabled" NEXT="backgroundcolour"/>
         <FIELD NAME="backgroundcolour" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="#6666cc" SEQUENCE="false" PREVIOUS="buttonstype" NEXT="customusebackground"/>
-        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="backgroundcolour" NEXT="homebuttonshow"/>
-        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="customusebackground" NEXT="homebuttontype"/>
-        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttonshow" NEXT="firstbuttonshow"/>
+        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="backgroundcolour" NEXT="crosssectionmode"/>
+        <FIELD NAME="crosssectionmode" TYPE="char" LENGTH="4" NOTNULL="true" DEFAULT="show" SEQUENCE="false" PREVIOUS="customusebackground" NEXT="homebuttonshow"/>
+        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="crosssectionmode" NEXT="homebuttontype"/>
         <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttontype" NEXT="firstbuttontype"/>
         <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="firstbuttonshow" NEXT="prevbuttonshow"/>
         <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="firstbuttontype" NEXT="nextbuttonshow"/>
