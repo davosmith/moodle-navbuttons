@@ -14,6 +14,7 @@
         <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="backgroundcolour" NEXT="crosssectionmode"/>
         <FIELD NAME="crosssectionmode" TYPE="char" LENGTH="4" NOTNULL="true" DEFAULT="show" SEQUENCE="false" PREVIOUS="customusebackground" NEXT="homebuttonshow"/>
         <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="crosssectionmode" NEXT="homebuttontype"/>
+        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttonshow" NEXT="firstbuttonshow"/>
         <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttontype" NEXT="firstbuttontype"/>
         <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="firstbuttonshow" NEXT="prevbuttonshow"/>
         <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="firstbuttontype" NEXT="nextbuttonshow"/>
