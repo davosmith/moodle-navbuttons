@@ -52,6 +52,14 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->addElement('selectyesno', 'customusebackground', get_string('customusebackground', 'block_navbuttons'));
         $mform->disabledIf('customusebackground', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
+        $crosssectionopts = array(
+            BLOCK_NAVBUTTONS_XSEC_SHOW => get_string('xsecshowbutton', 'block_navbuttons'),
+            BLOCK_NAVBUTTONS_XSEC_SECPAGE => get_string('xsecshowsectionpage', 'block_navbuttons'),
+            BLOCK_NAVBUTTONS_XSEC_HIDE => get_string('xsechidebutton', 'block_navbuttons'),
+        );
+        $mform->addElement('select', 'crosssectionmode', get_string('crosssectionmode', 'block_navbuttons'), $crosssectionopts);
+        $mform->setDefault('crosssectionmode', BLOCK_NAVBUTTONS_XSEC_SHOW);
+
         $hometypes = array(
             BLOCK_NAVBUTTONS_HOME_FRONTPAGE => get_string('frontpage', 'block_navbuttons'),
             BLOCK_NAVBUTTONS_HOME_COURSE => get_string('coursepage', 'block_navbuttons')
@@ -156,6 +164,7 @@ $defaults->enabled = $settings->enabled;
 $defaults->buttonstype = $settings->buttonstype;
 $defaults->backgroundcolour = $settings->backgroundcolour;
 $defaults->customusebackground = $settings->customusebackground;
+$defaults->crosssectionmode = $settings->crosssectionmode;
 $defaults->homebuttonshow = $settings->homebuttonshow;
 $defaults->homebuttontype = $settings->homebuttontype;
 $defaults->firstbuttonshow = $settings->firstbuttonshow;
@@ -223,6 +232,7 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     $update->buttonstype = $data->buttonstype;
     $update->backgroundcolour = $data->backgroundcolour;
     $update->customusebackground = $data->customusebackground;
+	$update->crosssectionmode = $data->crosssectionmode;
     $update->homebuttonshow = $data->homebuttonshow;
     $update->homebuttontype = $data->homebuttontype;
     $update->firstbuttonshow = $data->firstbuttonshow;

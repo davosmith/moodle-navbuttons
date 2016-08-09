@@ -38,3 +38,7 @@ define("BLOCK_NAVBUTTONS_EXTRA2ICON", 6);
 
 define("BLOCK_NAVBUTTONS_TYPE_ICON", 'icon');
 define("BLOCK_NAVBUTTONS_TYPE_TEXT", 'text');
+
+define("BLOCK_NAVBUTTONS_XSEC_SHOW", 'show');
+define("BLOCK_NAVBUTTONS_XSEC_HIDE", 'hide');
+define("BLOCK_NAVBUTTONS_XSEC_SECPAGE", 'sect');
