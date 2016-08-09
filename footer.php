@@ -62,7 +62,7 @@ function draw_navbuttons() {
     } else {
         $context = context_course::instance($COURSE->id);
     }
-    $sections = $DB->get_records('course_sections', array('course' => $COURSE->id), 'section', 'section,visible,summary,name,id');
+    $sections = $DB->get_records('course_sections', array('course' => $COURSE->id), 'section', 'section,visible,summary,name');
 
     /** @var object|null $next */
     $next = null;
@@ -214,7 +214,7 @@ function draw_navbuttons() {
         if ($prev->sectionnum != $csnum) {
             if ($xsecmode == BLOCK_NAVBUTTONS_XSEC_SECPAGE) {
                 $cursec = $sections[$csnum];
-				$cursecurl = new moodle_url('/course/view.php', array('id' => $COURSE->id, 'section' => $cursec->id));
+				$cursecurl = new moodle_url('/course/view.php', array('id' => $COURSE->id, 'section' => $cursec->section));
                 $output .= make_navbutton($icon, $bgcolour,
                                           get_string('sectionhome', 'block_navbuttons').': '.$cursec->name,
                                           $cursecurl, "prev");
@@ -231,7 +231,7 @@ function draw_navbuttons() {
         if ($next->sectionnum != $csnum) {
             if ($xsecmode == BLOCK_NAVBUTTONS_XSEC_SECPAGE) {
                 $nextsec = $sections[$next->sectionnum];
-                $nextsecurl = new moodle_url('/course/view.php',array('id' => $COURSE->id, 'section' => $nextsec->id));
+                $nextsecurl = new moodle_url('/course/view.php',array('id' => $COURSE->id, 'section' => $nextsec->section));
                 $output .= make_navbutton($icon, $bgcolour,
                                           get_string('nextsection', 'block_navbuttons').': '.$nextsec->name,
                                           $nextsecurl, "next");
