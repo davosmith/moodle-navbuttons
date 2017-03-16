@@ -33,4 +33,7 @@ $string['prevbutton'] = 'Vorherige Taste';
 $string['selftest_nofooter'] = 'Navigationstaste Selbsttest: Die Zeile \"include(\$CFG->dirroot.\'/blocks/navbuttons/footer.php\');\" wurde nicht korrekt weblib.php zugeordnet - siehe README.txt f&uuml;r weitere Anweisungen';
 $string['selftest_ok'] = 'Navigationstaste Selbsttest: erforderliche Kern Änderungen wurden erfolgreich abgeschlossen.';
 $string['settingsupdated'] = 'Einstellungen aktualisiert';
+$string['completebuttontext'] = 'Markieren Sie vollständige';
+$string['incompletebuttontext'] = 'Markieren Sie unvollständig';
+$string['completebutton'] = 'Komplette Schaltfläche';
 ?>

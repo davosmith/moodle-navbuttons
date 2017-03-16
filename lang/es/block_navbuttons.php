@@ -32,4 +32,7 @@ $string['prevactivity'] = 'Actividad anterior';
 $string['prevbutton'] = 'Bot&oacute;n Previo';
 $string['selftest_ok'] = 'Navbuttons self-test: las modificaciones requeridas se han completado exitosamente';
 $string['settingsupdated'] = 'Configuraci&oacute;n actualizada';
+$string['completebuttontext'] = 'Marca completa';
+$string['incompletebuttontext'] = 'Marcar incompleto';
+$string['completebutton'] = 'Botón completo';
 ?>

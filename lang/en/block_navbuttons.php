@@ -62,3 +62,6 @@ $string['selftest_ok'] = 'Navbuttons self-test: required core modifications have
 $string['settingsupdated'] = 'Settings updated';
 $string['typeicon'] = 'Icon';
 $string['typetext'] = 'Text';
+$string['completebuttontext'] = 'Mark complete';
+$string['incompletebuttontext'] = 'Mark incomplete';
+$string['completebutton'] = 'Complete button';

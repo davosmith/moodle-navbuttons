@@ -63,3 +63,6 @@ $string['selftest_ok'] = 'Auto-test des Boutons de Navigation: les modifications
 $string['settingsupdated'] = 'Réglages enregistrés';
 $string['typeicon'] = 'Icône';
 $string['typetext'] = 'Texte';
+$string['completebuttontext'] = 'Marque complète';
+$string['incompletebuttontext'] = 'Marquer incomplet';
+$string['completebutton'] = 'Bouton complet';

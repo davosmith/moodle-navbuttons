@@ -266,6 +266,8 @@ function draw_navbuttons() {
                                   "extra2", $settings->extra2openin);
     }
 
+    $output .= make_activitycomplete_button();
+
     $output .= '</div>';
     $output .= '<br style="clear:both;" />';
     $output .= $outend;
@@ -330,5 +332,104 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
 
         $output = html_writer::tag('form', $output, array('action' => $url, 'method' => 'get', 'class' => $formclass));
     }
+    return $output;
+}
+
+/**
+ * Create Activity completion buttons
+ *
+ * @return string
+ */
+function make_activitycomplete_button() {
+
+    global $COURSE, $DB, $CFG, $PAGE, $OUTPUT;
+
+    $output = "";
+    $style = "";
+
+    if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
+        return $output;
+    }
+
+    if(!$settings->completebuttonshow) {
+        return $output;
+    }
+
+    $completioninfo = new completion_info($COURSE);
+    $completion = $completioninfo->is_enabled($PAGE->cm);
+    $completiondata = $completioninfo->get_data($PAGE->cm, true);
+
+    $newstate =
+        $completiondata->completionstate == COMPLETION_COMPLETE
+            ? COMPLETION_INCOMPLETE
+            : COMPLETION_COMPLETE;
+
+    $completionBtnText = $completiondata->completionstate == COMPLETION_COMPLETE ? get_string('incompletebuttontext', 'block_navbuttons') : get_string('completebuttontext', 'block_navbuttons');
+
+    if($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
+        $style = 'background-color: '.$settings->backgroundcolour.'; margin-right: 5px';
+        $completionIcon = $completiondata->completionstate == COMPLETION_COMPLETE ? $OUTPUT->pix_url('crossicon', 'block_navbuttons') : $OUTPUT->pix_url('tickicon', 'block_navbuttons');
+    }
+
+    if ($completioninfo->is_enabled()) {
+
+        $stringman = get_string_manager();
+        $strings = $stringman->load_component_strings('block_navbuttons', 'en');
+        $PAGE->requires->strings_for_js(array_keys($strings), 'block_navbuttons');
+
+        $jsmodule = array(
+            'name' => 'block_navbuttons',
+            'fullpath' => new moodle_url('/blocks/navbuttons/custom_navbutton_completion.js')
+        );
+
+        $PAGE->requires->js_init_call('custom_navbutton_completion.init', null, false, $jsmodule);
+
+    }
+
+    if($completion == COMPLETION_TRACKING_MANUAL) {
+
+        // If this completion state is used by the
+        // conditional activities system, we need to turn
+        // off the JS.
+        $extraclass = '';
+        if (!empty($CFG->enableavailability) &&
+            core_availability\info::completion_value_used($COURSE, $PAGE->cm->id)) {
+            $extraclass = ' preventjs';
+        }
+        $output .= html_writer::start_tag('form', array('method' => 'post',
+            'action' => new moodle_url('/course/togglecompletion.php'),
+            'class' => 'togglecompletion navbuttontext'. $extraclass));
+        $output .= html_writer::start_tag('div');
+        $output .= html_writer::empty_tag('input', array(
+            'type' => 'hidden', 'name' => 'id', 'value' => $PAGE->cm->id));
+        $output .= html_writer::empty_tag('input', array(
+            'type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()));
+        $output .= html_writer::empty_tag('input', array(
+            'type' => 'hidden', 'name' => 'modulename', 'value' => $PAGE->cm->name));
+        $output .= html_writer::empty_tag('input', array(
+            'type' => 'hidden', 'name' => 'completionstate', 'value' => $newstate));
+        $output .= html_writer::empty_tag('input', array(
+            'type' => 'hidden', 'name' => 'btntype', 'value' => $settings->buttonstype));
+        if($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
+            $output .= html_writer::empty_tag('input', array(
+                'type' => 'image',
+                'src'  => $completionIcon,
+                'alt'  => $completionBtnText,
+                'class' => 'custom_activity_completion',
+                'title' => $completionBtnText,
+                'style' => $style,
+                'aria-live' => 'polite'));
+        } else {
+            $output .= html_writer::empty_tag('input', array(
+                'type' => 'submit',
+                'value' => $completionBtnText,
+                'class' => 'custom_activity_completion',
+                'style' => $style,
+                'aria-live' => 'polite'));
+        }
+        $output .= html_writer::end_tag('div');
+        $output .= html_writer::end_tag('form');
+    }
+
     return $output;
 }

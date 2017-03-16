@@ -1,11 +1,13 @@
 Navigation buttons (for Moodle 2.x)
 
 This block adds navigation buttons (first/previous/next/etc.) to the bottom of each activity/resource page in a course.
+As an enhancement it also adds completion button ('Mark complete'/'Mark incomplete') to the bottom of each activity/resource page in a course.
 It is based on an idea from Penny Mondani: http://pennymondani.com
 Thanks also to the US company that sponsored the development, who wish to remain anonymous.
 
 Changes:
 
+2017-03-15 - Added enhancement to mark an Acitivity/Resource complete or incomplete from within the activity using text buttons or icons with relevant settings
 2016-05-20 - Minor fix to hide on the new assign grading page (as it doesn't work well there)
 2015-08-05 - Adding block outside of course is no longer a fatal error (but it does nothing useful).
 2014-07-06 - Added 'text button' option, checked M2.7 compatibility, minor styling tweak

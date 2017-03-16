@@ -46,6 +46,7 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         $table->add_field('extra2link', XMLDB_TYPE_TEXT, 'medium', null, null, null, null);
         $table->add_field('extra2title', XMLDB_TYPE_TEXT, 'small', null, null, null, null);
         $table->add_field('extra2openin', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1');
+        $table->add_field('completebuttonshow', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1');
 
         // Adding keys to table navbuttons.
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
