@@ -4,6 +4,7 @@ This block adds navigation buttons (first/previous/next/etc.) to the bottom of e
 As an enhancement it also adds completion button ('Mark complete'/'Mark incomplete') to the bottom of each activity/resource page in a course.
 It is based on an idea from Penny Mondani: http://pennymondani.com
 Thanks also to the US company that sponsored the development, who wish to remain anonymous.
+Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete button" enhancement
 
 Changes:
 

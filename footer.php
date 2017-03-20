@@ -266,7 +266,7 @@ function draw_navbuttons() {
                                   "extra2", $settings->extra2openin);
     }
 
-    $output .= make_activitycomplete_button();
+    $output .= make_activitycomplete_button($settings);
 
     $output .= '</div>';
     $output .= '<br style="clear:both;" />';
@@ -338,20 +338,17 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
 /**
  * Create Activity completion buttons
  *
+ * @param $settings
  * @return string
  */
-function make_activitycomplete_button() {
+function make_activitycomplete_button($settings) {
 
-    global $COURSE, $DB, $CFG, $PAGE, $OUTPUT;
+    global $COURSE, $CFG, $PAGE, $OUTPUT;
 
     $output = "";
     $style = "";
 
-    if (!$settings = $DB->get_record('navbuttons', array('course' => $COURSE->id))) {
-        return $output;
-    }
-
-    if(!$settings->completebuttonshow) {
+    if (!$settings->completebuttonshow) {
         return $output;
     }
 
@@ -359,16 +356,19 @@ function make_activitycomplete_button() {
     $completion = $completioninfo->is_enabled($PAGE->cm);
     $completiondata = $completioninfo->get_data($PAGE->cm, true);
 
-    $newstate =
-        $completiondata->completionstate == COMPLETION_COMPLETE
-            ? COMPLETION_INCOMPLETE
-            : COMPLETION_COMPLETE;
+    $incompletebtntext = get_string('incompletebuttontext', 'block_navbuttons');
+    $completebtntext = get_string('completebuttontext', 'block_navbuttons');
 
-    $completionBtnText = $completiondata->completionstate == COMPLETION_COMPLETE ? get_string('incompletebuttontext', 'block_navbuttons') : get_string('completebuttontext', 'block_navbuttons');
+    $incompletebtnicon = $OUTPUT->pix_url('crossicon', 'block_navbuttons');
+    $completebtnicon = $OUTPUT->pix_url('tickicon', 'block_navbuttons');
 
-    if($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
+    $newstate = ($completiondata->completionstate == COMPLETION_COMPLETE) ? COMPLETION_INCOMPLETE : COMPLETION_COMPLETE;
+
+    $completionbtntext = ($completiondata->completionstate == COMPLETION_COMPLETE)? $incompletebtntext : $completebtntext;
+
+    if ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
         $style = 'background-color: '.$settings->backgroundcolour.'; margin-right: 5px';
-        $completionIcon = $completiondata->completionstate == COMPLETION_COMPLETE ? $OUTPUT->pix_url('crossicon', 'block_navbuttons') : $OUTPUT->pix_url('tickicon', 'block_navbuttons');
+        $completionicon = $completiondata->completionstate == COMPLETION_COMPLETE ? $incompletebtnicon : $completebtnicon;
     }
 
     if ($completioninfo->is_enabled()) {
@@ -382,11 +382,11 @@ function make_activitycomplete_button() {
             'fullpath' => new moodle_url('/blocks/navbuttons/custom_navbutton_completion.js')
         );
 
-        $PAGE->requires->js_init_call('custom_navbutton_completion.init', null, false, $jsmodule);
+        $PAGE->requires->js_init_call('M.custom_navbutton_completion.init', null, false, $jsmodule);
 
     }
 
-    if($completion == COMPLETION_TRACKING_MANUAL) {
+    if ($completion == COMPLETION_TRACKING_MANUAL) {
 
         // If this completion state is used by the
         // conditional activities system, we need to turn
@@ -410,19 +410,19 @@ function make_activitycomplete_button() {
             'type' => 'hidden', 'name' => 'completionstate', 'value' => $newstate));
         $output .= html_writer::empty_tag('input', array(
             'type' => 'hidden', 'name' => 'btntype', 'value' => $settings->buttonstype));
-        if($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
+        if ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
             $output .= html_writer::empty_tag('input', array(
                 'type' => 'image',
-                'src'  => $completionIcon,
-                'alt'  => $completionBtnText,
+                'src'  => $completionicon,
+                'alt'  => $completionbtntext,
                 'class' => 'custom_activity_completion',
-                'title' => $completionBtnText,
+                'title' => $completionbtntext,
                 'style' => $style,
                 'aria-live' => 'polite'));
         } else {
             $output .= html_writer::empty_tag('input', array(
                 'type' => 'submit',
-                'value' => $completionBtnText,
+                'value' => $completionbtntext,
                 'class' => 'custom_activity_completion',
                 'style' => $style,
                 'aria-live' => 'polite'));
