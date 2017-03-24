@@ -379,10 +379,10 @@ function make_activitycomplete_button($settings) {
 
         $jsmodule = array(
             'name' => 'block_navbuttons',
-            'fullpath' => new moodle_url('/blocks/navbuttons/custom_navbutton_completion.js')
+            'fullpath' => new moodle_url('/blocks/navbuttons/completion.js')
         );
 
-        $PAGE->requires->js_init_call('M.custom_navbutton_completion.init', null, false, $jsmodule);
+        $PAGE->requires->js_init_call('M.block_navbuttons.completion.init', null, false, $jsmodule);
 
     }
 

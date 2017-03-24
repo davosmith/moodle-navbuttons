@@ -1,9 +1,9 @@
 /**
  * Created by ishani on 01/03/2017.
  */
-M.custom_navbutton_completion = {};
-
-M.custom_navbutton_completion.init = function(Y) {
+M.block_navbuttons = M.block_navbuttons || {};
+M.block_navbuttons.completion = {};
+M.block_navbuttons.completion.init = function(Y) {
 
     var handle_success = function (id, o, args) {
 
@@ -25,8 +25,9 @@ M.custom_navbutton_completion.init = function(Y) {
                     args.image.set('src', M.util.image_url('crossicon', 'block_navbuttons'));
                     args.image.set('alt', altstr);
                     args.image.set('title', titlestr);
+                } else {
+                    args.submit.set('value', altstr);
                 }
-                args.submit.set('value', altstr);
             } else {
                 altstr = M.util.get_string('completebuttontext', 'block_navbuttons');
                 titlestr = M.util.get_string('completebuttontext', 'block_navbuttons');
@@ -35,8 +36,9 @@ M.custom_navbutton_completion.init = function(Y) {
                     args.image.set('src', M.util.image_url('tickicon', 'block_navbuttons'));
                     args.image.set('alt', altstr);
                     args.image.set('title', titlestr);
+                } else {
+                    args.submit.set('value', altstr);
                 }
-                args.submit.set('value', altstr);
             }
         }
 
