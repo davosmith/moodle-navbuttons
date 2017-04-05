@@ -99,6 +99,9 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->disabledIf('lastbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'lastbuttontype', get_string('buttontype', 'block_navbuttons'), $lasttypes);
 
+        $mform->addElement('header', 'completebutton', get_string('completebutton', 'block_navbuttons'));
+        $mform->addElement('select', 'completebuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
+
         $openin = array(
             BLOCK_NAVBUTTONS_SAMEWINDOW => get_string('linktargettop', 'editor'),
             BLOCK_NAVBUTTONS_NEWWINDOW => get_string('linktargetblank', 'editor')
@@ -172,6 +175,7 @@ $defaults->extra2show = $settings->extra2show;
 $defaults->extra2link = $settings->extra2link;
 $defaults->extra2title = $settings->extra2title;
 $defaults->extra2openin = $settings->extra2openin;
+$defaults->completebuttonshow = $settings->completebuttonshow;
 
 $draftitemid = file_get_submitted_draft_itemid('homebuttonicon');
 file_prepare_draft_area($draftitemid, $context->id, 'block_navbuttons', 'icons', BLOCK_NAVBUTTONS_HOMEICON, array(
@@ -239,6 +243,7 @@ if ($data = $mform->get_data() and $data->action == 'savesettings') {
     $update->extra2link = $data->extra2link;
     $update->extra2title = $data->extra2title;
     $update->extra2openin = $data->extra2openin;
+    $update->completebuttonshow = $data->completebuttonshow;
 
     file_save_draft_area_files($data->homebuttonicon, $context->id, 'block_navbuttons', 'icons', BLOCK_NAVBUTTONS_HOMEICON, array(
         'subdirs' => 0, 'maxfiles' => 1

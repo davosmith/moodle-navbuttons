@@ -74,5 +74,20 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2014070601, 'navbuttons');
     }
 
+    if ($oldversion < 2017030600) {
+
+        // Define field completebuttonshow to be added to navbuttons.
+        $table = new xmldb_table('navbuttons');
+        $field = new xmldb_field('completebuttonshow', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1', 'extra2openin');
+
+        // Conditionally launch add field completebuttonshow.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Navbuttons savepoint reached.
+        upgrade_block_savepoint(true, 2017030600, 'navbuttons');
+    }
+
     return true;
 }

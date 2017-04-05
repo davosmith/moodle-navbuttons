@@ -27,7 +27,8 @@
         <FIELD NAME="extra2show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="extra1openin" NEXT="extra2link"/>
         <FIELD NAME="extra2link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2show" NEXT="extra2title"/>
         <FIELD NAME="extra2title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2link" NEXT="extra2openin"/>
-        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2title"/>
+        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2title" NEXT="completebuttonshow"/>
+        <FIELD NAME="completebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2openin"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
