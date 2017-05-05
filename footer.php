@@ -285,7 +285,7 @@ function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour
         $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
 
         if (empty($files)) {
-            return array($defaulturl, $bgcolour);
+            return array($defaulturl, $customusebackground ? $bgcolour : false);
         }
 
         $file = reset($files);
