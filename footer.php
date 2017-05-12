@@ -88,8 +88,14 @@ function draw_navbuttons() {
         }
 
         if ($CFG->version >= 2012120300) { // Moodle 2.4.
-            $opts = course_get_format($COURSE)->get_format_options();
-            if ($opts['numsections'] && $mod->sectionnum > $opts['numsections']) {
+            $format = course_get_format($COURSE);
+            if (method_exists($format, 'get_last_section_number')) {
+                $numsections = $format->get_last_section_number();
+            } else {
+                $opts = course_get_format($COURSE)->get_format_options();
+                $numsections = isset($opts['numsections']) ? $opts['numsections'] : 0;
+            }
+            if ($numsections && $mod->sectionnum > $numsections) {
                 break;
             }
         } else {
@@ -279,7 +285,7 @@ function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour
     global $OUTPUT;
 
     if ($buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
-        $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
+        $defaulturl = $OUTPUT->image_url($default.'icon', 'block_navbuttons');
 
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
@@ -359,8 +365,8 @@ function make_activitycomplete_button($settings) {
     $incompletebtntext = get_string('incompletebuttontext', 'block_navbuttons');
     $completebtntext = get_string('completebuttontext', 'block_navbuttons');
 
-    $incompletebtnicon = $OUTPUT->pix_url('crossicon', 'block_navbuttons');
-    $completebtnicon = $OUTPUT->pix_url('tickicon', 'block_navbuttons');
+    $incompletebtnicon = $OUTPUT->image_url('crossicon', 'block_navbuttons');
+    $completebtnicon = $OUTPUT->image_url('tickicon', 'block_navbuttons');
 
     $newstate = ($completiondata->completionstate == COMPLETION_COMPLETE) ? COMPLETION_INCOMPLETE : COMPLETION_COMPLETE;
 

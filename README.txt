@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2017-05-12 - Moodle 3.3 compatibility fix
 2017-03-15 - Added enhancement to mark an Acitivity/Resource complete or incomplete from within the activity using text buttons or icons with relevant settings
 2016-05-20 - Minor fix to hide on the new assign grading page (as it doesn't work well there)
 2015-08-05 - Adding block outside of course is no longer a fatal error (but it does nothing useful).
