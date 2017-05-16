@@ -44,7 +44,7 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            if ($coursecontext = $this->context->get_course_context()) {
+            if ($coursecontext = $this->context->get_course_context(false)) {
                 $courseid = $coursecontext->instanceid;
             }
         }
@@ -64,7 +64,7 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            if ($coursecontext = $this->context->get_course_context()) {
+            if ($coursecontext = $this->context->get_course_context(false)) {
                 $courseid = $coursecontext->instanceid;
             }
         }
@@ -97,7 +97,7 @@ class block_navbuttons extends block_base {
         if ($CFG->version < 2012120300) {
             $courseid = get_courseid_from_context($this->context);
         } else {
-            if ($coursecontext = $this->context->get_course_context()) {
+            if ($coursecontext = $this->context->get_course_context(false)) {
                 $courseid = $coursecontext->instanceid;
             }
         }
