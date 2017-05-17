@@ -282,10 +282,14 @@ function draw_navbuttons() {
 }
 
 function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour, $customusebackground) {
-    global $OUTPUT;
+    global $OUTPUT, $CFG;
 
     if ($buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
-        $defaulturl = $OUTPUT->image_url($default.'icon', 'block_navbuttons');
+        if ($CFG->branch < 33) {
+            $defaulturl = $OUTPUT->pix_url($default.'icon', 'block_navbuttons');
+        } else {
+            $defaulturl = $OUTPUT->image_url($default.'icon', 'block_navbuttons');
+        }
 
         $fs = get_file_storage();
         $files = $fs->get_area_files($context->id, 'block_navbuttons', 'icons', $iconid, '', false);
@@ -365,8 +369,13 @@ function make_activitycomplete_button($settings) {
     $incompletebtntext = get_string('incompletebuttontext', 'block_navbuttons');
     $completebtntext = get_string('completebuttontext', 'block_navbuttons');
 
-    $incompletebtnicon = $OUTPUT->image_url('crossicon', 'block_navbuttons');
-    $completebtnicon = $OUTPUT->image_url('tickicon', 'block_navbuttons');
+    if ($CFG->branch < 33) {
+        $incompletebtnicon = $OUTPUT->pix_url('crossicon', 'block_navbuttons');
+        $completebtnicon = $OUTPUT->pix_url('tickicon', 'block_navbuttons');
+    } else {
+        $incompletebtnicon = $OUTPUT->image_url('crossicon', 'block_navbuttons');
+        $completebtnicon = $OUTPUT->image_url('tickicon', 'block_navbuttons');
+    }
 
     $newstate = ($completiondata->completionstate == COMPLETION_COMPLETE) ? COMPLETION_INCOMPLETE : COMPLETION_COMPLETE;
 
