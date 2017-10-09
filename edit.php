@@ -40,6 +40,7 @@ class block_navbuttons_edit_form extends moodleform {
         $typeopts = array(
             BLOCK_NAVBUTTONS_TYPE_ICON => get_string('typeicon', 'block_navbuttons'),
             BLOCK_NAVBUTTONS_TYPE_TEXT => get_string('typetext', 'block_navbuttons'),
+            BLOCK_NAVBUTTONS_TYPE_TEXT_SIMPLE => get_string('typetext_simple', 'block_navbuttons'),
         );
         $mform->addElement('select', 'buttonstype', get_string('buttonstype', 'block_navbuttons'), $typeopts);
         $mform->setDefault('buttonstype', BLOCK_NAVBUTTONS_TYPE_ICON);

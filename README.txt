@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2017-10-09 - Add 'simplified text' option (removes the word 'activity' and the name of the activity).
 2017-05-17 - Fix problems with earlier versions of Moodle caused by M3.3 compatibility
 2017-05-12 - Moodle 3.3 compatibility fix
 2017-03-15 - Added enhancement to mark an Acitivity/Resource complete or incomplete from within the activity using text buttons or icons with relevant settings

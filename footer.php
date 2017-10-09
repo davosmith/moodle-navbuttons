@@ -81,6 +81,7 @@ function draw_navbuttons() {
     $flag = false;
     $sectionflag = false;
     $previousmod = null;
+    $simple = ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_TEXT_SIMPLE);
 
     foreach ($modinfo->cms as $mod) {
         if ($mod->modname == 'label') {
@@ -190,14 +191,22 @@ function draw_navbuttons() {
             if (!$firstcourse) {
                 $first = false;
             } else {
-                $first->name = get_string('firstcourse', 'block_navbuttons').': '.$firstcourse->name;
+                if ($simple) {
+                    $first->name = get_string('firstcourse_simple', 'block_navbuttons');
+                } else {
+                    $first->name = get_string('firstcourse', 'block_navbuttons').': '.$firstcourse->name;
+                }
                 $first->link = $firstcourse->link;
             }
         } else if ($settings->firstbuttontype == BLOCK_NAVBUTTONS_FIRST_IN_SECTION) {
             if (!$firstsection) {
                 $first = false;
             } else {
-                $first->name = get_string('firstsection', 'block_navbuttons').': '.$firstsection->name;
+                if ($simple) {
+                    $first->name = get_string('firstsection_simple', 'block_navbuttons');
+                } else {
+                    $first->name = get_string('firstsection', 'block_navbuttons').': '.$firstsection->name;
+                }
                 $first->link = $firstsection->link;
             }
         } else {
@@ -214,15 +223,23 @@ function draw_navbuttons() {
     if ($settings->prevbuttonshow && $prev) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'prev', $context, BLOCK_NAVBUTTONS_PREVICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity', 'block_navbuttons').': '.$prev->name,
-                                  $prev->link, "prev");
+        if ($simple) {
+            $str = get_string('prevactivity_simple', 'block_navbuttons');
+        } else {
+            $str = get_string('prevactivity', 'block_navbuttons').': '.$prev->name;
+        }
+        $output .= make_navbutton($icon, $bgcolour, $str, $prev->link, "prev");
     }
 
     if ($settings->nextbuttonshow && $next) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'next', $context, BLOCK_NAVBUTTONS_NEXTICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity', 'block_navbuttons').': '.$next->name,
-                                  $next->link, "next");
+        if ($simple) {
+            $str = get_string('nextactivity_simple', 'block_navbuttons');
+        } else {
+            $str = get_string('nextactivity', 'block_navbuttons').': '.$next->name;
+        }
+        $output .= make_navbutton($icon, $bgcolour, $str, $next->link, "next");
     }
 
     if ($settings->lastbuttonshow) {
@@ -231,14 +248,22 @@ function draw_navbuttons() {
             if (!$lastcourse) {
                 $last = false;
             } else {
-                $last->name = get_string('lastcourse', 'block_navbuttons').': '.$lastcourse->name;
+                if ($simple) {
+                    $last->name = get_string('lastcourse_simple', 'block_navbuttons');
+                } else {
+                    $last->name = get_string('lastcourse', 'block_navbuttons').': '.$lastcourse->name;
+                }
                 $last->link = $lastcourse->link;
             }
         } else if ($settings->lastbuttontype == BLOCK_NAVBUTTONS_LAST_IN_SECTION) {
             if (!$lastsection) {
                 $last = false;
             } else {
-                $last->name = get_string('lastsection', 'block_navbuttons').': '.$lastsection->name;
+                if ($simple) {
+                    $last->name = get_string('lastsection_simple', 'block_navbuttons');
+                } else {
+                    $last->name = get_string('lastsection', 'block_navbuttons').': '.$lastsection->name;
+                }
                 $last->link = $lastsection->link;
             }
         } else {
