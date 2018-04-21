@@ -66,6 +66,7 @@ $string['pluginname'] = 'Navigation Buttons';
 $string['prevactivity'] = 'Previous activity';
 $string['prevactivity_simple'] = 'Previous';
 $string['prevbutton'] = 'Previous button';
+$string['privacy:null_reason'] = 'The navigation buttons block does not store or display any personal information.';
 $string['selftest_nofooter'] = 'Navbutton self-test: The line "$output = draw_navbuttons().$this->container_end_all(true);" has not been correctly added to outputrenderers.php - see README.txt for further instructions';
 $string['selftest_ok'] = 'Navbuttons self-test: required core modifications have been completed successfully';
 $string['settingsupdated'] = 'Settings updated';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+// This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,11 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * GDPR declaration
+ *
+ * @package   block_navbuttons
+ * @copyright 2018 Davo Smith
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace block_navbuttons\privacy;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018042100;
-$plugin->release = '3.4+ (Build: 2017100900)';
-$plugin->requires = 2017111300; // Moodle 3.4
-$plugin->cron = 0;
-$plugin->component = 'block_navbuttons';
-$plugin->maturity = MATURITY_STABLE;
+class provider implements \core_privacy\local\metadata\null_provider {
+    public static function get_reason() : string {
+        return 'privacy:null_reason';
+    }
+}
