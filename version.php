@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -19,7 +18,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2018042100;
 $plugin->release = '3.4+ (Build: 2017100900)';
-$plugin->requires = 2017111300; // Moodle 3.4
+$plugin->requires = 2017111300; // Moodle 3.4.
 $plugin->cron = 0;
 $plugin->component = 'block_navbuttons';
 $plugin->maturity = MATURITY_STABLE;

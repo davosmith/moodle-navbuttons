@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea, $args, $forcedownload) {
     if ($context->contextlevel != CONTEXT_COURSE) {
         send_file_not_found();

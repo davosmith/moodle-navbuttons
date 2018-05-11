@@ -14,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 define("BLOCK_NAVBUTTONS_HOME_FRONTPAGE", 1);
 define("BLOCK_NAVBUTTONS_HOME_COURSE", 2);
 

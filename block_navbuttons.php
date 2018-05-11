@@ -14,20 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+defined('MOODLE_INTERNAL') || die();
+
 class block_navbuttons extends block_base {
-    function init() {
+    public function init() {
         $this->title = get_string('navbuttons', 'block_navbuttons');
     }
 
-    function applicable_formats() {
+    public function applicable_formats() {
         return array('course' => true, 'course-category' => false, 'site' => true);
     }
 
-    function has_config() {
+    public function has_config() {
         return true;
     }
 
-    function get_content() {
+    public function get_content() {
         global $CFG;
 
         if (!has_capability('moodle/course:manageactivities', $this->context)) {
@@ -58,7 +60,7 @@ class block_navbuttons extends block_base {
         return $this->content;
     }
 
-    function instance_create() {
+    public function instance_create() {
         global $DB, $CFG;
 
         if ($CFG->version < 2012120300) {
@@ -91,7 +93,7 @@ class block_navbuttons extends block_base {
         return;
     }
 
-    function instance_delete() {
+    public function instance_delete() {
         global $DB, $CFG;
 
         if ($CFG->version < 2012120300) {
@@ -115,6 +117,5 @@ class block_navbuttons extends block_base {
                 $DB->update_record('navbuttons', $updsettings);
             }
         }
-        return;
     }
 }

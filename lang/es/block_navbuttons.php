@@ -1,4 +1,18 @@
 <?php
+// This file is part of the Navigation buttons plugin for Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 $string['backgroundcolour'] = 'Color del Icono (Cualquier color v&aacute;lido en HTML)';
 $string['buttonicon'] = 'Cargue un icono personalizado (deje en blanco por omisi&oacute;n)';
@@ -35,4 +49,3 @@ $string['prevactivity'] = 'Actividad anterior';
 $string['prevbutton'] = 'Bot&oacute;n Previo';
 $string['selftest_ok'] = 'Navbuttons self-test: las modificaciones requeridas se han completado exitosamente';
 $string['settingsupdated'] = 'Configuraci&oacute;n actualizada';
-?>

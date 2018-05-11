@@ -14,8 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once(dirname(__FILE__).'/definitions.php');
-require_once(dirname(__FILE__).'/activityready.php');
+defined('MOODLE_INTERNAL') || die();
+
+require_once(__DIR__.'/definitions.php');
+require_once(__DIR__.'/activityready.php');
 
 function draw_navbuttons() {
     global $COURSE, $DB, $CFG, $PAGE;
@@ -44,22 +46,16 @@ function draw_navbuttons() {
         return $output.'<!-- Activity not ready for navbuttons -->'.$outend;
     }
 
-    if ($CFG->branch >= 31) {
-        if ($PAGE->cm->modname == 'assign') {
-            if (optional_param('action', null, PARAM_ALPHA) == 'grader') {
-                return $output.'<!-- Navbuttons do not work with activity grading layout -->'.$outend;
-            }
+    if ($PAGE->cm->modname === 'assign') {
+        if (optional_param('action', null, PARAM_ALPHA) === 'grader') {
+            return $output.'<!-- Navbuttons do not work with activity grading layout -->'.$outend;
         }
     }
 
     $cmid = $PAGE->cm->id;
 
     $modinfo = get_fast_modinfo($COURSE);
-    if ($CFG->version < 2011120100) {
-        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
-    } else {
-        $context = context_course::instance($COURSE->id);
-    }
+    $context = context_course::instance($COURSE->id);
     $sections = $DB->get_records('course_sections', array('course' => $COURSE->id), 'section', 'section,visible,summary');
 
     /** @var object|null $next */
@@ -81,10 +77,10 @@ function draw_navbuttons() {
     $flag = false;
     $sectionflag = false;
     $previousmod = null;
-    $simple = ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_TEXT_SIMPLE);
+    $simple = ($settings->buttonstype === BLOCK_NAVBUTTONS_TYPE_TEXT_SIMPLE);
 
     foreach ($modinfo->cms as $mod) {
-        if ($mod->modname == 'label') {
+        if ($mod->modname === 'label') {
             continue;
         }
 
@@ -163,10 +159,10 @@ function draw_navbuttons() {
         }
         $lastcourse = $previousmod;
     }
-    if ($firstcourse == 'none') {
+    if ($firstcourse === 'none') {
         $firstcourse = false;
     }
-    if ($lastsection == 'none') {
+    if ($lastsection === 'none') {
         $lastsection = false;
     }
 
@@ -328,9 +324,9 @@ function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour
         $iconurl = moodle_url::make_pluginfile_url($context->id, 'block_navbuttons', 'icons', $iconid, '/', $iconfilename);
 
         return array($iconurl, $customusebackground ? $bgcolour : false);
-    } else {
-        return array(null, false); // Do not use an icon.
     }
+
+    return array(null, false); // Do not use an icon.
 }
 
 function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $newwindow = false) {
@@ -404,7 +400,7 @@ function make_activitycomplete_button($settings) {
 
     $newstate = ($completiondata->completionstate == COMPLETION_COMPLETE) ? COMPLETION_INCOMPLETE : COMPLETION_COMPLETE;
 
-    $completionbtntext = ($completiondata->completionstate == COMPLETION_COMPLETE)? $incompletebtntext : $completebtntext;
+    $completionbtntext = ($completiondata->completionstate == COMPLETION_COMPLETE) ? $incompletebtntext : $completebtntext;
 
     if ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
         $style = 'background-color: '.$settings->backgroundcolour.'; margin-right: 5px';
@@ -436,36 +432,45 @@ function make_activitycomplete_button($settings) {
             core_availability\info::completion_value_used($COURSE, $PAGE->cm->id)) {
             $extraclass = ' preventjs';
         }
-        $output .= html_writer::start_tag('form', array('method' => 'post',
+        $output .= html_writer::start_tag('form', array(
+            'method' => 'post',
             'action' => new moodle_url('/course/togglecompletion.php'),
-            'class' => 'togglecompletion navbuttontext'. $extraclass));
+            'class' => 'togglecompletion navbuttontext'.$extraclass
+        ));
         $output .= html_writer::start_tag('div');
         $output .= html_writer::empty_tag('input', array(
-            'type' => 'hidden', 'name' => 'id', 'value' => $PAGE->cm->id));
+            'type' => 'hidden', 'name' => 'id', 'value' => $PAGE->cm->id
+        ));
         $output .= html_writer::empty_tag('input', array(
-            'type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()));
+            'type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()
+        ));
         $output .= html_writer::empty_tag('input', array(
-            'type' => 'hidden', 'name' => 'modulename', 'value' => $PAGE->cm->name));
+            'type' => 'hidden', 'name' => 'modulename', 'value' => $PAGE->cm->name
+        ));
         $output .= html_writer::empty_tag('input', array(
-            'type' => 'hidden', 'name' => 'completionstate', 'value' => $newstate));
+            'type' => 'hidden', 'name' => 'completionstate', 'value' => $newstate
+        ));
         $output .= html_writer::empty_tag('input', array(
-            'type' => 'hidden', 'name' => 'btntype', 'value' => $settings->buttonstype));
+            'type' => 'hidden', 'name' => 'btntype', 'value' => $settings->buttonstype
+        ));
         if ($settings->buttonstype == BLOCK_NAVBUTTONS_TYPE_ICON) {
             $output .= html_writer::empty_tag('input', array(
                 'type' => 'image',
-                'src'  => $completionicon,
-                'alt'  => $completionbtntext,
+                'src' => $completionicon,
+                'alt' => $completionbtntext,
                 'class' => 'custom_activity_completion',
                 'title' => $completionbtntext,
                 'style' => $style,
-                'aria-live' => 'polite'));
+                'aria-live' => 'polite'
+            ));
         } else {
             $output .= html_writer::empty_tag('input', array(
                 'type' => 'submit',
                 'value' => $completionbtntext,
                 'class' => 'custom_activity_completion',
                 'style' => $style,
-                'aria-live' => 'polite'));
+                'aria-live' => 'polite'
+            ));
         }
         $output .= html_writer::end_tag('div');
         $output .= html_writer::end_tag('form');
