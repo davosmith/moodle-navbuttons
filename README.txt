@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2019-10-18 - Fix compatibility with latest version of mod_questionnaire
 2018-04-21 - Add GDPR declaration (no personal data stored). This requires M3.4 to work.
 2017-10-09 - Add 'simplified text' option (removes the word 'activity' and the name of the activity).
 2017-05-17 - Fix problems with earlier versions of Moodle caused by M3.3 compatibility
