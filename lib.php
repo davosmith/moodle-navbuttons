@@ -38,3 +38,9 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
 
     send_stored_file($file, 60 * 60, 0, $forcedownload);
 }
+
+function block_navbuttons_before_footer() {
+    global $CFG;
+    require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');
+    return draw_navbuttons();
+}
