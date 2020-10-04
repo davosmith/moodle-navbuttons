@@ -52,6 +52,10 @@ function draw_navbuttons() {
         }
     }
 
+    if ($PAGE->pagetype === 'filter-embedquestion-showquestion') {
+        return $output.'<!-- No navbuttons in embedded question iframe -->'.$outend;
+    }
+
     $cmid = $PAGE->cm->id;
 
     $modinfo = get_fast_modinfo($COURSE);
