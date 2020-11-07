@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2020-11-07 - If running Moodle 3.10, or above, you no longer need core changes to make this work
 2020-04-10 - Do not show navbuttons on embedded questions
 2019-10-18 - Fix compatibility with latest version of mod_questionnaire
 2018-04-21 - Add GDPR declaration (no personal data stored). This requires M3.4 to work.
@@ -33,7 +34,7 @@ Installation:
 2. On your server, in the 'blocks' folder, create a subfolder called 'navbuttons'
 3. Upload all the files inside the 'davosmith-moodle-navbuttons-???????' folder to this new 'navbuttons' folder on your server.
 4. Log in to your Moodle site as an administrator and click on the 'Notifications' option in the Admin settings block.
-5. You need to edit one Moodle core file to make this work:
+5. If you are running a version of Moodle earlier than *3.10*, then you need to edit one Moodle core file to make this work:
 
 Find the file 'moodle/lib/outputrenderers.php'.
 Find the line:
@@ -45,6 +46,8 @@ REPLACE the line you found with this code:
 
 require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');  // Add this line to enable the navigation buttons
 $output = draw_navbuttons().$this->container_end_all(true);   // Change this line to enable the navigation buttons
+
+** DO NOT MAKE THE ABOVE CHANGE IF YOU ARE RUNNING MOODLE 3.10 (or higher) - it is no longer needed **
 
 6. Add the block to a course (turn editing on, select 'Navigation Buttons' from the 'Blocks - Add' menu)
 7. Customise the button appearance by clicking on 'Edit the Navigation Button settings' in the newly created block.
