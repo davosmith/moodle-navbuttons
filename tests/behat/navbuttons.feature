@@ -1,3 +1,4 @@
+@block @block_navbuttons
 Feature: I can use navigation buttons to navigate through a course in Moodle
 
   Background:

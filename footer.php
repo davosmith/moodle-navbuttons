@@ -14,11 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Page footer output
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once(__DIR__.'/definitions.php');
 require_once(__DIR__.'/activityready.php');
 
+/**
+ * Draw the buttons.
+ * @return string
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
+ */
 function draw_navbuttons() {
     global $COURSE, $DB, $CFG, $PAGE;
 
@@ -305,6 +320,17 @@ function draw_navbuttons() {
     return $output;
 }
 
+/**
+ * Generate the button details
+ * @param string $buttonstype
+ * @param string $default
+ * @param context $context
+ * @param int $iconid
+ * @param string $bgcolour
+ * @param bool $customusebackground
+ * @return array
+ * @throws coding_exception
+ */
 function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour, $customusebackground) {
     global $OUTPUT, $CFG;
 
@@ -332,6 +358,16 @@ function navbutton_get_icon($buttonstype, $default, $context, $iconid, $bgcolour
     return array(null, false); // Do not use an icon.
 }
 
+/**
+ * Generate HTML for a single button.
+ * @param string $imgsrc
+ * @param string $bgcolour
+ * @param string $title
+ * @param string $url
+ * @param string|null $classes
+ * @param bool $newwindow
+ * @return string
+ */
 function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $newwindow = false) {
     $url = preg_replace('/[\'"<>]/', '', $url);
     $bgcolour = preg_replace('/[^a-zA-Z0-9#]/', '', $bgcolour);
@@ -372,7 +408,7 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
 /**
  * Create Activity completion buttons
  *
- * @param $settings
+ * @param object $settings
  * @return string
  */
 function make_activitycomplete_button($settings) {

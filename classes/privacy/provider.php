@@ -26,7 +26,15 @@ namespace block_navbuttons\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Class provider
+ * @package block_navbuttons
+ */
 class provider implements \core_privacy\local\metadata\null_provider {
+    /**
+     * Explain why no user data is stored.
+     * @return string
+     */
     public static function get_reason() : string {
         return 'privacy:null_reason';
     }

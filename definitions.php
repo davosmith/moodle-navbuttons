@@ -14,30 +14,58 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Define statements
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
+/** Home button to front page */
 define("BLOCK_NAVBUTTONS_HOME_FRONTPAGE", 1);
+/** Home button to course */
 define("BLOCK_NAVBUTTONS_HOME_COURSE", 2);
 
+/** First goes to course page */
 define("BLOCK_NAVBUTTONS_FIRST_COURSE", 1);
+/** First goes to first activity in course */
 define("BLOCK_NAVBUTTONS_FIRST_IN_COURSE", 2);
+/** First goes to first activity in section */
 define("BLOCK_NAVBUTTONS_FIRST_IN_SECTION", 3);
 
+/** Last goes to course page */
 define("BLOCK_NAVBUTTONS_LAST_COURSE", 1);
+/** Last goes to last activity in course */
 define("BLOCK_NAVBUTTONS_LAST_IN_COURSE", 2);
+/** Last goes to last activity in section */
 define("BLOCK_NAVBUTTONS_LAST_IN_SECTION", 3);
 
+/** Open in new window */
 define("BLOCK_NAVBUTTONS_NEWWINDOW", 1);
+/** Open in same window */
 define("BLOCK_NAVBUTTONS_SAMEWINDOW", 0);
 
+/** Home icon */
 define("BLOCK_NAVBUTTONS_HOMEICON", 0);
+/** First icon */
 define("BLOCK_NAVBUTTONS_FIRSTICON", 1);
+/** Previous icon */
 define("BLOCK_NAVBUTTONS_PREVICON", 2);
+/** Next icon */
 define("BLOCK_NAVBUTTONS_NEXTICON", 3);
+/** Last icon */
 define("BLOCK_NAVBUTTONS_LASTICON", 4);
+/** Extra icon 1 */
 define("BLOCK_NAVBUTTONS_EXTRA1ICON", 5);
+/** Extra icon 2 */
 define("BLOCK_NAVBUTTONS_EXTRA2ICON", 6);
 
+/** Button type: icon */
 define("BLOCK_NAVBUTTONS_TYPE_ICON", 'icon');
+/** Button type: text */
 define("BLOCK_NAVBUTTONS_TYPE_TEXT", 'text');
+/** Button type: simple */
 define("BLOCK_NAVBUTTONS_TYPE_TEXT_SIMPLE", 'simple');

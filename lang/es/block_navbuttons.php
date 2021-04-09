@@ -13,6 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * Spanish language strings
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 $string['backgroundcolour'] = 'Color del Icono (Cualquier color v&aacute;lido en HTML)';
 $string['buttonicon'] = 'Cargue un icono personalizado (deje en blanco por omisi&oacute;n)';

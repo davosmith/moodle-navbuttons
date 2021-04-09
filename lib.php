@@ -14,8 +14,26 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Moodle API functions
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Serve requested files
+ * @param object $course
+ * @param object $birecordorcm
+ * @param context $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
+ * @throws coding_exception
+ */
 function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea, $args, $forcedownload) {
     if ($context->contextlevel != CONTEXT_COURSE) {
         send_file_not_found();
@@ -39,6 +57,10 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
     send_stored_file($file, 60 * 60, 0, $forcedownload);
 }
 
+/**
+ * Output the navigation buttons before the page footer.
+ * @return string
+ */
 function block_navbuttons_before_footer() {
     global $CFG;
     require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');

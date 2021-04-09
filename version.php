@@ -14,10 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Version information
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2020110700;
-$plugin->release = '3.4+ (Build: 2020110700)';
+$plugin->version = 2021040900;
+$plugin->release = '3.4+ (Build: 2021040900)';
 $plugin->requires = 2017111300; // Moodle 3.4.
 $plugin->cron = 0;
 $plugin->component = 'block_navbuttons';

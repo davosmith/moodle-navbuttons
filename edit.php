@@ -14,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit settings
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 
 global $CFG, $DB, $PAGE, $OUTPUT;
@@ -29,7 +37,14 @@ require_login($course);
 $context = context_course::instance($course->id);
 require_capability('moodle/course:manageactivities', $context);
 
+/**
+ * Class block_navbuttons_edit_form
+ */
 class block_navbuttons_edit_form extends moodleform {
+    /**
+     * Form definition
+     * @throws coding_exception
+     */
     protected function definition() {
         $mform = $this->_form;
         $showhide = array(1 => get_string('show'), 0 => get_string('hide'));
@@ -301,6 +316,12 @@ if ($CFG->navbuttons_self_test == 1) { // Footer.php not called at all.
 
 echo $footer;
 
+/**
+ * Output a header for the settings
+ * @param object $course
+ * @throws coding_exception
+ * @throws moodle_exception
+ */
 function block_navbutton_settings_header($course) {
     global $PAGE, $OUTPUT;
 

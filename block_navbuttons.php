@@ -14,21 +14,50 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Main block class
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Class block_navbuttons
+ */
 class block_navbuttons extends block_base {
+    /**
+     * Initialise the block instance
+     * @throws coding_exception
+     */
     public function init() {
         $this->title = get_string('navbuttons', 'block_navbuttons');
     }
 
+    /**
+     * Where can this block appear?
+     * @return array
+     */
     public function applicable_formats() {
         return array('course' => true, 'course-category' => false, 'site' => true);
     }
 
+    /**
+     * Does this block allow configuration?
+     * @return bool
+     */
     public function has_config() {
         return true;
     }
 
+    /**
+     * Get the content for the block
+     * @return stdClass|null
+     * @throws coding_exception
+     * @throws moodle_exception
+     */
     public function get_content() {
         global $CFG;
 
@@ -60,6 +89,12 @@ class block_navbuttons extends block_base {
         return $this->content;
     }
 
+    /**
+     * New instance added
+     * @return bool|void
+     * @throws coding_exception
+     * @throws dml_exception
+     */
     public function instance_create() {
         global $DB, $CFG;
 
@@ -93,6 +128,12 @@ class block_navbuttons extends block_base {
         return;
     }
 
+    /**
+     * Instance deleted
+     * @return bool|void
+     * @throws coding_exception
+     * @throws dml_exception
+     */
     public function instance_delete() {
         global $DB, $CFG;
 

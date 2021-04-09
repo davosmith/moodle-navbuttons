@@ -14,11 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Check if activity is ready to show buttons.
+ *
+ * @copyright Davo Smith <moodle@davosmith.co.uk>
+ * @package block_navbuttons
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
+/** Always show navigation buttons for this activity */
 define('NAVBUTTONS_ACTIVITY_ALWAYS', 0);
+/** Show buttons when activity complete */
 define('NAVBUTTONS_ACTIVITY_COMPLETE', 1);
+/** Show buttons via custom rules for this activity */
 define('NAVBUTTONS_ACTIVITY_CUSTOM', 2);
+/** Never show activity buttons for this activity */
 define('NAVBUTTONS_ACTIVITY_NEVER', 3);
 
 /**
@@ -64,6 +76,7 @@ function navbuttons_activity_showbuttons($cm) {
 }
 
 /**
+ * Custom rule for mod_assignment buttons.
  * @param cm_info $cm
  * @return bool
  */
@@ -106,7 +119,8 @@ function navbuttons_mod_assignment_showbuttons($cm) {
 }
 
 /**
- * @param $cm
+ * Custom rule for mod_choice.
+ * @param object $cm
  * @return bool
  */
 function navbuttons_mod_choice_showbuttons($cm) {
@@ -118,7 +132,8 @@ function navbuttons_mod_choice_showbuttons($cm) {
 }
 
 /**
- * @param $cm
+ * Custom rule for mod_quiz.
+ * @param object $cm
  * @return bool
  */
 function navbuttons_mod_quiz_showbuttons($cm) {
@@ -135,7 +150,8 @@ function navbuttons_mod_quiz_showbuttons($cm) {
 }
 
 /**
- * @param $cm
+ * Custom rule for mod_questionnaire.
+ * @param object $cm
  * @return bool
  */
 function navbuttons_mod_questionnaire_showbuttons($cm) {
