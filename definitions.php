@@ -22,6 +22,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+global $CFG; // Fix codechecker complaining whether or not the MOODLE_INTERNAL check is present.
+
 /** Home button to front page */
 define("BLOCK_NAVBUTTONS_HOME_FRONTPAGE", 1);
 /** Home button to course */
