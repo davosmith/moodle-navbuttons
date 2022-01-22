@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2022-01-22 - Minor M4.0 compatibility fixes
 2021-04-09 - Minor internal documentation updates, switch to Github actions (from Travis)
 2020-11-07 - If running Moodle 3.10, or above, you no longer need core changes to make this work
 2020-04-10 - Do not show navbuttons on embedded questions
