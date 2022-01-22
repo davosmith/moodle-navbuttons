@@ -31,7 +31,7 @@ Feature: I can use navigation buttons to navigate through a course in Moodle
 
     When I follow "Test forum 1"
     Then I should see "Test forum 1"
-    And I should see "Add a new discussion topic"
+    And I should see "discussion topic"
     And "#navbuttons .prev" "css_element" should not exist
     And "#navbuttons .next" "css_element" should exist
 
@@ -48,24 +48,24 @@ Feature: I can use navigation buttons to navigate through a course in Moodle
     And "#navbuttons .next" "css_element" should exist
 
     When I follow "Next activity: Test forum 2"
-    Then I should see "Test forum 1"
-    And I should see "Add a new discussion topic"
+    Then I should see "Test forum 2"
+    And I should see "discussion topic"
     And I should not see "Page 2 test content"
     And "#navbuttons .prev" "css_element" should exist
     And "#navbuttons .next" "css_element" should not exist
 
     When I follow "First activity in course: Test forum 1"
     Then I should see "Test forum 1"
-    And I should see "Add a new discussion topic"
+    And I should see "discussion topic"
     And I should not see "test content"
 
     When I follow "Last activity in course: Test forum 2"
     Then I should see "Test forum 2"
-    And I should see "Add a new discussion topic"
+    And I should see "discussion topic"
     And I should not see "test content"
 
     When I follow "Previous activity: Test page 2"
     Then I should see "Page 2 test content"
 
     When I follow "Site front page"
-    Then I should see "Course overview"
+    Then I should see "Timeline"
