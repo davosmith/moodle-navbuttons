@@ -24,8 +24,6 @@
 
 namespace block_navbuttons\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class provider
  * @package block_navbuttons

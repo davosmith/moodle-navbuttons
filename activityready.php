@@ -22,8 +22,6 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /** Always show navigation buttons for this activity */
 define('NAVBUTTONS_ACTIVITY_ALWAYS', 0);
 /** Show buttons when activity complete */

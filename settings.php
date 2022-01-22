@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(dirname(__FILE__).'/activityready.php');
+require_once(__DIR__.'/activityready.php');
 
 if ($ADMIN->fulltree) {
     $plugins = get_plugin_list('mod');
