@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="blocks/navbuttons/db" VERSION="20140706" COMMENT="XMLDB file for Moodle blocks/navbuttons"
+<XMLDB PATH="blocks/navbuttons/db" VERSION="20220228" COMMENT="XMLDB file for Moodle blocks/navbuttons"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
     <TABLE NAME="navbuttons" COMMENT="Per-course settings for the navigation buttons to appear under activities">
       <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
-        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" PREVIOUS="id" NEXT="enabled"/>
-        <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="course" NEXT="buttonstype"/>
-        <FIELD NAME="buttonstype" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="icon" SEQUENCE="false" COMMENT="Buttons should be text or icons" PREVIOUS="enabled" NEXT="backgroundcolour"/>
-        <FIELD NAME="backgroundcolour" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="#6666cc" SEQUENCE="false" PREVIOUS="buttonstype" NEXT="customusebackground"/>
-        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="backgroundcolour" NEXT="homebuttonshow"/>
-        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="customusebackground" NEXT="homebuttontype"/>
-        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttonshow" NEXT="firstbuttonshow"/>
-        <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="homebuttontype" NEXT="firstbuttontype"/>
-        <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="firstbuttonshow" NEXT="prevbuttonshow"/>
-        <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="firstbuttontype" NEXT="nextbuttonshow"/>
-        <FIELD NAME="nextbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="prevbuttonshow" NEXT="lastbuttonshow"/>
-        <FIELD NAME="lastbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="nextbuttonshow" NEXT="lastbuttontype"/>
-        <FIELD NAME="lastbuttontype" TYPE="int" LENGTH="4" NOTNULL="false" UNSIGNED="true" DEFAULT="2" SEQUENCE="false" PREVIOUS="lastbuttonshow" NEXT="extra1show"/>
-        <FIELD NAME="extra1show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="lastbuttontype" NEXT="extra1link"/>
-        <FIELD NAME="extra1link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra1show" NEXT="extra1title"/>
-        <FIELD NAME="extra1title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra1link" NEXT="extra1openin"/>
-        <FIELD NAME="extra1openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra1title" NEXT="extra2show"/>
-        <FIELD NAME="extra2show" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="extra1openin" NEXT="extra2link"/>
-        <FIELD NAME="extra2link" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2show" NEXT="extra2title"/>
-        <FIELD NAME="extra2title" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="extra2link" NEXT="extra2openin"/>
-        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2title" NEXT="completebuttonshow"/>
-        <FIELD NAME="completebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="1" SEQUENCE="false" PREVIOUS="extra2openin"/>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="buttonstype" TYPE="char" LENGTH="6" NOTNULL="true" DEFAULT="icon" SEQUENCE="false" COMMENT="Buttons should be text or icons"/>
+        <FIELD NAME="backgroundcolour" TYPE="char" LENGTH="20" NOTNULL="false" DEFAULT="#6666cc" SEQUENCE="false"/>
+        <FIELD NAME="customusebackground" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="homebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="homebuttontype" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="firstbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="firstbuttontype" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="prevbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="nextbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="lastbuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="lastbuttontype" TYPE="int" LENGTH="4" NOTNULL="false" DEFAULT="2" SEQUENCE="false"/>
+        <FIELD NAME="extra1show" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="extra1link" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extra1title" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extra1openin" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="extra2show" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="extra2link" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extra2title" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="extra2openin" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="completebuttonshow" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
