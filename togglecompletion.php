@@ -18,6 +18,7 @@
  * Copy of the old course/togglecompletion.php script, that used to allow calling via AJAX.
  *
  * @package   block_navbuttons
+ * @copyright 2022 Davo Smith (but actually just a lightly modified version of core Moodle code)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,12 +35,12 @@ $user = optional_param('user', 0, PARAM_INT);
 $rolec = optional_param('rolec', 0, PARAM_INT);
 
 if (!$cmid && !$courseid) {
-    print_error('invalidarguments');
+    throw new moodle_exception('invalidarguments');
 }
 
 // Process self completion.
 if ($courseid) {
-    $PAGE->set_url(new moodle_url('/course/togglecompletion.php', array('course'=>$courseid)));
+    $PAGE->set_url(new moodle_url('/course/togglecompletion.php', array('course' => $courseid)));
 
     // Check user is logged in.
     $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
@@ -58,15 +59,17 @@ if ($courseid) {
     if ($user && $rolec) {
         require_sesskey();
 
-        completion_criteria::factory(array('id'=>$rolec, 'criteriatype'=>COMPLETION_CRITERIA_TYPE_ROLE)); //TODO: this is dumb, because it does not fetch the data?!?!
-        $criteria = completion_criteria_role::fetch(array('id'=>$rolec));
+        completion_criteria::factory(array(
+                                         'id' => $rolec, 'criteriatype' => COMPLETION_CRITERIA_TYPE_ROLE,
+                                     )); // TODO: this is dumb, because it does not fetch the data?!?!
+        $criteria = completion_criteria_role::fetch(array('id' => $rolec));
 
         if ($criteria and user_has_role_assignment($USER->id, $criteria->role, $context->id)) {
-            $criteria_completions = $completion->get_completions($user, COMPLETION_CRITERIA_TYPE_ROLE);
+            $criteriacompletions = $completion->get_completions($user, COMPLETION_CRITERIA_TYPE_ROLE);
 
-            foreach ($criteria_completions as $criteria_completion) {
-                if ($criteria_completion->criteriaid == $rolec) {
-                    $criteria->complete($criteria_completion);
+            foreach ($criteriacompletions as $criteriacompletion) {
+                if ($criteriacompletion->criteriaid == $rolec) {
+                    $criteria->complete($criteriacompletion);
                     break;
                 }
             }
@@ -87,12 +90,12 @@ if ($courseid) {
             $completion = $completion->get_completion($USER->id, COMPLETION_CRITERIA_TYPE_SELF);
 
             if (!$completion) {
-                print_error('noselfcompletioncriteria', 'completion');
+                throw new moodle_exception('noselfcompletioncriteria', 'completion');
             }
 
             // Check if the user has already marked themselves as complete.
             if ($completion->is_complete()) {
-                print_error('useralreadymarkedcomplete', 'completion');
+                throw new moodle_exception('useralreadymarkedcomplete', 'completion');
             }
 
             $completion->mark_complete();
@@ -106,8 +109,10 @@ if ($courseid) {
         $PAGE->set_heading($course->fullname);
         $PAGE->navbar->add($strconfirm);
         echo $OUTPUT->header();
-        $buttoncontinue = new single_button(new moodle_url('/course/togglecompletion.php', array('course'=>$courseid, 'confirm'=>1, 'sesskey'=>sesskey())), get_string('yes'), 'post');
-        $buttoncancel   = new single_button(new moodle_url('/course/view.php', array('id'=>$courseid)), get_string('no'), 'get');
+        $buttoncontinue = new single_button(new moodle_url('/course/togglecompletion.php', array(
+            'course' => $courseid, 'confirm' => 1, 'sesskey' => sesskey(),
+        )),                                 get_string('yes'), 'post');
+        $buttoncancel = new single_button(new moodle_url('/course/view.php', array('id' => $courseid)), get_string('no'), 'get');
         echo $OUTPUT->confirm($strconfirm, $buttoncontinue, $buttoncancel);
         echo $OUTPUT->footer();
         exit;
@@ -115,28 +120,28 @@ if ($courseid) {
 }
 
 $targetstate = required_param('completionstate', PARAM_INT);
-$fromajax    = optional_param('fromajax', 0, PARAM_INT);
+$fromajax = optional_param('fromajax', 0, PARAM_INT);
 
-$PAGE->set_url('/course/togglecompletion.php', array('id'=>$cmid, 'completionstate'=>$targetstate));
+$PAGE->set_url('/course/togglecompletion.php', array('id' => $cmid, 'completionstate' => $targetstate));
 
-switch($targetstate) {
+switch ($targetstate) {
     case COMPLETION_COMPLETE:
     case COMPLETION_INCOMPLETE:
         break;
     default:
-        print_error('unsupportedstate');
+        throw new moodle_exception('unsupportedstate');
 }
 
 // Get course-modules entry.
 $cm = get_coursemodule_from_id(null, $cmid, null, true, MUST_EXIST);
-$course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
 // Check user is logged in.
 require_login($course, false, $cm);
 require_capability('moodle/course:togglecompletion', context_module::instance($cmid));
 
 if (isguestuser() or !confirm_sesskey()) {
-    print_error('error');
+    throw new moodle_exception('error');
 }
 
 // Set up completion object and check it is enabled.
@@ -148,10 +153,10 @@ if (!$completion->is_enabled()) {
 // NOTE: All users are allowed to toggle their completion state, including
 // users for whom completion information is not directly tracked. (I.e. even
 // if you are a teacher, or admin who is not enrolled, you can still toggle
-// your own completion state. You just don't appear on the reports.)
+// your own completion state. You just don't appear on the reports).
 
 // Check completion state is manual.
-if($cm->completion != COMPLETION_TRACKING_MANUAL) {
+if ($cm->completion != COMPLETION_TRACKING_MANUAL) {
     error_or_ajax('cannotmanualctrack', $fromajax);
 }
 
@@ -172,11 +177,17 @@ if ($fromajax) {
 }
 
 // Utility functions.
+/**
+ * Handle errors differently if called from AJAX.
+ * @param string $message
+ * @param bool $fromajax
+ * @return void
+ */
 function error_or_ajax($message, $fromajax) {
     if ($fromajax) {
         print get_string($message, 'error');
         exit;
     } else {
-        print_error($message);
+        throw new moodle_exception($message);
     }
 }
