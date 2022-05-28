@@ -102,7 +102,7 @@ M.block_navbuttons.completion.init = function(Y) {
         };
 
         Y.use('io-base', function (Y) {
-            Y.io(M.cfg.wwwroot + '/course/togglecompletion.php', cfg);
+            Y.io(M.cfg.wwwroot + '/blocks/navbuttons/togglecompletion.php', cfg);
         });
     };
 

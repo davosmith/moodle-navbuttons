@@ -3,14 +3,14 @@ Feature: I can use navigation buttons to navigate through a course in Moodle
 
   Background:
     Given the following "courses" exist:
-      | fullname | shortname |
-      | Course 1 | C1        |
+      | fullname | shortname | enablecompletion |
+      | Course 1 | C1        | 1                |
     And the following "activities" exist:
-      | activity | name         | course | idnumber | content             |
-      | forum    | Test forum 1 | C1     | FORUM01  |                     |
-      | page     | Test page 1  | C1     | PAGE01   | Page 1 test content |
-      | page     | Test page 2  | C1     | PAGE02   | Page 2 test content |
-      | forum    | Test forum 2 | C1     | FORUM02  |                     |
+      | activity | name         | course | idnumber | content             | completion |
+      | forum    | Test forum 1 | C1     | FORUM01  |                     |            |
+      | page     | Test page 1  | C1     | PAGE01   | Page 1 test content | 1          |
+      | page     | Test page 2  | C1     | PAGE02   | Page 2 test content |            |
+      | forum    | Test forum 2 | C1     | FORUM02  |                     |            |
     And the following "users" exist:
       | username |
       | student1 |
@@ -69,3 +69,23 @@ Feature: I can use navigation buttons to navigate through a course in Moodle
 
     When I follow "Site front page"
     Then I should see "Timeline"
+
+  @javascript
+  Scenario: A student can use the 'toggle completion' button.
+    Given I log in as "admin"
+    And I am on "Course 1" course homepage
+    And I follow "Edit the Navigation Button settings"
+    And I set the following fields to these values:
+      | completebuttonshow | Show |
+    And I press "Save changes"
+    And I log out
+    When I log in as "student1"
+    And I am on the "Test page 1" "page activity" page
+    And I click on "input[title='Mark complete']" "css_element"
+    Then "input[title='Mark complete']" "css_element" should not exist
+    And "input[title='Mark incomplete']" "css_element" should exist
+
+    When I am on the "Test page 1" "page activity" page
+    And I click on "input[title='Mark incomplete']" "css_element"
+    Then "input[title='Mark incomplete']" "css_element" should not exist
+    And "input[title='Mark complete']" "css_element" should exist
