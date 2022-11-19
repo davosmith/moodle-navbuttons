@@ -64,7 +64,7 @@ if ($courseid) {
                                      )); // TODO: this is dumb, because it does not fetch the data?!?!
         $criteria = completion_criteria_role::fetch(array('id' => $rolec));
 
-        if ($criteria and user_has_role_assignment($USER->id, $criteria->role, $context->id)) {
+        if ($criteria && user_has_role_assignment($USER->id, $criteria->role, $context->id)) {
             $criteriacompletions = $completion->get_completions($user, COMPLETION_CRITERIA_TYPE_ROLE);
 
             foreach ($criteriacompletions as $criteriacompletion) {
@@ -86,7 +86,7 @@ if ($courseid) {
     } else {
 
         // Confirm with user.
-        if ($confirm and confirm_sesskey()) {
+        if ($confirm && confirm_sesskey()) {
             $completion = $completion->get_completion($USER->id, COMPLETION_CRITERIA_TYPE_SELF);
 
             if (!$completion) {
@@ -140,7 +140,7 @@ $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST)
 require_login($course, false, $cm);
 require_capability('moodle/course:togglecompletion', context_module::instance($cmid));
 
-if (isguestuser() or !confirm_sesskey()) {
+if (isguestuser() || !confirm_sesskey()) {
     throw new moodle_exception('error');
 }
 

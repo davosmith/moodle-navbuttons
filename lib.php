@@ -48,7 +48,7 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
     $filename = $args[1];
     $iconid = $args[0];
 
-    if (!$file = $fs->get_file($context->id, 'block_navbuttons', 'icons', $iconid, '/', $filename) or $file->is_directory()) {
+    if (!($file = $fs->get_file($context->id, 'block_navbuttons', 'icons', $iconid, '/', $filename)) || $file->is_directory()) {
         send_file_not_found();
     }
 
