@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2023-10-02 - 3.4.2.0 - update GitHub actions ready for 4.3 release
 2023-04-14 - 3.4.1.0 - Minor M4.2 compatibility fixes
 2022-05-28 - Fix 'Mark complete' button in M4.0
 2022-01-22 - Minor M4.0 compatibility fixes
