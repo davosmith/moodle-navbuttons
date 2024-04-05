@@ -39,7 +39,7 @@ class block_navbuttons extends block_base {
      * @return array
      */
     public function applicable_formats() {
-        return array('course' => true, 'course-category' => false, 'site' => true);
+        return ['course' => true, 'course-category' => false, 'site' => true];
     }
 
     /**
@@ -57,8 +57,6 @@ class block_navbuttons extends block_base {
      * @throws moodle_exception
      */
     public function get_content() {
-        global $CFG;
-
         if (!has_capability('moodle/course:manageactivities', $this->context)) {
             return null;
         }
@@ -70,18 +68,14 @@ class block_navbuttons extends block_base {
         $this->content = new stdClass;
         $this->content->footer = '';
 
-        if ($CFG->version < 2012120300) {
-            $courseid = get_courseid_from_context($this->context);
-        } else {
-            if ($coursecontext = $this->context->get_course_context(false)) {
-                $courseid = $coursecontext->instanceid;
-            }
+        if ($coursecontext = $this->context->get_course_context(false)) {
+            $courseid = $coursecontext->instanceid;
         }
         if (empty($courseid)) {
             return null;
         }
 
-        $editlink = new moodle_url('/blocks/navbuttons/edit.php', array('course' => $courseid));
+        $editlink = new moodle_url('/blocks/navbuttons/edit.php', ['course' => $courseid]);
         $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
 
         return $this->content;
@@ -94,21 +88,17 @@ class block_navbuttons extends block_base {
      * @throws dml_exception
      */
     public function instance_create() {
-        global $DB, $CFG;
+        global $DB;
 
-        if ($CFG->version < 2012120300) {
-            $courseid = get_courseid_from_context($this->context);
-        } else {
-            if ($coursecontext = $this->context->get_course_context(false)) {
-                $courseid = $coursecontext->instanceid;
-            }
+        if ($coursecontext = $this->context->get_course_context(false)) {
+            $courseid = $coursecontext->instanceid;
         }
         if (empty($courseid)) {
             return;
         }
 
         // Enable the buttons when the block is added to a course.
-        if (!$settings = $DB->get_record('navbuttons', array('course' => $courseid))) {
+        if (!$settings = $DB->get_record('navbuttons', ['course' => $courseid])) {
             $settings = new stdClass;
             $settings->course = $courseid;
             $settings->enabled = 1;
@@ -122,8 +112,6 @@ class block_navbuttons extends block_base {
                 $DB->update_record('navbuttons', $updsettings);
             }
         }
-
-        return;
     }
 
     /**
@@ -133,21 +121,17 @@ class block_navbuttons extends block_base {
      * @throws dml_exception
      */
     public function instance_delete() {
-        global $DB, $CFG;
+        global $DB;
 
-        if ($CFG->version < 2012120300) {
-            $courseid = get_courseid_from_context($this->context);
-        } else {
-            if ($coursecontext = $this->context->get_course_context(false)) {
-                $courseid = $coursecontext->instanceid;
-            }
+        if ($coursecontext = $this->context->get_course_context(false)) {
+            $courseid = $coursecontext->instanceid;
         }
         if (empty($courseid)) {
             return;
         }
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later).
-        $settings = $DB->get_record('navbuttons', array('course' => $courseid));
+        $settings = $DB->get_record('navbuttons', ['course' => $courseid]);
         if ($settings) {
             if ($settings->enabled) {
                 $updsettings = new stdClass;

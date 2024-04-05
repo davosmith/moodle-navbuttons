@@ -27,27 +27,29 @@ defined('MOODLE_INTERNAL') || die();
 require_once(__DIR__.'/activityready.php');
 
 if ($ADMIN->fulltree) {
-    $plugins = get_plugin_list('mod');
-    $pluginopts = array();
+    $plugins = core_component::get_plugin_list('mod');
+    $pluginopts = [];
     $stralways = get_string('activityalways', 'block_navbuttons');
     $strcomplete = get_string('activitycomplete', 'block_navbuttons');
     $strnever = get_string('activitynever', 'block_navbuttons');
     foreach ($plugins as $pluginname => $unused) {
-        if ($pluginname == 'label') {
+        if ($pluginname === 'label') {
             continue;
         }
-        $pluginopts[$pluginname] = array(
+        $pluginopts[$pluginname] = [
             NAVBUTTONS_ACTIVITY_ALWAYS => $stralways,
-            NAVBUTTONS_ACTIVITY_COMPLETE => $strcomplete
-        );
+            NAVBUTTONS_ACTIVITY_COMPLETE => $strcomplete,
+        ];
         $funcname = 'navbuttons_mod_'.$pluginname.'_showbuttons';
         if (function_exists($funcname)) {
-            $pluginopts[$pluginname][NAVBUTTONS_ACTIVITY_CUSTOM] = get_string('activitycustom'.$pluginname, 'block_navbuttons');
+            $pluginopts[$pluginname][NAVBUTTONS_ACTIVITY_CUSTOM] = get_string('activitycustom'.$pluginname,
+                                                                              'block_navbuttons');
         }
         $pluginopts[$pluginname][NAVBUTTONS_ACTIVITY_NEVER] = $strnever;
     }
 
-    $settings->add(new admin_setting_heading('block_navbuttons/intro', '', get_string('activityreadydesc', 'block_navbuttons')));
+    $settings->add(new admin_setting_heading('block_navbuttons/intro', '',
+                                             get_string('activityreadydesc', 'block_navbuttons')));
     foreach ($pluginopts as $pluginname => $opts) {
         $settings->add(new admin_setting_configselect('block_navbuttons/activity'.$pluginname,
                                                       get_string('pluginname', $pluginname), '',

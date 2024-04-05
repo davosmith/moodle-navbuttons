@@ -23,6 +23,7 @@
  */
 
 require_once(__DIR__.'/../../config.php');
+global $CFG, $DB, $PAGE, $USER;
 require_once($CFG->libdir.'/completionlib.php');
 
 // Parameters.
@@ -40,29 +41,30 @@ if (!$cmid && !$courseid) {
 
 // Process self completion.
 if ($courseid) {
-    $PAGE->set_url(new moodle_url('/course/togglecompletion.php', array('course' => $courseid)));
+    $PAGE->set_url(new moodle_url('/course/togglecompletion.php', ['course' => $courseid]));
 
     // Check user is logged in.
-    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
     $context = context_course::instance($course->id);
     require_login($course);
 
     $completion = new completion_info($course);
-    $trackeduser = ($user ? $user : $USER->id);
+    $trackeduser = ($user ?: $USER->id);
 
     if (!$completion->is_enabled()) {
         throw new moodle_exception('completionnotenabled', 'completion');
-    } else if (!$completion->is_tracked_user($trackeduser)) {
+    }
+    if (!$completion->is_tracked_user($trackeduser)) {
         throw new moodle_exception('nottracked', 'completion');
     }
 
     if ($user && $rolec) {
         require_sesskey();
 
-        completion_criteria::factory(array(
+        completion_criteria::factory([
                                          'id' => $rolec, 'criteriatype' => COMPLETION_CRITERIA_TYPE_ROLE,
-                                     )); // TODO: this is dumb, because it does not fetch the data?!?!
-        $criteria = completion_criteria_role::fetch(array('id' => $rolec));
+                                     ]);
+        $criteria = completion_criteria_role::fetch(['id' => $rolec]);
 
         if ($criteria && user_has_role_assignment($USER->id, $criteria->role, $context->id)) {
             $criteriacompletions = $completion->get_completions($user, COMPLETION_CRITERIA_TYPE_ROLE);
@@ -109,10 +111,11 @@ if ($courseid) {
         $PAGE->set_heading($course->fullname);
         $PAGE->navbar->add($strconfirm);
         echo $OUTPUT->header();
-        $buttoncontinue = new single_button(new moodle_url('/course/togglecompletion.php', array(
+        $buttoncontinue = new single_button(new moodle_url('/course/togglecompletion.php', [
             'course' => $courseid, 'confirm' => 1, 'sesskey' => sesskey(),
-        )),                                 get_string('yes'), 'post');
-        $buttoncancel = new single_button(new moodle_url('/course/view.php', array('id' => $courseid)), get_string('no'), 'get');
+        ]),                                 get_string('yes'), 'post');
+        $buttoncancel = new single_button(new moodle_url('/course/view.php', ['id' => $courseid]), get_string('no'),
+                                          'get');
         echo $OUTPUT->confirm($strconfirm, $buttoncontinue, $buttoncancel);
         echo $OUTPUT->footer();
         exit;
@@ -122,7 +125,7 @@ if ($courseid) {
 $targetstate = required_param('completionstate', PARAM_INT);
 $fromajax = optional_param('fromajax', 0, PARAM_INT);
 
-$PAGE->set_url('/course/togglecompletion.php', array('id' => $cmid, 'completionstate' => $targetstate));
+$PAGE->set_url('/course/togglecompletion.php', ['id' => $cmid, 'completionstate' => $targetstate]);
 
 switch ($targetstate) {
     case COMPLETION_COMPLETE:
@@ -134,7 +137,7 @@ switch ($targetstate) {
 
 // Get course-modules entry.
 $cm = get_coursemodule_from_id(null, $cmid, null, true, MUST_EXIST);
-$course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+$course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
 
 // Check user is logged in.
 require_login($course, false, $cm);

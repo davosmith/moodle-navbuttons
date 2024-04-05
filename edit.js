@@ -2,10 +2,10 @@ navbuttons = {
     picker: null,
     csspath: null,
 
-    init: function(Y, csspath) {
+    init: function (Y, csspath) {
         this.csspath = csspath;
 
-        YAHOO.util.Get.css(this.csspath+'/colorpicker.css');
+        YAHOO.util.Get.css(this.csspath + '/colorpicker.css');
 
         var cont = document.getElementById('yui-picker');
         cont.innerHTML = '<div id="yui-picker-inner" style="width: 400px; height: 200px; position:relative; padding: 0; margin: 0; top: 0; left: 0;"></div>';
@@ -33,9 +33,9 @@ navbuttons = {
             this.picker.setValue(rgb, true);
 
             //listen to rgbChange to be notified about new values
-            this.picker.on("rgbChange", function(o) {
+            this.picker.on("rgbChange", function (o) {
                 var el = YAHOO.util.Dom.get('id_backgroundcolour');
-                var newval = '#'+YAHOO.util.Color.rgb2hex(o.newValue);
+                var newval = '#' + YAHOO.util.Color.rgb2hex(o.newValue);
                 el.value = newval;
             });
         }

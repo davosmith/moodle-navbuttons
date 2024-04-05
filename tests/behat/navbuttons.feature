@@ -82,10 +82,12 @@ Feature: I can use navigation buttons to navigate through a course in Moodle
     When I log in as "student1"
     And I am on the "Test page 1" "page activity" page
     And I click on "input[title='Mark complete']" "css_element"
+    And I wait "1" seconds
     Then "input[title='Mark complete']" "css_element" should not exist
     And "input[title='Mark incomplete']" "css_element" should exist
 
     When I am on the "Test page 1" "page activity" page
     And I click on "input[title='Mark incomplete']" "css_element"
+    And I wait "1" seconds
     Then "input[title='Mark incomplete']" "css_element" should not exist
     And "input[title='Mark complete']" "css_element" should exist

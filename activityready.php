@@ -81,11 +81,11 @@ function navbuttons_activity_showbuttons($cm) {
 function navbuttons_mod_assignment_showbuttons($cm) {
     global $DB, $CFG, $USER;
 
-    if (!$assignment = $DB->get_record('assignment', array('id' => $cm->instance))) {
+    if (!$assignment = $DB->get_record('assignment', ['id' => $cm->instance])) {
         return true; // Not quite sure what went wrong.
     }
     $type = $assignment->assignmenttype;
-    if ($type == 'offline') {
+    if ($type === 'offline') {
         return true; // Cannot track 'offline' assignments.
     }
 
@@ -123,10 +123,10 @@ function navbuttons_mod_assignment_showbuttons($cm) {
  */
 function navbuttons_mod_choice_showbuttons($cm) {
     global $USER, $DB;
-    return $DB->record_exists('choice_answers', array(
+    return $DB->record_exists('choice_answers', [
         'choiceid' => $cm->instance,
-        'userid' => $USER->id
-    ));
+        'userid' => $USER->id,
+    ]);
 }
 
 /**
@@ -155,10 +155,10 @@ function navbuttons_mod_quiz_showbuttons($cm) {
 function navbuttons_mod_questionnaire_showbuttons($cm) {
     global $USER, $DB;
     try {
-        return $DB->record_exists('questionnaire_attempts', array(
+        return $DB->record_exists('questionnaire_attempts', [
             'qid' => $cm->instance,
-            'userid' => $USER->id
-        ));
+            'userid' => $USER->id,
+        ]);
     } catch (Exception $e) {
         return true;
     }

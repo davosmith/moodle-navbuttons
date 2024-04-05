@@ -8,11 +8,12 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2024-04-05 - 3.4.2.1 - Minor M4.4 compatibility fixes
 2023-10-02 - 3.4.2.0 - update GitHub actions ready for 4.3 release
 2023-04-14 - 3.4.1.0 - Minor M4.2 compatibility fixes
 2022-05-28 - Fix 'Mark complete' button in M4.0
 2022-01-22 - Minor M4.0 compatibility fixes
-2021-04-09 - Minor internal documentation updates, switch to Github actions (from Travis)
+2021-04-09 - Minor internal documentation updates, switch to GitHub actions (from Travis)
 2020-11-07 - If running Moodle 3.10, or above, you no longer need core changes to make this work
 2020-04-10 - Do not show navbuttons on embedded questions
 2019-10-18 - Fix compatibility with latest version of mod_questionnaire

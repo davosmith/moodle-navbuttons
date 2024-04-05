@@ -65,7 +65,7 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         $table->add_field('extra2openin', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1');
 
         // Adding keys to table navbuttons.
-        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
 
         // Conditionally launch create table for navbuttons.
         if (!$dbman->table_exists($table)) {
@@ -95,7 +95,8 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
 
         // Define field completebuttonshow to be added to navbuttons.
         $table = new xmldb_table('navbuttons');
-        $field = new xmldb_field('completebuttonshow', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1', 'extra2openin');
+        $field = new xmldb_field('completebuttonshow', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1',
+                                 'extra2openin');
 
         // Conditionally launch add field completebuttonshow.
         if (!$dbman->field_exists($table, $field)) {

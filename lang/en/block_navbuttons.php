@@ -23,22 +23,20 @@
 
 $string['activityalways'] = 'Always show';
 $string['activitycomplete'] = 'Show when complete';
-
 $string['activitycustomassignment'] = 'Show when assignment submitted';
 $string['activitycustomchoice'] = 'Show when choice made';
 $string['activitycustomquestionnaire'] = 'Show when questionnaire submitted';
 $string['activitycustomquiz'] = 'Show when quiz submitted';
-
 $string['activitynever'] = 'Never show';
 $string['activityreadydesc'] = 'These options control when the navigation buttons should be shown on each different activity. Show when complete: show the navigation buttons when the activity completion rules indicate the activity is \'complete\' (Note: this defaults to \'Always show\' if completion is disabled for the site / course / activity). Custom rule: for some activity types there is an extra, custom rule hard-coded into the navbuttons code.';
 $string['backgroundcolour'] = 'Icon colour (any valid HTML colour)';
 $string['buttonicon'] = 'Upload a custom icon (leave blank for default)';
 $string['buttonlink'] = 'URL to attach to this button';
 $string['buttonopenin'] = 'Link opens in';
+$string['buttonsenabled'] = 'Navigation buttons enabled for this course';
+$string['buttonstype'] = 'Buttons type';
 $string['buttontitle'] = 'Button title';
 $string['buttontype'] = 'Button goes to';
-$string['buttonstype'] = 'Buttons type';
-$string['buttonsenabled'] = 'Navigation buttons enabled for this course';
 $string['completebutton'] = 'Complete button';
 $string['completebuttontext'] = 'Mark complete';
 $string['coursepage'] = 'Course page';
@@ -80,4 +78,3 @@ $string['settingsupdated'] = 'Settings updated';
 $string['typeicon'] = 'Icon';
 $string['typetext'] = 'Text';
 $string['typetext_simple'] = 'Simplified text';
-
