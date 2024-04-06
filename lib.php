@@ -58,6 +58,7 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
 
 /**
  * Output the navigation buttons before the page footer.
+ * TODO davo - this can be removed once this plugin only supports M4.4+.
  * @return string
  */
 function block_navbuttons_before_footer() {
