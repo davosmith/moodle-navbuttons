@@ -8,7 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
-2025-04-19 - 4.0.0.0 - M5.0 compatibility fixes, dropping support for M3.11 and below
+2025-04-19 - 4.0.0.1 - M5.0 compatibility fixes, dropping support for M3.11 and below
 2024-10-19 - 3.4.2.2 - Minor M4.5 compatibility fixes
 2024-04-05 - 3.4.2.1 - Minor M4.4 compatibility fixes
 2023-10-02 - 3.4.2.0 - update GitHub actions ready for 4.3 release
