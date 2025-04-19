@@ -51,15 +51,6 @@ jobs:
           - php: '8.0'
             moodle-branch: 'MOODLE_400_STABLE'
             database: 'pgsql'
-          - php: '7.4'
-            moodle-branch: 'MOODLE_311_STABLE'
-            database: 'mariadb'
-          - php: '7.3'
-            moodle-branch: 'MOODLE_310_STABLE'
-            database: 'pgsql'
-          - php: '7.2'
-            moodle-branch: 'MOODLE_39_STABLE'
-            database: 'mariadb'
 
     steps:
       - name: Check out repository code
@@ -129,7 +120,7 @@ jobs:
         run: moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Behat features
-        if: ${{ matrix.moodle-branch != 'MOODLE_39_STABLE' }} # M3.9 needs core change to support, M3.10+ does not.
+        if: ${{ !cancelled() }}
         run: moodle-plugin-ci behat --profile chrome
 
       - name: Upload Behat Faildump
@@ -140,7 +131,7 @@ jobs:
           path: ${{ github.workspace }}/moodledata/behat_dump
           retention-days: 7
           if-no-files-found: ignore
- 
+
       - name: Mark cancelled jobs as failed.
         if: ${{ cancelled() }}
         run: exit 1

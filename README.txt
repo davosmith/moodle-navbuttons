@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2025-04-19 - 4.0.0.0 - M5.0 compatibility fixes, dropping support for M3.11 and below
 2024-10-19 - 3.4.2.2 - Minor M4.5 compatibility fixes
 2024-04-05 - 3.4.2.1 - Minor M4.4 compatibility fixes
 2023-10-02 - 3.4.2.0 - update GitHub actions ready for 4.3 release
@@ -41,24 +42,9 @@ Installation:
 2. On your server, in the 'blocks' folder, create a subfolder called 'navbuttons'
 3. Upload all the files inside the 'davosmith-moodle-navbuttons-???????' folder to this new 'navbuttons' folder on your server.
 4. Log in to your Moodle site as an administrator and click on the 'Notifications' option in the Admin settings block.
-5. If you are running a version of Moodle earlier than *3.10*, then you need to edit one Moodle core file to make this work:
-
-Find the file 'moodle/lib/outputrenderers.php'.
-Find the line:
-
-$output = $this->container_end_all(true);
-
-(It should only be there once, shortly after the line 'public function footer() {')
-REPLACE the line you found with this code:
-
-require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');  // Add this line to enable the navigation buttons
-$output = draw_navbuttons().$this->container_end_all(true);   // Change this line to enable the navigation buttons
-
-** DO NOT MAKE THE ABOVE CHANGE IF YOU ARE RUNNING MOODLE 3.10 (or higher) - it is no longer needed **
-
-6. Add the block to a course (turn editing on, select 'Navigation Buttons' from the 'Blocks - Add' menu)
-7. Customise the button appearance by clicking on 'Edit the Navigation Button settings' in the newly created block.
-8. Check the message at the bottom of the screen (under the 'Save changes' button) - it should read "Navbuttons self-test: required core modifications have been completed successfully". If not, then go back to step 5 above and check carefully.
+5. Add the block to a course (turn editing on, select 'Navigation Buttons' from the 'Blocks - Add' menu)
+6. Customise the button appearance by clicking on 'Edit the Navigation Button settings' in the newly created block.
+7. Check the message at the bottom of the screen (under the 'Save changes' button) - it should read "Navbuttons self-test: required core modifications have been completed successfully" (You don't actually need to make core modifications these days, but it confirms the code is working).
 
 Note: The block is only visible to users who are able to edit courses modules. Deleting the block will remove the navigation buttons (they can also be disabled through the settings).
 

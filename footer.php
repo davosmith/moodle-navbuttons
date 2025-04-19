@@ -102,21 +102,15 @@ function draw_navbuttons() {
             continue;
         }
 
-        if ($CFG->version >= 2012120300) { // Moodle 2.4.
-            $format = course_get_format($COURSE);
-            if (method_exists($format, 'get_last_section_number')) {
-                $numsections = $format->get_last_section_number();
-            } else {
-                $opts = course_get_format($COURSE)->get_format_options();
-                $numsections = $opts['numsections'] ?? 0;
-            }
-            if ($numsections && $mod->sectionnum > $numsections) {
-                break;
-            }
+        $format = course_get_format($COURSE);
+        if (method_exists($format, 'get_last_section_number')) {
+            $numsections = $format->get_last_section_number();
         } else {
-            if ($mod->sectionnum > $COURSE->numsections) {
-                break;
-            }
+            $opts = course_get_format($COURSE)->get_format_options();
+            $numsections = $opts['numsections'] ?? 0;
+        }
+        if ($numsections && $mod->sectionnum > $numsections) {
+            break;
         }
 
         if (!$mod->uservisible) {
