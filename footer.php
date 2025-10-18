@@ -427,7 +427,8 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
     if ($imgsrc !== null) {
         // Generate an icon button.
         $class = $classes ? ' class="' . $classes . '" ' : '';
-        $output = '<a href="' . $url . '" ' . $target . $class . '><img alt="' . $title . '" title="' . $title . '" src="' . $imgsrc . '" style="';
+        $output = '<a href="' . $url . '" ' . $target . $class . '><img alt="' . $title . '" title="' . $title .
+            '" src="' . $imgsrc . '" style="';
         if ($bgcolour) {
             $output .= 'background-color: ' . $bgcolour . '; ';
         }
