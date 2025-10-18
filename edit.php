@@ -22,12 +22,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__.'/../../config.php');
+require_once(__DIR__ . '/../../config.php');
 
 global $CFG, $DB, $PAGE, $OUTPUT;
 
-require_once($CFG->libdir.'/formslib.php');
-require_once(__DIR__.'/definitions.php');
+require_once($CFG->libdir . '/formslib.php');
+require_once(__DIR__ . '/definitions.php');
 
 $courseid = required_param('course', PARAM_INT);
 $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
@@ -74,8 +74,13 @@ class block_navbuttons_edit_form extends moodleform {
         ];
         $mform->addElement('header', 'homebutton', get_string('homebutton', 'block_navbuttons'));
         $mform->addElement('select', 'homebuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'homebuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'homebuttonicon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('homebuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'homebuttontype', get_string('buttontype', 'block_navbuttons'), $hometypes);
 
@@ -86,21 +91,36 @@ class block_navbuttons_edit_form extends moodleform {
         ];
         $mform->addElement('header', 'firstbutton', get_string('firstbutton', 'block_navbuttons'));
         $mform->addElement('select', 'firstbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'firstbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'firstbuttonicon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('firstbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'firstbuttontype', get_string('buttontype', 'block_navbuttons'), $firsttypes);
 
         $mform->addElement('header', 'prevbutton', get_string('prevbutton', 'block_navbuttons'));
         $mform->addElement('select', 'prevbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'prevbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'prevbuttonicon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('prevbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
         $mform->addElement('header', 'nextbutton', get_string('nextbutton', 'block_navbuttons'));
         $mform->addElement('select', 'nextbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'nextbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'nextbuttonicon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('nextbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
 
         $lasttypes = [
@@ -110,8 +130,13 @@ class block_navbuttons_edit_form extends moodleform {
         ];
         $mform->addElement('header', 'lastbutton', get_string('lastbutton', 'block_navbuttons'));
         $mform->addElement('select', 'lastbuttonshow', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'lastbuttonicon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'lastbuttonicon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('lastbuttonicon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('select', 'lastbuttontype', get_string('buttontype', 'block_navbuttons'), $lasttypes);
 
@@ -124,8 +149,13 @@ class block_navbuttons_edit_form extends moodleform {
         ];
         $mform->addElement('header', 'extra1', get_string('extra1', 'block_navbuttons'));
         $mform->addElement('select', 'extra1show', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'extra1icon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'extra1icon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('extra1icon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('text', 'extra1link', get_string('buttonlink', 'block_navbuttons'), ['size' => 50]);
         $mform->setType('extra1link', PARAM_URL);
@@ -135,8 +165,13 @@ class block_navbuttons_edit_form extends moodleform {
 
         $mform->addElement('header', 'extra2', get_string('extra2', 'block_navbuttons'));
         $mform->addElement('select', 'extra2show', get_string('displaybutton', 'block_navbuttons'), $showhide);
-        $mform->addElement('filemanager', 'extra2icon', get_string('buttonicon', 'block_navbuttons'), null,
-                           ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]);
+        $mform->addElement(
+            'filemanager',
+            'extra2icon',
+            get_string('buttonicon', 'block_navbuttons'),
+            null,
+            ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => ['image']]
+        );
         $mform->disabledIf('extra2icon', 'buttonstype', 'neq', BLOCK_NAVBUTTONS_TYPE_ICON);
         $mform->addElement('text', 'extra2link', get_string('buttonlink', 'block_navbuttons'), ['size' => 50]);
         $mform->setType('extra2link', PARAM_URL);
@@ -154,7 +189,6 @@ class block_navbuttons_edit_form extends moodleform {
         $mform->setType('action', PARAM_TEXT);
 
         $this->add_action_buttons();
-
     }
 }
 
@@ -163,7 +197,7 @@ $mform = new block_navbuttons_edit_form();
 $defaults = new stdClass();
 $settings = $DB->get_record('navbuttons', ['course' => $course->id]);
 if (!$settings) {
-    $settings = new stdClass;
+    $settings = new stdClass();
     $settings->course = $course->id;
     $settings->id = $DB->insert_record('navbuttons', $settings);
     $settings = $DB->get_record('navbuttons', ['id' => $settings->id]);
@@ -236,7 +270,7 @@ if ($mform->is_cancelled()) {
 }
 
 if (($data = $mform->get_data()) && $data->action === 'savesettings') {
-    $update = new stdClass;
+    $update = new stdClass();
 
     $update->id = $data->id;
     $update->enabled = $data->enabled;
@@ -261,34 +295,76 @@ if (($data = $mform->get_data()) && $data->action === 'savesettings') {
     $update->extra2openin = $data->extra2openin;
     $update->completebuttonshow = $data->completebuttonshow;
 
-    file_save_draft_area_files($data->homebuttonicon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_HOMEICON, [
+    file_save_draft_area_files(
+        $data->homebuttonicon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_HOMEICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->firstbuttonicon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_FIRSTICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->firstbuttonicon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_FIRSTICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->prevbuttonicon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_PREVICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->prevbuttonicon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_PREVICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->nextbuttonicon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_NEXTICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->nextbuttonicon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_NEXTICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->lastbuttonicon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_LASTICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->lastbuttonicon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_LASTICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->extra1icon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_EXTRA1ICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->extra1icon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_EXTRA1ICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
-    file_save_draft_area_files($data->extra2icon, $context->id, 'block_navbuttons', 'icons',
-                               BLOCK_NAVBUTTONS_EXTRA2ICON, [
+        ]
+    );
+    file_save_draft_area_files(
+        $data->extra2icon,
+        $context->id,
+        'block_navbuttons',
+        'icons',
+        BLOCK_NAVBUTTONS_EXTRA2ICON,
+        [
                                    'subdirs' => 0, 'maxfiles' => 1,
-                               ]);
+        ]
+    );
 
     if ($DB->update_record('navbuttons', $update)) {
         block_navbutton_settings_header($course);
@@ -316,10 +392,12 @@ $CFG->navbuttons_self_test = 1;
 $footer = $OUTPUT->footer();
 
 if ($CFG->navbuttons_self_test == 1) { // Footer.php not called at all.
-    echo '<strong style="background-color: red;">'.get_string('selftest_nofooter',
-                                                              'block_navbuttons').'</strong><br />';
+    echo '<strong style="background-color: red;">' . get_string(
+        'selftest_nofooter',
+        'block_navbuttons'
+    ) . '</strong><br />';
 } else {
-    echo '<em>'.get_string('selftest_ok', 'block_navbuttons').'</em>';
+    echo '<em>' . get_string('selftest_ok', 'block_navbuttons') . '</em>';
 }
 
 echo $footer;

@@ -65,7 +65,7 @@ class block_navbuttons extends block_base {
             return $this->content;
         }
 
-        $this->content = new stdClass;
+        $this->content = new stdClass();
         $this->content->footer = '';
 
         if ($coursecontext = $this->context->get_course_context(false)) {
@@ -76,7 +76,7 @@ class block_navbuttons extends block_base {
         }
 
         $editlink = new moodle_url('/blocks/navbuttons/edit.php', ['course' => $courseid]);
-        $this->content->text = '<a href="'.$editlink.'">'.get_string('editsettings', 'block_navbuttons').'</a>';
+        $this->content->text = '<a href="' . $editlink . '">' . get_string('editsettings', 'block_navbuttons') . '</a>';
 
         return $this->content;
     }
@@ -99,14 +99,14 @@ class block_navbuttons extends block_base {
 
         // Enable the buttons when the block is added to a course.
         if (!$settings = $DB->get_record('navbuttons', ['course' => $courseid])) {
-            $settings = new stdClass;
+            $settings = new stdClass();
             $settings->course = $courseid;
             $settings->enabled = 1;
             // All other records as database defaults.
             $DB->insert_record('navbuttons', $settings);
         } else {
             if (!$settings->enabled) {
-                $updsettings = new stdClass;
+                $updsettings = new stdClass();
                 $updsettings->id = $settings->id;
                 $updsettings->enabled = 1;
                 $DB->update_record('navbuttons', $updsettings);
@@ -134,7 +134,7 @@ class block_navbuttons extends block_base {
         $settings = $DB->get_record('navbuttons', ['course' => $courseid]);
         if ($settings) {
             if ($settings->enabled) {
-                $updsettings = new stdClass;
+                $updsettings = new stdClass();
                 $updsettings->id = $settings->id;
                 $updsettings->enabled = 0;
                 $DB->update_record('navbuttons', $updsettings);

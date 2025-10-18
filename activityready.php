@@ -40,7 +40,7 @@ define('NAVBUTTONS_ACTIVITY_NEVER', 3);
 function navbuttons_activity_showbuttons($cm) {
     $modname = $cm->modname;
 
-    $show = get_config('block_navbuttons', 'activity'.$modname);
+    $show = get_config('block_navbuttons', 'activity' . $modname);
     if ($show === false || $show == NAVBUTTONS_ACTIVITY_ALWAYS) {
         return true; // No config or 'always show'.
     }
@@ -66,7 +66,7 @@ function navbuttons_activity_showbuttons($cm) {
     }
 
     // NAVBUTTONS_ACTIVITY_CUSTOM.
-    $funcname = 'navbuttons_mod_'.$modname.'_showbuttons';
+    $funcname = 'navbuttons_mod_' . $modname . '_showbuttons';
     if (!function_exists($funcname)) {
         return true; // Shouldn't have got to here, but allow the buttons anyway.
     }
@@ -89,13 +89,13 @@ function navbuttons_mod_assignment_showbuttons($cm) {
         return true; // Cannot track 'offline' assignments.
     }
 
-    $libfile = $CFG->dirroot.'/mod/assignment/type/'.$type.'/assignment.class.php';
+    $libfile = $CFG->dirroot . '/mod/assignment/type/' . $type . '/assignment.class.php';
     if (!file_exists($libfile)) {
         return true;
     }
 
     require_once($libfile);
-    $class = 'assignment_'.$type;
+    $class = 'assignment_' . $type;
     $instance = new $class($cm->id, $assignment, $cm, $cm->get_course());
     if (!$submission = $instance->get_submission($USER->id)) {
         return false; // No submission.
@@ -137,7 +137,7 @@ function navbuttons_mod_choice_showbuttons($cm) {
 function navbuttons_mod_quiz_showbuttons($cm) {
     global $USER, $CFG;
 
-    require_once($CFG->dirroot.'/mod/quiz/locallib.php');
+    require_once($CFG->dirroot . '/mod/quiz/locallib.php');
     if (quiz_get_user_attempt_unfinished($cm->instance, $USER->id)) {
         return false; // Unfinished attempt in progress.
     }

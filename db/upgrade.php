@@ -37,7 +37,6 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2012070202) {
-
         // Define table navbuttons to be created.
         $table = new xmldb_table('navbuttons');
 
@@ -77,7 +76,6 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
     }
 
     if ($oldversion < 2014070601) {
-
         // Define field buttonstype to be added to navbuttons.
         $table = new xmldb_table('navbuttons');
         $field = new xmldb_field('buttonstype', XMLDB_TYPE_CHAR, '6', null, XMLDB_NOTNULL, null, 'icon', 'enabled');
@@ -92,11 +90,18 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
     }
 
     if ($oldversion < 2017030600) {
-
         // Define field completebuttonshow to be added to navbuttons.
         $table = new xmldb_table('navbuttons');
-        $field = new xmldb_field('completebuttonshow', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '1',
-                                 'extra2openin');
+        $field = new xmldb_field(
+            'completebuttonshow',
+            XMLDB_TYPE_INTEGER,
+            '4',
+            null,
+            XMLDB_NOTNULL,
+            null,
+            '1',
+            'extra2openin'
+        );
 
         // Conditionally launch add field completebuttonshow.
         if (!$dbman->field_exists($table, $field)) {

@@ -10,7 +10,6 @@ M.block_navbuttons.completion.init = function (Y) {
         if (o.responseText != 'OK') {
             alert('An error occurred when attempting to mark your activity complete.\n\n(' + o.responseText + '.)');
             // TODO: localize.
-
         } else {
             var current = args.state.get('value');
             var btntype = args.btntype.get('value');

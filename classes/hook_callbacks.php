@@ -33,7 +33,7 @@ class hook_callbacks {
      */
     public static function before_footer_html_generation(before_footer_html_generation $hook): void {
         global $CFG;
-        require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');
+        require_once($CFG->dirroot . '/blocks/navbuttons/footer.php');
         $hook->add_html(draw_navbuttons());
     }
 }

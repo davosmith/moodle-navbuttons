@@ -22,9 +22,9 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__.'/../../config.php');
+require_once(__DIR__ . '/../../config.php');
 global $CFG, $DB, $PAGE, $USER;
-require_once($CFG->libdir.'/completionlib.php');
+require_once($CFG->libdir . '/completionlib.php');
 
 // Parameters.
 $cmid = optional_param('id', 0, PARAM_INT);
@@ -82,11 +82,9 @@ if ($courseid) {
         if (!empty($referer)) {
             redirect($referer);
         } else {
-            redirect('view.php?id='.$course->id);
+            redirect('view.php?id=' . $course->id);
         }
-
     } else {
-
         // Confirm with user.
         if ($confirm && confirm_sesskey()) {
             $completion = $completion->get_completion($USER->id, COMPLETION_CRITERIA_TYPE_SELF);
@@ -102,7 +100,7 @@ if ($courseid) {
 
             $completion->mark_complete();
 
-            redirect($CFG->wwwroot.'/course/view.php?id='.$courseid);
+            redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
             return;
         }
 
@@ -113,9 +111,12 @@ if ($courseid) {
         echo $OUTPUT->header();
         $buttoncontinue = new single_button(new moodle_url('/course/togglecompletion.php', [
             'course' => $courseid, 'confirm' => 1, 'sesskey' => sesskey(),
-        ]),                                 get_string('yes'), 'post');
-        $buttoncancel = new single_button(new moodle_url('/course/view.php', ['id' => $courseid]), get_string('no'),
-                                          'get');
+        ]), get_string('yes'), 'post');
+        $buttoncancel = new single_button(
+            new moodle_url('/course/view.php', ['id' => $courseid]),
+            get_string('no'),
+            'get'
+        );
         echo $OUTPUT->confirm($strconfirm, $buttoncontinue, $buttoncancel);
         echo $OUTPUT->footer();
         exit;

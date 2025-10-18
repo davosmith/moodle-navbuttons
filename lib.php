@@ -48,8 +48,16 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
     $filename = $args[1];
     $iconid = $args[0];
 
-    if (!($file = $fs->get_file($context->id, 'block_navbuttons', 'icons', $iconid, '/',
-                                $filename)) || $file->is_directory()) {
+    if (
+        !($file = $fs->get_file(
+            $context->id,
+            'block_navbuttons',
+            'icons',
+            $iconid,
+            '/',
+            $filename
+        )) || $file->is_directory()
+    ) {
         send_file_not_found();
     }
 
@@ -63,6 +71,6 @@ function block_navbuttons_pluginfile($course, $birecordorcm, $context, $filearea
  */
 function block_navbuttons_before_footer() {
     global $CFG;
-    require_once($CFG->dirroot.'/blocks/navbuttons/footer.php');
+    require_once($CFG->dirroot . '/blocks/navbuttons/footer.php');
     return draw_navbuttons();
 }

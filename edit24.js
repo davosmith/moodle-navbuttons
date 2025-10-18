@@ -10,7 +10,7 @@ var navbuttons = {
             cont = document.getElementById('yui-picker');
             cont.innerHTML = '<div id="yui-picker-inner" style="width: 400px; height: 200px; position:relative; padding: 0; margin: 0; top: 0; left: 0;"></div>';
 
-            if (!navbuttons.picker) { //make sure that we haven't already created our Color Picker
+            if (!navbuttons.picker) { // make sure that we haven't already created our Color Picker
                 navbuttons.picker = new YAHOO.widget.ColorPicker("yui-picker-inner", {
                     images: {
                         PICKER_THUMB: "pix/picker_thumb.png",
@@ -32,7 +32,7 @@ var navbuttons = {
                 rgb = YAHOO.util.Color.hex2rgb(hexval);
                 navbuttons.picker.setValue(rgb, true);
 
-                //listen to rgbChange to be notified about new values
+                // listen to rgbChange to be notified about new values
                 navbuttons.picker.on("rgbChange", function (o) {
                     var el, newval;
                     el = YAHOO.util.Dom.get('id_backgroundcolour');
