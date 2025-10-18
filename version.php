@@ -24,9 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025101800;
-$plugin->release = '4.0.0.2';
-$plugin->requires = 2022041900;  // Moodle 4.0 (or above).
+$plugin->version = 2025101801;
+$plugin->release = '4.1.0.0';
+$plugin->requires = 2022112800; // Moodle 4.1.0.
 $plugin->component = 'block_navbuttons';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->supported = [400, 501];
+$plugin->supported = [401, 501];
