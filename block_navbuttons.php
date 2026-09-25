@@ -98,18 +98,18 @@ class block_navbuttons extends block_base {
         }
 
         // Enable the buttons when the block is added to a course.
-        if (!$settings = $DB->get_record('navbuttons', ['course' => $courseid])) {
+        if (!$settings = $DB->get_record('block_navbuttons', ['course' => $courseid])) {
             $settings = new stdClass();
             $settings->course = $courseid;
             $settings->enabled = 1;
             // All other records as database defaults.
-            $DB->insert_record('navbuttons', $settings);
+            $DB->insert_record('block_navbuttons', $settings);
         } else {
             if (!$settings->enabled) {
                 $updsettings = new stdClass();
                 $updsettings->id = $settings->id;
                 $updsettings->enabled = 1;
-                $DB->update_record('navbuttons', $updsettings);
+                $DB->update_record('block_navbuttons', $updsettings);
             }
         }
     }
@@ -131,13 +131,13 @@ class block_navbuttons extends block_base {
         }
 
         // Disable the buttons when the block is removed from a course (but leave the record, in case it is enabled later).
-        $settings = $DB->get_record('navbuttons', ['course' => $courseid]);
+        $settings = $DB->get_record('block_navbuttons', ['course' => $courseid]);
         if ($settings) {
             if ($settings->enabled) {
                 $updsettings = new stdClass();
                 $updsettings->id = $settings->id;
                 $updsettings->enabled = 0;
-                $DB->update_record('navbuttons', $updsettings);
+                $DB->update_record('block_navbuttons', $updsettings);
             }
         }
     }

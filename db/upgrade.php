@@ -112,5 +112,15 @@ function xmldb_block_navbuttons_upgrade($oldversion) {
         upgrade_block_savepoint(true, 2017030600, 'navbuttons');
     }
 
+    if ($oldversion < 2026092501) {
+        $table = new xmldb_table('navbuttons');
+        if ($dbman->table_exists($table)) {
+            $dbman->rename_table($table, 'block_navbuttons');
+        }
+
+        // Navbuttons savepoint reached.
+        upgrade_block_savepoint(true, 2026092501, 'navbuttons');
+    }
+
     return true;
 }

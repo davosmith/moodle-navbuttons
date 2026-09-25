@@ -195,12 +195,12 @@ class block_navbuttons_edit_form extends moodleform {
 $mform = new block_navbuttons_edit_form();
 
 $defaults = new stdClass();
-$settings = $DB->get_record('navbuttons', ['course' => $course->id]);
+$settings = $DB->get_record('block_navbuttons', ['course' => $course->id]);
 if (!$settings) {
     $settings = new stdClass();
     $settings->course = $course->id;
-    $settings->id = $DB->insert_record('navbuttons', $settings);
-    $settings = $DB->get_record('navbuttons', ['id' => $settings->id]);
+    $settings->id = $DB->insert_record('block_navbuttons', $settings);
+    $settings = $DB->get_record('block_navbuttons', ['id' => $settings->id]);
 }
 
 $defaults->id = $settings->id;
@@ -366,7 +366,7 @@ if (($data = $mform->get_data()) && $data->action === 'savesettings') {
         ]
     );
 
-    if ($DB->update_record('navbuttons', $update)) {
+    if ($DB->update_record('block_navbuttons', $update)) {
         block_navbutton_settings_header($course);
         echo $OUTPUT->notification(get_string('settingsupdated', 'block_navbuttons'));
         echo $OUTPUT->continue_button(new moodle_url('/course/view.php', ['id' => $course->id]));

@@ -48,7 +48,7 @@ function draw_navbuttons() {
     if ($COURSE->id <= 1) {
         return $output . '<!-- Front page -->' . $outend;
     }
-    if (!$settings = $DB->get_record('navbuttons', ['course' => $COURSE->id])) {
+    if (!$settings = $DB->get_record('block_navbuttons', ['course' => $COURSE->id])) {
         return $output . '<!-- No settings -->' . $outend;
     }
     if (!$settings->enabled) {
