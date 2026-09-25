@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2026-09-25 - 4.1.0.4 - M5.3 compatibility fixes - with introduction of 'Linear navigation' in M5.3, there is not a good reason to have that and block_navbuttons enabled at the same time (if they are both enabled, the Navbuttons positioning is adjusted to reduce on-screen overlap).
 2026-04-24 - 4.1.0.3 - M5.2 compatibility fixes
 2025-10-18 - 4.0.0.2 - M5.1 compatibility fixes
 2025-04-19 - 4.0.0.1 - M5.0 compatibility fixes, dropping support for M3.11 and below

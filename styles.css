@@ -4,6 +4,11 @@
     margin-top: 5px;
 }
 
+/** Avoid being covered by the navigation footer in M5.3 */
+div#sticky-footer + #navbuttons {
+    transform: translateY(100%);
+}
+
 #navbuttons .navbuttontext {
     float: left;
     margin-left: 5px;
