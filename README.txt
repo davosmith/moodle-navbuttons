@@ -8,6 +8,7 @@ Thanks to NHS Leadership Academy's Ishani Vardhan for contributing the "Complete
 
 Changes:
 
+2026-09-25 - 4.1.2.0 - Rename DB table to add 'block_' prefix, required by Moodle Marketplace
 2026-09-25 - 4.1.0.4 - M5.3 compatibility fixes - with introduction of 'Linear navigation' in M5.3, there is not a good reason to have that and block_navbuttons enabled at the same time (if they are both enabled, the Navbuttons positioning is adjusted to reduce on-screen overlap).
 2026-04-24 - 4.1.0.3 - M5.2 compatibility fixes
 2025-10-18 - 4.0.0.2 - M5.1 compatibility fixes
